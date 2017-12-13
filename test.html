@@ -1,0 +1,54 @@
+<html>
+   <head>
+      <title>testpage</title>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+      <link rel="stylesheet" href="assets/css/main.css" />
+      <!--[if lte IE 9]>
+      <link rel="stylesheet" href="assets/css/ie9.css" />
+      <![endif]-->
+      <noscript>
+         <link rel="stylesheet" href="assets/css/noscript.css" />
+      </noscript>
+   </head>
+   <script type="text/javascript">
+     function checkPassword(password){
+        if (password === "doinks"){
+			document.write("The next challenge is...");
+		}
+     }
+   </script>
+   <body>
+      <!-- Wrapper -->
+      <div id="wrapper">
+         <!-- Header -->
+         <header id="header">
+            <div class="content">
+               <div class="inner">
+                  <h2>Berzerk Crypto Challenge</h2>
+                  <section>
+                     <form name="pass" method="post" action="javascript:checkPassword(password.value)">
+                        <div class="field">
+                           <textarea name="password" id="password" placeholder="Password" rows="1"></textarea>
+                        </div>
+                        <ul class="actions">
+                           <li><input type="submit" value="Submit" class="special" /></li>
+                        </ul>
+                     </form>
+                  </section>
+                  </article>
+               </div>
+            </div>
+         </header>
+         <!-- Main -->
+         <footer></footer>
+      </div>
+      <!-- BG -->
+      <div id="bg"></div>
+      <!-- Scripts -->
+      <script src="assets/js/jquery.min.js"></script>
+      <script src="assets/js/skel.min.js"></script>
+      <script src="assets/js/util.js"></script>
+      <script src="assets/js/main.js"></script>
+   </body>
+</html>
