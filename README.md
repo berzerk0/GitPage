@@ -1,5 +1,6 @@
-#Pages
+# Pages
 
-berzerk0's github pages repo.
+berzerk0's github gitblog repo.
 
-I host a site here!
+I host a site here. 
+Here are the files.
