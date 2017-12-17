@@ -1,9 +1,4 @@
-# Index
-
-
-
-## Links to Other Pages
-
+# Links to Other Pages and Projects
 
 
 * [Portfolio](portfolio.md)
