@@ -1,6 +1,3 @@
-# Portfolio/Links
-
-
 ## Projects and Tools
 
 * [Probable Wordlists](https://github.com/berzerk0/Probable-Wordlists) - Wordlists sorted by popularity. For password generation and testing
@@ -31,7 +28,7 @@ These aren't the only CTF's I've ever done, of course.
 
 A cryptography, steganography, and OSINT CTF-Like group of challenges.
 
-(Porting over now)
+(Figuring out a good home for this)
 
 
 
