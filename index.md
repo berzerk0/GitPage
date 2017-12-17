@@ -3,13 +3,15 @@
 
 
 
+
 ## This page links to the other pages
 
 
 
-[Portfolio](portfolio.md)
+
+* [Portfolio](portfolio.md)
 
 
-[Test](test.html)
+* [Test](test.html)
 
 
