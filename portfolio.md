@@ -1,6 +1,11 @@
-# Portfolio:
+# Portfolio/Links
 
-This isn't a complete list of everything, but it nicely aggregates things with long complicated links.
+
+## Projects and Tools
+
+* [Probable Wordlists](https://github.com/berzerk0/Probable-Wordlists) - Wordlists sorted by popularity. For password generation and testing
+* [BEWGor](https://github.com/berzerk0/BEWGor) - Bull's Eye Wordlist Generator
+
 
 
 ## CTF Write Ups
@@ -17,7 +22,6 @@ These aren't the only CTF's I've ever done, of course.
 
 
 
-
 ## Probable-Wordlist Password Trend Analysis
 
 * [Trend Analysis of the most common passwords - contains immediately actionable password advice](https://github.com/berzerk0/Probable-Wordlists/blob/master/Trend-Analysis.md) 
@@ -28,3 +32,6 @@ These aren't the only CTF's I've ever done, of course.
 A cryptography, steganography, and OSINT CTF-Like group of challenges.
 
 (Porting over now)
+
+
+
