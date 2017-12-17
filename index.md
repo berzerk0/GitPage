@@ -1,16 +1,12 @@
-# berzerk0's GitHub Pages
+# Index
 
 
 
-
-
-## This page links to the other pages
-
+## Links to Other Pages
 
 
 
 * [Portfolio](portfolio.md)
-
 
 * [Test](test.html)
 
