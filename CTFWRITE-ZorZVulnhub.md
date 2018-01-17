@@ -5,16 +5,25 @@
 This is "CTF" is more of a vulnerability sandbox than a true Capture the Flag challenge.
 However, it is a great way to explore some WebApp Upload vulnerabilities. 
 
+
 The VulnHub description says:
+
 *This machine will probably test your web app skills once again.
+
 There are 3 different pages that should be focused on (you will see!)
+
 If you solve one or all three pages, please send me an email and quick write up on how you solved each challenge.
+
 Your goal is to successfully upload a webshell or malicious file to the server.
+
 If you can execute system commands on this box, thats good enough!!!
+
 I hope you have fun! admin@top-hat-sec.com*
 
 
+
 ![Logo](https://i.imgur.com/IAAnDbY.png)
+
 
 
 ## Pre-Intro - Setting Up the VM using VirtualBox
@@ -31,6 +40,7 @@ You can download it at [https://www.vulnhub.com/entry/tophatsec-zorz,117/]([http
 Once you have virtual box installed, you can simply use the "Import Appliance" feature to import the OVA file.
 
 It is safest to run your Vulnerable VMs on a Host-Only network, which is not connected to the internet. 
+
 You can find [a guide to setting up your Host-Only network here][http://condor.depaul.edu/glancast/443class/docs/vbox_host-only_setup.html]
 
 
@@ -43,15 +53,19 @@ Then you are ready to begin!
 
 ## Initial Scans
 
-First thing we will need to do is FIND the box. By default, our host only network is set to `192.168.56.0-255`, so we will scan it with nmap.
+First thing we will need to do is FIND the box.
+By default, our host only network is set to `192.168.56.0-255`, so we will scan it with nmap.
 
 `nmap -sn -T5 192.168.56.0/24`
 
 ![A1](https://i.imgur.com/GowJwKc.png)
 
-In my case, my box was assigned the IP `192.168.56.102` - normally I go ahead and add this to `/etc/hosts`, but this caused me some trouble this time around, so I opted to just identify it by IP.
+In my case, my box was assigned the IP `192.168.56.102`
 
-We know from the description that the box is running a webserver, but just to confirm this we will run a fast nmap scan. We'll also create a new directory to keep ourselves organized.
+Normally I go ahead and add this to `/etc/hosts`, but this caused me some trouble this time around, so I opted to just identify it by IP.
+
+We know from the description that the box is running a webserver, but just to confirm this we will run a fast nmap scan.
+We'll also create a new directory to keep ourselves organized.
 
 `nmap -F -T4 192.168.56.102`
 
@@ -65,7 +79,8 @@ Our webserver is running on the standard port, so we can go ahead and view it in
 ## Level One
 
 
-Let's see what we can find out by uploading an image. For this box, I found a creative commons image and made it nice and small.
+Let's see what we can find out by uploading an image.
+For this box, I found a creative commons image and made it nice and small.
 It will be advantageous to use the same image as is shown here, but you can use any image you like.
 Here is our [Test Burrito!](https://i.imgur.com/29eCDkq.jpg)
 
