@@ -9,15 +9,10 @@ However, it is a great way to explore some WebApp Upload vulnerabilities.
 The VulnHub description says:
 
 *This machine will probably test your web app skills once again.
-
 There are 3 different pages that should be focused on (you will see!)
-
 If you solve one or all three pages, please send me an email and quick write up on how you solved each challenge.
-
 Your goal is to successfully upload a webshell or malicious file to the server.
-
 If you can execute system commands on this box, thats good enough!!!
-
 I hope you have fun! admin@top-hat-sec.com*
 
 
