@@ -134,12 +134,12 @@ It worked! Now let’s pay it a visit at /uploads1/proverb.txt
 Success! It doesn’t look like this site is checking our files very closely. Now that we have proven we can upload text files, let’s try to upload a payload script and start the attack. Since we know we are running php, we can use a php "microshell" which allows us to simply add commands we want to run on the webserver at the end of a URL.  I got this microshell script from the Red Team Field Manual by Ben Clark.
 
 
-`<?phppassthru($_GET["cmd"]); ?>`
+`<?php passthru($_GET["cmd"]); ?>`
 
 
 I save mine to a text file using echo.
 
-`echo '<?phppassthru($_GET["cmd"]); ?>' > php-microshell.php`
+`echo '<?php passthru($_GET["cmd"]); ?>' > php-microshell.php`
 
 You can copy and paste if you like, but make sure that your browser doesn’t change the quotation mark characters out of plaintext! If you want to be sure, just delete them and add them yourself. If you want to be REALLY sure, you can (download the shell from me.)[https://raw.githubusercontent.com/berzerk0/pastehost/master/php-microshell.php]
 
