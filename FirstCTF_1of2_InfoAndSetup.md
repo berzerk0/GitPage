@@ -226,10 +226,8 @@ Every command here, and every command with the proper documentation will contain
 
 
 and read the documentation
-
 <br>
 <br>
-
 `ls` - lists the contents of a directory
 
 
@@ -251,8 +249,10 @@ There are many more flags to the ls command, all of which can be combined.
 `ls -la` is enough for our purposes.
 
 `ls` run with no directory specified shows the contents of the current directory, but it will show the contents of a specified directory if given one. Try `ls /` to see the contents of the system root directory.
+
 <br>
 <br>
+
 `mkdir` - "make directory" 
 
 Just specify the name of the directory.
@@ -287,7 +287,7 @@ These synonyms  can be used in paths as well. In this case, the  following three
 * `cd ../b_folder`
 	
 
-`/root` and `~ `are the same when the current user is root, since `~`refers to the current user's home folder.
+`/root` and `~`are the same when the current user is root, since `~`refers to the current user's home folder.
 	
 `..` refers to a relative location, not a full path. It will only jump out one directory.
 If we had gone one level deeper, into a subdirectory of b_folder, `..` would refer to `b_folder`, not `/root`.
@@ -321,7 +321,7 @@ We will use two these commands to demonstrate some important things about input 
 <br>
 `rm` - "remove" - used to delete files and folders.
 
- *`rm` cannot be undone easily. Don't be sorry, be careful.*
+ *rm cannot be undone easily. Don't be sorry, be careful.*
 
 The file is not moved to a trash folder, it is gone.
 It can be retrieved for a short while using forensics tools, but once you delete something - or edit it, for that matter - it pretty much stays that way.
@@ -434,7 +434,6 @@ There are way too many commands to go over here, and they can be combined and tw
 We will be running most of our penetration testing commands from the terminal itself, but they can be explained in context.
 <br>
 <br>
-<br>
 ## 5. Update the Kali VM 
 
 If your host machine has internet access, Kali should be connected to the internet as well. You can check this by pinging a website.
@@ -483,7 +482,7 @@ I will update, and by updating, you ensure that we are on the same page.
 
 <br>
 
-### Updating the Kali VM May Annoy Your Host System’s Antivirus: 
+#### Updating the Kali VM May Annoy Your Host System’s Antivirus: 
 
  Funnily enough, antivirus may detect that someone (you) are installing software that can be used maliciously on your computer! Good job, I guess? Look up how to whitelist the files/process in your AV's documentation.
 <br>
@@ -502,7 +501,7 @@ This OVA comes with default settings practically ready to go, so just load it up
 <br>
 
 
-### *__...BUT DON'T GO BOOTING BULLDOG JUST YET!__*
+#### *__...BUT DON'T GO BOOTING BULLDOG JUST YET!__*
 
 <br>
 
