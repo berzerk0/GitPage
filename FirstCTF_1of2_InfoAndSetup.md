@@ -1,0 +1,481 @@
+# From "What are CTF's?" to Your First Owned System
+
+## 15 January 2018
+
+![A0 Logo](https://i.imgur.com/kalt2bK.png)
+
+
+## 1. Background - What are we talking about?
+
+
+__Capture the Flags__  are intentionally vulnerable systems designed for people to hack into. They contain specially placed vulnerabilities that the attacker has to identify and exploit in order to gain a certain level of access. To prove this level of access, a "flag" file is often placed for the attacker to find.
+
+
+The "flag" might contain a unique string of characters that prove the attacker has reached their goal, or might just show a congratulatory message. In some instances, the attacker just needs to gain control over the most powerful user on the system. CTFs are created to help people learn skills needed to test real world systems while providing a safe and LEGAL method of doing so.
+
+
+__Short Legal Caveat:__
+
+*If you want to learn to hack or how to become a penetration tester - use CTFs, not real people's machines.
+
+*CTFs are designed for you to experiment and play with.
+
+*It is very difficult to cause any real world harm if you use them properly. 
+
+*Getting a few thrills breaking into real people's systems is not the way to learn.
+
+
+__ONLY PRACTICE TECHNIQUES LEARNED HERE ON SYSTEMS YOU HAVE__
+
+*__E X P L I C I T__*
+
+__PERMISSION TO HACK.__
+
+
+A locksmith and a burglar may use the same tools, it is only *HOW* they are used that separates criminals from respected professionals.
+
+
+## 2. Description - What is this document?
+
+Regardless of what operating system your host OS uses, this guide attempts to take you from "What is a CTF?" and never running a Linux command in your life to capturing the root flag on a Linux machine in the span of hours.
+
+
+Our capture the flag will take the form of a Linux virtual machine that we will be running on our own computers. Since this machine is intended to be vulnerable, we are going to isolate it from as many networks as possible, especially the internet. A competent hacker may be able to gain access from to the VM and then "jump out" to the host (your real computer) to cause all sorts of trouble.
+
+We will use the VirtualBox virtualization software, which runs on Windows, Mac and Linux. The setup process for each type of operating system is pretty similar, so this document will only cover a general outline.
+
+The CTF we will use is Nick Frichette's "[Bulldog](https://www.vulnhub.com/entry/bulldog-1,211/)" found on VulnHub.com at 
+
+[__https://www.vulnhub.com/entry/bulldog-1,211/__](https://www.vulnhub.com/entry/bulldog-1,211/)
+
+
+Note: You will be able to find walkthroughs for this box online, but reading them will spoil the learning process for you. Many walkthroughs (including one of my own) assume the reader already has some knowledge of pentesting and Linux, and might only contain the shortest possible path to root. Walkthroughs may show you the fastest route, but it is likely they will not explain much.
+
+
+The pathway we will take might not be the absolute shortest, and may not always follow best practices, but it is beginner friendly and will teach you enough to tame the Bulldog. The tools we will use to  accomplish our goal can be found conveniently organized in the Kali Linux distribution. 
+
+
+Kali will run in a virtual machine at the same time as our CTF machine, and we will route all of our attacks through it. Kali can be run natively, but is designed to be easy to run as a virtual machine or live boot. The CTF machine is quite minimal - it does not run a graphical interface of any kind, and can only be accessed via command line. However, running two virtual machines simultaneously may heavily tax some computers. We will be able to adjust our specifications as needed.
+
+
+The virtualization software can run a multitude of operating systems. These OS's are broken into categories that can form a family tree. With Linux as our main branch, can treat "Debian" as our next branch, and "Kali" as the final leaf. Not all Linux-based operating systems are Debian-based, but all Debian-based OS's are Linux. The most popular Debian OS is Ubuntu. Kali is a distribution of Debian designed for security usage.
+
+
+
+Our first step is to get Kali up and running.
+
+
+
+### 3. Downloading the Tools and Materials
+
+While you may already have Virtualization software on your computer, the author of the CTF specifies that this box was designed to be run with VirtualBox. As VBox is my personal choice, I have not troubleshooted getting it running using VMWare or any other software.
+The author has also expressed problems with VMware, so it may be easiest to simply run VBox.
+
+
+Download the Appropriate Virtual Box Files for your OS Here:
+
+[__https://www.virtualbox.org/wiki/Downloads__](https://www.virtualbox.org/wiki/Downloads)
+
+
+Virtualbox also comes with an "Extension Pack" that provides additional features:
+
+[__http://download.virtualbox.org/virtualbox/5.2.4/Oracle_VM_VirtualBox_Extension_Pack-5.2.4-119785.vbox-extpack__](http://download.virtualbox.org/virtualbox/5.2.4/Oracle_VM_VirtualBox_Extension_Pack-5.2.4-119785.vbox-extpack)
+
+
+
+We are going to run the 64 bit version of Kali. 
+A lighter, 32-bit version, is available, and may work for our purposes.
+However, I have not tested it for this purpose.
+
+
+
+Download the Kali OVA file - this can be done directly or via torrent.
+Make sure you download the VirtualBox version of the image, not the VMWare version.
+
+[__https://www.offensive-security.com/kali-linux-vmware-virtualbox-image-download/__](https://www.offensive-security.com/kali-linux-vmware-virtualbox-image-download/)
+
+![AA](https://i.imgur.com/NOdyFBG.png)
+
+Download the file from the above link, Torrent is likely fastest.
+Once VirtualBox is installed and the torrent is complete, run the downloaded .OVA file
+
+
+
+Once VirtualBox is installed and the torrent is complete, run the downloaded .OVA file
+* Change the name to something like __"Kali"__
+* Set "Guest OS Type" to __"Linux -> Debian (64-bit)"__
+
+
+
+![A1](https://i.imgur.com/YwnqxES.png)
+
+
+
+If you like, you can change the location of the VM's virtual hard disk, as well as the number of CPUs and and RAM it will use. Set these parameters to match the specifications of your computer.
+
+
+When you are ready, click __"Import"__ and let it the VM install. This process will likely take 2-3 minutes.
+Selecting your newly installed Kali system on the left side of the panel and click the green arrow key labeled "Start" to boot it up.
+
+
+![A2](https://i.imgur.com/A1j6vo8.png)
+
+
+
+Clicking on the window where the VM is running will bring up a prompt asking if you want to "Capture" your mouse.
+This means that the mouse will be "bounded" within the VM Window and able to interact with it.
+If you want to have your mouse escape the window, press __Right-Control__. *Don't forget this!*
+
+
+__If your mouse gets "trapped" in the VM, you can free it with the CTRL Key on the RIGHT SIDE of the keyboard__
+
+
+
+At the main login screen, enter the default credentials for the OVA
+* username: *root*
+* password: *toor*
+
+
+![A3](https://i.imgur.com/a0LussY.png)
+
+
+It may come as a surprise to you that we log in with root access.
+Kali is designed for general usage like most operating systems, it is specified for security.
+It is not meant to host multiple users with different privileges.
+If you are running Kali, you are the big boss of the system (in this case, our VM) and your word is law.
+
+*The system will follow your commands and orders to the letter - __no matter what__.*
+
+Root access means __any properly formatted command will be executed without asking twice, and may be irreversible__.
+If your command tells the system to delete itself, it won't double check if you are sure.
+The system will just begin to delete.
+
+__MAKE SURE YOU UNDERSTAND THIS RISK__
+
+
+Open up the terminal app from the dock and we will go over some basic Linux operations.
+
+![A4](https://i.imgur.com/ox7tGHp.png)
+
+### Linux Basics: Users, Permissions and the Command Line
+
+##### If you know the basics of Linux, feel free to skip this section.
+
+
+__"Why do I have to use the command line? It's the 21st century! Show me some pictures!__
+
+Many tools, including some that we will be using in this CTF have graphical user interfaces.
+While these are often functional, they may end up slowing down productivity as it is very difficult to make a given process occur, say, hundreds of times, by clicking the mouse.
+
+Additionally, when we actually gain access to a machine we are attempting to conquer, it is not going to be through a remote desktop client.
+
+We will be gaining access via command line "shells".
+Some of these shells can be quite primitive, missing many features that the terminal on your local machine has by default. 
+Lastly, a process that relies on the entry of simple text commands is far easier to document than one that requires blueprints and step by step diagrams. 
+
+
+Why use the command line?
+* Scripting
+* Documentation
+* Remote shells don't have pictures 
+
+
+
+This is a BARE BONES explanation of Linux. 
+There are many, many core details that it ignores completely. 
+It only explains the minimum needed to conquer the CTF in part 2. 
+
+
+
+#### Linux File System:
+
+
+All of the files on a Linux system sprout from the root directory.
+Most commonly, this directory is simply called `/` by the system and pronounced "root." 
+Directories contain files and subdirectories, which may contain more subdirectories.
+Subdirectories are given specific purposes that is often standardized across all systems.
+For example, automatically generated system logs will be saved to the /var/log directory.
+Files can be read, written to, or executed. But just not anyone can just come along and make changes.
+
+
+#### Linux Users:
+
+
+A Linux system is usually divided into different users.
+Not all of these users are actual humans, some are employed by the system to execute certain tasks.
+The average human user has their own "home" folder, located at `/home/username`
+In many cases, this area represents most of the files this user has access to.
+A user may have access to a few select programs, but a well-maintained system will give a user the absolute minimum of permissions necessary to accomplish what they need to.
+They might not be able to run every command, access every folder and certainly cannot access administrative files.
+
+
+#### Linux Superusers:
+
+An admin user will have more permissions than an average user, and superusers have all the power.
+Superusers have read and write access to EVERY file.
+They are able to change the passwords for every user, add users, delete users, and execute any command.
+If a user needs to gain access to a file they used to not be able to access, an admin will have to come in and change the permissions to that file.
+On most Linux systems, even admin users don't actively use root all the time.
+A root user has the power to make very big, irreversible mistakes when dealing with important files.
+
+On our Kali system, there is only one user - root.
+Instead of having a `/home` directory, the "home" folder for root is `/root`. This is easily confused with the `/` directory.
+I will differentiate between the two by calling `/` the "system" root directory, and `/root` the "user" root directory.
+
+
+
+### Essential Commands:
+
+To run a command, type it into the command line and press enter. That's it. 
+
+
+To interrupt a command while it is running, press `CTRL-C`.
+Some commands are an exception to this rule, but closing the terminal window where the command is running will stop the process.
+The process can be directly killed, but we don't need to get into that here.
+
+__pwd__ - this command outputs the current location.
+
+When we log into Kali, it will show us that our default directory when we open up the terminal application is the user root.
+Note that `~` is synonymous with the current user's home directory.
+
+
+![A5](https://i.imgur.com/zOxN1ds.png)
+
+
+__clear__ - this command does exactly what it says it does. It clears the contents of the terminal. Run it between commands to get a clean slate.
+
+
+__man__ - "manual" 
+This is the "what am I doing?" command. Every command here, and every command with the proper documentation will contain a manual page.
+If you want to see a detailed explanation of what a command has to offer, just type `man COMMAND` and read the docs.
+
+
+__ls__ - this command will list the contents of a directory
+
+`ls -a` will show ALL contents, included those normally hidden
+	
+	
+![A6](https://i.imgur.com/WclJrNi.png)
+
+`ls -l` will show the ownership/permissions of each file in the directory
+
+![A7](https://i.imgur.com/XDq4V1B.png)
+
+There are many more flags to the ls command, all of which can be combined.
+`ls -la` is enough for our purposes.
+
+`ls` run with no directory specified shows the contents of the current directory, but it will show the contents of a specified directory if given one.
+
+
+__mkdir__ - "make directory" does exactly that, it makes a new directory.
+	Just specify the name of the directory.
+	
+`mkdir a_folder` creates a subdirectory of our current directory called `a_folder`
+Let's make another, called `b_folder` as well.
+
+
+![A8](https://i.imgur.com/Xt8a9Gf.png)	
+
+
+__cd__- "change directory" will take you to the directory you point it to.
+
+We can use our directory synonyms here.
+* ~ = user's home folder
+* / = system root
+* .. = one folder above the current directory
+
+Try it out
+
+`cd a_folder`
+
+![A9](https://i.imgur.com/FwVZkpm.png)
+
+These can be used in paths as well. The following three commands all do the same thing, in this instance:
+
+* `cd /root/b_folder`
+* `cd ~/b_folder`
+* `cd ../b_folder`
+	
+
+`/root` and `~ `are the same when the current user is root, since `~ `refers to the current user's home folder.
+	
+`..` refers to a relative location, not a full path. It will only jump out one directory.
+If we had gone one level deeper, into a subdirectory of b_folder, `..` would refer to `b_folder`, not `/root`.
+
+
+
+	
+__echo__ - this command is used to send text to the terminal output. This string will always end with a newline. 
+
+__cat__ - "concatenate" - used to read files
+
+We will use two these commands to demonstrate some important things about input and output.
+
+`echo "hi"` - will send the word "hi" to the terminal output.
+`echo "hi" > hi.txt` - will save the word "hi" to a file called hi.txt
+	
+`cat hi.txt` - will display the contents of hi.txt to the terminal output.
+
+`echo "hello" > hi.txt `- will OVERWRITE hi.txt to contain "hello"
+`echo "hello" >> hi.txt` - will ADD "hello" to the end of hi.txt without disturbing the older lines.
+
+`cat >> file.txt` - will add each line you type in to a file called file.txt
+	*to exit this, press `CTRL-D`*
+
+`cat file.txt hi.txt`  - will display both files sandwiched together to the terminal outputs
+`cat file.txt hi.txt > bigfile.txt` - will write the combination of file.txt and hi.txt to a new file called bigfile.txt
+
+![A10](https://i.imgur.com/5pHnZQI.png)	
+
+
+__rm__ - "remove" can be used to remove files and folders.
+
+This __CANNOT be undone easily__. The file is not moved to a trash folder, it is gone.
+It can be retrieved for a short while using forensics tools, but once you delete something - or edit it, for that matter - it pretty much stays that way.
+	
+	
+`rm FILE_NAME` - will delete a file
+`rm -r DIRECTORY_NAME` - can be used delete a directory and all its contents - recursively.
+
+
+![A11](https://i.imgur.com/9AIhzDI.png)
+
+
+`rm *`  - will delete ALL files in the current directory, but not directories or the files within them.
+`rm -r *` - will delete ALL files and subdirectories in the current directory. This includes the contents of the subdirectories.
+
+	
+
+The `*` operator is not unique to rm. It can be used as a wildcard to "fill in the blanks" in many contexts. 
+Here we can use it read files with something common in their name. See the example pictured below.
+
+![A12](https://i.imgur.com/Vx98By0.png)
+
+
+__less__ - this command is used to read a file bit by bit, instead of reading the whole thing and skipping right ot the end. To properly demonstrate this, we will need a long file. Luckily, Kali comes with wordlists pre-installed for password recovery and other bruteforcing methods.
+
+`less /usr/share/wordlists/dirb/common.txt` - will allow us to scroll through the wordlist a block at a time. 
+Use the arrow keys or scroll wheel to move around the file, and press the Q key to exit. 
+
+![A13 Less](https://i.imgur.com/cgBCKhC.png)
+
+
+`less` can be applied to any output using the pipe character, `|`
+If you were to try and read the permissions of ALL the files in the system root, it wouldn't fit in a single terminal window. You can use `less` in order to scroll through them all
+
+`ls -la / | less`
+
+Pipe `|` is used to... pipe any output in the terminal output to a location of your choosing. 
+This is very useful when combined with the tee command, which will allow the output to be displayed and logged simultaneously.
+Many programs have a built in logging option, but a quick (and sometimes inferior) logging option is to use `COMMAND | tee log.txt`-
+which will log and display to the terminal output.
+Note that in some instances we could use `COMMAND >> log_file.txt` but that will not show us the terminal output in real time, just save it to the log file.
+
+
+__id__ - this simple command tells us about the current user. This might not seem all that useful now, but when we get into the CTF it can be very useful for gathering information.
+
+
+__;__ and __&&__ - place these after a command to run mulitple commands in a series.
+`&&` - run the command after the &&'s only if the command before doesn't have an error.
+`;` - run the command after the ; no matter what.
+Either method can be used with any number of commands in a row.
+	
+`pwd; ls` - will output our current directory and its contents.
+	
+`cd c_folder && ls` - will only run ls if we successfully enter c_folder. If c_folder does not exist, ls will not run.
+
+![A14](https://i.imgur.com/Vx98By0.png)
+
+#### Essential Terminal Shortcuts:
+
+* TAB - used to auto-complete a command. It can guess what file/directory you will type if you give it the first few letters
+Try typing `ls /ro` and then press TAB instead of enter, it will autocomplete to `ls /root` - then press enter.
+
+* Up and Down Arrow Keys - the terminal "remembers" the commands you type in. If you press the up arrow, it will fill in the last command you entered in. Keep pressing it to go back further in your history. If you go past the command you wanted to use, use the down key to go the other way.
+
+
+
+There are way too many commands to go over here, and they can be combined and twisted and modified to do all kinds of things. You won't need them all for our CTF, but you WILL need to have a basic understanding of:
+* The Basics of the file system
+* The basics of users and permissions
+* `ls`, `cd`, `cat`, `|`, `&&`
+
+We will be running most of our penetration testing commands from the terminal itself, but they can be explained in context.
+
+#### End of the Intro to Linux Section
+
+### Return to Setup: Updating the Kali Box
+
+If your host machine has internet access, Kali should be connected to the internet as well. You can check this by pinging a website.
+`ping google.com`
+
+![A15](https://preview.ibb.co/jqBqnR/A15_ping_google.png)
+
+If you are not connected to the internet, you may need to do some troubleshooting on your own.
+This problem can happen from time to time and [this page](https://docs.kali.org/installation/troubleshooting-wireless-driver-issues) is a good place to start looking how to fix it.
+
+
+
+As a Debian-based Distro, Kali uses the apt package manager. Instead of having to download installers and update individual applications and features manually, we can use apt to get our system up to speed with just one line.
+
+`apt-get update && apt-get upgrade`
+
+This will start a long updating process that can take half an hour or so. 
+During that time, it may ask you to confirm some changes. Go with yes, or the default option for each one.
+Specific parameters can be changed later, and we will not need to alter these to do our CTF.
+
+The "update" portion checks the trusted Kali software repositories for the newest versions, and the "upgrade" portion upgrades the parts of your system that needs to be updated.
+
+You might be wondering - __can I skip this step?__ The answer to that question is "__You shouldn't__."
+
+When dealing with cybersecurity, it pays to be up to date. 
+In 2017, a patch for the bug that allowed the WannaCry ransomware to spread was released WELL before the outbreak of the malware.
+Updated machines were simply not vulnerable to the exploit needed for WannaCry to work as intended.
+Software has bugs, and most found bugs are patched away.
+There is no magic armor to protect you from all threats, and sometimes patches themselves are not perfect, but keeping your systems up to date may be THE most effective step you can take to protect your systems.
+
+__"But why update my ATTACKING VM?"__
+From a practical perspective, any problems that may arise while following along with the CTF instructions in part 2 may be related to software versions.
+I will update, and by updating, you ensure that we are on the same page. 
+
+
+THIS STEP MAY CAUSE YOUR HOST SYSTEM'S ANTIVIRUS TO NOTIFY YOU OR BLOCK INSTALLATION 
+Funnily enough, antivirus may detect that someone (you) are installing software that can be use maliciously on your computer!
+Good job, I guess?
+Look up how to whitelist the files/process in your AV's documentation.
+
+
+### Setting Up the Bulldog CTF VM
+
+We can set up the Bulldog OVA in the same manner that we set up the Kali OVA. 
+If you double click the OVA file, it will likely open a second instance of VirtualBox if you still have it open from Kali.
+Just go to File -> Import Appliance, and select the Bulldog OVA.
+
+This OVA comes with default settings practically ready to go, so just load it up and press "Import" if you are happy with where it will be stored on your machine.
+
+*__...BUT DON'T GO BOOTING BULLDOG JUST YET!__*
+
+
+![A16](https://image.ibb.co/cOSfnR/A16_bulldog.png)
+
+
+
+In order to isolate/connect the VM's to each other, you will need to change their virtual network adapters to be connected to the host-only network. 
+This disconnects the VM's from the internet, and makes it so they can only "see" the host machine and each other.
+If we wanted to, we could keep the Kali machine connected to the internet, but for uniformity's sake, I chose to make it host-only as well.
+
+Click on the yellow "Settings" gear with one of the boxes selected.
+Then select the "Network" section, and in the "Attached To:" dropdown menu, select "Host-only Adapter"
+
+
+![A17](https://image.ibb.co/cDyQMm/A17_host_only.png)
+
+Do this for both boxes, and we will be ready to go!
+
+
+If you boot up Bulldog, you will not be able to log in. That is because you have to HACK in. 
+Most CTFs are not designed for you to log in normally, we are going to have to create ourselves an alternative method of entry.
+
+### You are all ready to go!
+
+Stay tuned for part 2 coming next week.
