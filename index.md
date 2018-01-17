@@ -3,7 +3,7 @@
 * [Probable Wordlists](https://github.com/berzerk0/Probable-Wordlists) - Wordlists sorted by popularity. For password generation and testing
 * [BEWGor](https://github.com/berzerk0/BEWGor) - Bull's Eye Wordlist Generator
 
-
+[TEST](https://github.com/berzerk0/gitblog/blob/master/FirstCTF_1of2_InfoAndSetup.html)
 
 ## CTF Write Ups
 
