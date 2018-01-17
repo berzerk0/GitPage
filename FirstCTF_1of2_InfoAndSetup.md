@@ -5,14 +5,10 @@
 ![A0 Logo](https://i.imgur.com/kalt2bK.png)
 
 <br>
-
-## 17 January 2018
+### 17 January 2018
  
 <br>
-
-
 ## 1. Background - What are we talking about?
-
 <br>
 
 __Capture the Flags__  are intentionally vulnerable systems designed for people to hack into. They contain specially placed vulnerabilities that the attacker has to identify and exploit in order to gain a certain level of access. To prove this level of access, a "flag" file is often placed for the attacker to find.
@@ -20,7 +16,6 @@ __Capture the Flags__  are intentionally vulnerable systems designed for people 
 
 The "flag" might contain a unique string of characters that prove the attacker has reached their goal, or might just show a congratulatory message. In some instances, the attacker just needs to gain control over the most powerful user on the system. CTFs are created to help people learn skills needed to test real world systems while providing a safe and LEGAL method of doing so.
 
-<br>
 
 __Short Legal Caveat:__
 
@@ -38,10 +33,8 @@ PERMISSION TO HACK
 
 
 A locksmith and a burglar may use the same tools, it is only *HOW*  they are used that separates criminals from respected professionals.
-
 <br>
 <br>
-
 ## 2. Description - What is this document?
 
 Regardless of what operating system your host OS uses, this guide attempts to take you from *"What is a CTF?"* and never running a Linux command in your life to capturing the root flag on a Linux machine in the span of hours.
@@ -69,10 +62,8 @@ The virtualization software can run a multitude of operating systems. These OS's
 
 
 Our first step is to get Kali up and running.
-
 <br>
 <br>
-
 ## 3. Downloading the Tools and Materials
 
 While you may already have Virtualization software on your computer, the author of the CTF specifies that this box was designed to be run with VirtualBox. As VBox is my personal choice, I have not troubleshooted getting it running using VMWare or any other software.
@@ -158,10 +149,8 @@ The system will just begin to delete.
 Open up the terminal app from the dock and we will go over some basic Linux operations.
 
 ![A4](https://i.imgur.com/r8jOPcU.png)
-
 <br>
 <br>
-
 ## 4. Linux Basics: Users, Permissions and the Command Line
 
 *If you know the basics of Linux, feel free to skip this section.*
@@ -182,6 +171,7 @@ Why use the command line?
 This is a bare bones explanation of Linux. There are many, many core details that it ignores completely. It only explains the minimum needed to conquer the CTF in Part 2. 
 <br>
 <br>
+
 ### Linux File System:
 
 All of the files on a Linux system sprout from the root directory. Most commonly, this directory is simply called `/` by the system and pronounced "root." Directories contain files and subdirectories, which may contain more subdirectories. Subdirectories are given specific purposes that is often standardized across all systems. For example, automatically generated system logs will be saved to the `/var/log` directory. Files can be read, written to, or executed. But just not anyone can just come along and make changes.
@@ -224,11 +214,9 @@ When we open the terminal application after login, we find ourselves in the user
 
 
 Run it between commands to get a clean slate.
-
 <br>
 <br>
-
-__man__ -  This is the "what am I doing?" command. 
+`man` -  This is the "what am I doing?" command. 
 
 
 Every command here, and every command with the proper documentation will contain a manual page. If you want to see a detailed explanation of what a command has to offer, just type 
@@ -263,11 +251,8 @@ There are many more flags to the ls command, all of which can be combined.
 `ls -la` is enough for our purposes.
 
 `ls` run with no directory specified shows the contents of the current directory, but it will show the contents of a specified directory if given one. Try `ls /` to see the contents of the system root directory.
-
-
 <br>
 <br>
-
 `mkdir` - "make directory" 
 
 Just specify the name of the directory.
@@ -279,10 +264,8 @@ Just specify the name of the directory.
 Let's make another, called `b_folder` as well.
 
 ![A8](https://i.imgur.com/Xt8a9Gf.png)	
-
 <br>
 <br>
-
 `cd` - "change directory" takes you to the directory you point it to.
 
 
@@ -308,18 +291,12 @@ These synonyms  can be used in paths as well. In this case, the  following three
 	
 `..` refers to a relative location, not a full path. It will only jump out one directory.
 If we had gone one level deeper, into a subdirectory of b_folder, `..` would refer to `b_folder`, not `/root`.
-
 <br>
 <br>
-	
 `echo` - this command is used to send text to the terminal output. This string will always end with a newline. 
-
 <br>
-
 `cat` - "concatenate" - used to read files
-
 <br>
-
 We will use two these commands to demonstrate some important things about input and output.
 
 * `echo "hi"` - will send the word "hi" to the terminal output.
@@ -340,14 +317,11 @@ We will use two these commands to demonstrate some important things about input 
 
 
 ![A10](https://i.imgur.com/5pHnZQI.png)	
-
 <br>
 <br>
-
 `rm` - "remove" - used to delete files and folders.
 
- __`rm` cannot be undone easily. Be careful__ 
-
+ *`rm` cannot be undone easily. Don't be sorry, be careful.*
 
 The file is not moved to a trash folder, it is gone.
 It can be retrieved for a short while using forensics tools, but once you delete something - or edit it, for that matter - it pretty much stays that way.
@@ -363,20 +337,15 @@ It can be retrieved for a short while using forensics tools, but once you delete
 
 * `rm *`  - deletes ALL files in the current directory, but not directories or the files within them.
 * `rm -r *` - deletes ALL files and subdirectories in the current directory, recursively.
-
 <br>
 <br>
-
 The `*` operator is not unique to `rm` It can be used as a wildcard to "fill in the blanks" in many contexts. 
 Here we can use it read files with something common in their name.
 See the example pictured below.
 
-
 ![A12](https://i.imgur.com/Vx98By0.png)
-
 <br>
 <br>
-
 `less` - this command is used to read a file bit by bit, instead of reading the whole thing and skipping right to the end.
 
 To properly demonstrate this, we will need a long file. 
@@ -391,7 +360,7 @@ This command  allows us to scroll through the wordlist a block at a time.
 Use the arrow keys or scroll wheel to move around the file, and press the *Q* key to exit.
  
  
-__Use the Q key to exit from `less`__
+__Use the `Q` key to exit from `less`__
 
 
 ![A13 Less](https://i.imgur.com/cgBCKhC.png)
@@ -404,10 +373,8 @@ If you ran `ls -la`  in the system root, the output wouldn't fit in a single ter
 You can use less in order to scroll through them all.
 
 * `ls -la / | less`
-
 <br>
 <br>
-
 Pipe `|` is used to... pipe any output in the terminal output to a location of your choosing. This is very useful when combined with the tee command, which will allow the output to be displayed and logged simultaneously.
 
 
@@ -426,19 +393,14 @@ Note that in some instances we could use
 
 
 but that will not show us the terminal output in real time, just save it to the log file.
-
 <br>
 <br>
-
 `id` - this simple command tells us about the current user.
 
 This might not seem all that useful now, but when we get into the CTF it can be very useful for gathering information.
-
 <br>
 <br>
-
 `&&` and `;` - place these after a command to run mulitple commands in a series.
-
 
 * `&&` - run the command after the &&'s only if the command before doesn't have an error.
 * `;` - run the command after the semicolon -  no matter what.
@@ -451,10 +413,8 @@ Either method can be used with any number of commands in a row.
 * `cd c_folder && ls` - will only run `ls` if we successfully enter `c_folder`. If `c_folder` does not exist, `ls` will not run.
 
 ![A14](https://i.imgur.com/Vx98By0.png)
-
 <br>
 <br>
-
 ### Essential Terminal Shortcuts:
 
 
@@ -462,11 +422,8 @@ Either method can be used with any number of commands in a row.
 Try typing `ls /ro` and then press TAB instead of enter, it will autocomplete to `ls /root` - then press enter.
 
 * __Up and Down Arrow Keys__ - the terminal "remembers" the commands you type in. If you press the up arrow, it will fill in the last command you entered in. Keep pressing it to go back further in your history. If you go past the command you wanted to use, use the down key to go the other way.
-
 <br>
 <br>
-
-
 There are way too many commands to go over here, and they can be combined and twisted and modified to do all kinds of things. You won't need them all for our CTF, but you WILL need to have a basic understanding of:
 
 
@@ -475,19 +432,15 @@ There are way too many commands to go over here, and they can be combined and tw
 * `ls`, `cd`, `cat`, `|`, `&&`
 
 We will be running most of our penetration testing commands from the terminal itself, but they can be explained in context.
-
 <br>
 <br>
 <br>
-
-
 ## 5. Update the Kali VM 
 
 If your host machine has internet access, Kali should be connected to the internet as well. You can check this by pinging a website.
 
 `ping google.com`
 
-<br>
 
 ![A15](https://preview.ibb.co/jqBqnR/A15_ping_google.png)
 
@@ -509,10 +462,9 @@ Specific parameters can be changed later, and we will not need to alter these to
 
 The "update" portion checks the trusted Kali software repositories for the newest versions, and the "upgrade" portion upgrades the parts of your system that needs to be updated.
 
-<br>
-
-*You might be wondering - __can I skip this step?__ * <br>
+*You might be wondering - __can I skip this step?__* <br>
 *The answer to that question is "__You shouldn't__."*
+
 
 
 When dealing with cybersecurity, it pays to be up to date. 
@@ -534,11 +486,9 @@ I will update, and by updating, you ensure that we are on the same page.
 ### Updating the Kali VM May Annoy Your Host System’s Antivirus: 
 
  Funnily enough, antivirus may detect that someone (you) are installing software that can be used maliciously on your computer! Good job, I guess? Look up how to whitelist the files/process in your AV's documentation.
-
 <br>
 <br>
 <br>
-
 ## 6. Setting Up the Bulldog CTF VM
 
 We can set up the Bulldog OVA in the same manner that we set up the Kali OVA. If you double click the OVA file, it will likely open a second instance of VirtualBox if you still have it open from Kali.
@@ -552,7 +502,7 @@ This OVA comes with default settings practically ready to go, so just load it up
 <br>
 
 
-*__...BUT DON'T GO BOOTING BULLDOG JUST YET!__*
+### *__...BUT DON'T GO BOOTING BULLDOG JUST YET!__*
 
 <br>
 
@@ -560,14 +510,13 @@ This OVA comes with default settings practically ready to go, so just load it up
 
 
 
-In order to isolate/connect the VM's to each other, you will need to change their virtual network adapters to be connected to the host-only network. This disconnects the VM's from the internet, and makes it so they can only "see" the host machine and each other. 
-If we wanted to, we could keep the Kali machine connected to the internet, but for the  sake of uniformity , I chose to make it host-only as well.
+In order to isolate/connect the VM's to each other, you will need to change their virtual network adapters to be connected to the __host-only network.__ This disconnects the VM's from the internet, and makes it so they can only "see" the host machine and each other. 
+If we wanted to, we could keep the Kali machine connected to the internet, but for the  sake of uniformity , I chose to __make both machines host-only.__
 
 
 Click on the yellow "Settings" gear with one of the boxes selected. Then select the "Network" section, and in the "Attached To:" dropdown menu, select "Host-only Adapter"
 
-<br>
-<br>
+
 
 ![A17](https://image.ibb.co/cDyQMm/A17_host_only.png)
 
@@ -581,4 +530,6 @@ If you boot up Bulldog, you will not be able to log in. That is because you have
 <br>
 <br>
 
-## You are ready to go! Stay tuned for Part 2 when we conquer Bulldog!
+## You are ready to go! 
+
+Stay tuned for Part 2 when we conquer Bulldog!
