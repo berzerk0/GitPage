@@ -16,28 +16,30 @@ The "flag" might contain a unique string of characters that prove the attacker h
 
 __Short Legal Caveat:__
 
-*If you want to learn to hack or how to become a penetration tester - use CTFs, not real people's machines.
+*If you want to learn to hack or how to become a penetration tester - use CTFs, not real people's machines.*
 
-*CTFs are designed for you to experiment and play with.
+*CTFs are designed for you to experiment and play with.*
 
-*It is very difficult to cause any real world harm if you use them properly. 
+*It is very difficult to cause any real world harm if you use them properly.*
 
-*Getting a few thrills breaking into real people's systems is not the way to learn.
+*Getting a few thrills breaking into real people's systems is not the way to learn.*
 
 
-__ONLY PRACTICE TECHNIQUES LEARNED HERE ON SYSTEMS YOU HAVE__
+ONLY PRACTICE TECHNIQUES LEARNED HERE ON SYSTEMS YOU HAVE
 
 *__E X P L I C I T__*
 
-__PERMISSION TO HACK.__
+__PERMISSION TO HACK.
 
 
 A locksmith and a burglar may use the same tools, it is only *HOW* they are used that separates criminals from respected professionals.
 
 
+
 ## 2. Description - What is this document?
 
-Regardless of what operating system your host OS uses, this guide attempts to take you from "What is a CTF?" and never running a Linux command in your life to capturing the root flag on a Linux machine in the span of hours.
+
+Regardless of what operating system your host OS uses, this guide attempts to take you from *"What is a CTF?"* and never running a Linux command in your life to capturing the root flag on a Linux machine in the span of hours.
 
 
 Our capture the flag will take the form of a Linux virtual machine that we will be running on our own computers. Since this machine is intended to be vulnerable, we are going to isolate it from as many networks as possible, especially the internet. A competent hacker may be able to gain access from to the VM and then "jump out" to the host (your real computer) to cause all sorts of trouble.
@@ -49,7 +51,7 @@ The CTF we will use is Nick Frichette's "[Bulldog](https://www.vulnhub.com/entry
 [__https://www.vulnhub.com/entry/bulldog-1,211/__](https://www.vulnhub.com/entry/bulldog-1,211/)
 
 
-Note: You will be able to find walkthroughs for this box online, but reading them will spoil the learning process for you. Many walkthroughs (including one of my own) assume the reader already has some knowledge of pentesting and Linux, and might only contain the shortest possible path to root. Walkthroughs may show you the fastest route, but it is likely they will not explain much.
+__Note:__ You will be able to find walkthroughs for this box online, but reading them will spoil the learning process for you. Many walkthroughs (including one of my own) assume the reader already has some knowledge of pentesting and Linux, and might only contain the shortest possible path to root. Walkthroughs may show you the fastest route, but it is likely they will not explain much.
 
 
 The pathway we will take might not be the absolute shortest, and may not always follow best practices, but it is beginner friendly and will teach you enough to tame the Bulldog. The tools we will use to  accomplish our goal can be found conveniently organized in the Kali Linux distribution. 
@@ -66,7 +68,7 @@ Our first step is to get Kali up and running.
 
 
 
-### 3. Downloading the Tools and Materials
+## 3. Downloading the Tools and Materials
 
 While you may already have Virtualization software on your computer, the author of the CTF specifies that this box was designed to be run with VirtualBox. As VBox is my personal choice, I have not troubleshooted getting it running using VMWare or any other software.
 The author has also expressed problems with VMware, so it may be easiest to simply run VBox.
@@ -107,11 +109,12 @@ Once VirtualBox is installed and the torrent is complete, run the downloaded .OV
 
 
 
-![A1](https://i.imgur.com/YwnqxES.png)
+![A1](https://i.imgur.com/SctAvVb.png)
 
 
 
-If you like, you can change the location of the VM's virtual hard disk, as well as the number of CPUs and and RAM it will use. Set these parameters to match the specifications of your computer.
+If you like, you can change the location of the VM's virtual hard disk, as well as the number of CPUs and and RAM it will use.
+Set these parameters to match the specifications of your computer.
 
 
 When you are ready, click __"Import"__ and let it the VM install. This process will likely take 2-3 minutes.
@@ -127,7 +130,8 @@ This means that the mouse will be "bounded" within the VM Window and able to int
 If you want to have your mouse escape the window, press __Right-Control__. *Don't forget this!*
 
 
-__If your mouse gets "trapped" in the VM, you can free it with the CTRL Key on the RIGHT SIDE of the keyboard__
+__If your mouse gets "trapped" in the VM,__
+__you can free it with the CTRL Key on the RIGHT SIDE of the keyboard__
 
 
 
@@ -136,7 +140,9 @@ At the main login screen, enter the default credentials for the OVA
 * password: *toor*
 
 
+
 ![A3](https://i.imgur.com/a0LussY.png)
+
 
 
 It may come as a surprise to you that we log in with root access.
@@ -144,34 +150,38 @@ Kali is designed for general usage like most operating systems, it is specified 
 It is not meant to host multiple users with different privileges.
 If you are running Kali, you are the big boss of the system (in this case, our VM) and your word is law.
 
+
+
 *The system will follow your commands and orders to the letter - __no matter what__.*
 
+
 Root access means __any properly formatted command will be executed without asking twice, and may be irreversible__.
+
+
 If your command tells the system to delete itself, it won't double check if you are sure.
 The system will just begin to delete.
 
-__MAKE SURE YOU UNDERSTAND THIS RISK__
+
 
 
 Open up the terminal app from the dock and we will go over some basic Linux operations.
 
-![A4](https://i.imgur.com/ox7tGHp.png)
+![A4](https://i.imgur.com/r8jOPcU.png)
 
-### Linux Basics: Users, Permissions and the Command Line
+## 4. Linux Basics: Users, Permissions and the Command Line
 
-##### If you know the basics of Linux, feel free to skip this section.
+*If you know the basics of Linux, feel free to skip this section.*
 
 
 __"Why do I have to use the command line? It's the 21st century! Show me some pictures!__
 
-Many tools, including some that we will be using in this CTF have graphical user interfaces.
-While these are often functional, they may end up slowing down productivity as it is very difficult to make a given process occur, say, hundreds of times, by clicking the mouse.
 
-Additionally, when we actually gain access to a machine we are attempting to conquer, it is not going to be through a remote desktop client.
+Many tools, including some that we will be using in this CTF have graphical user interfaces. While these are often functional, they may end up slowing down productivity as it is very difficult to make a given process occur, say, hundreds of times, by clicking the mouse.
+When we actually gain access to a machine we are attempting to conquer, it is not going to be through a remote desktop client. We will not be moving a mouse around and clicking icons.
 
-We will be gaining access via command line "shells".
-Some of these shells can be quite primitive, missing many features that the terminal on your local machine has by default. 
-Lastly, a process that relies on the entry of simple text commands is far easier to document than one that requires blueprints and step by step diagrams. 
+
+We will be gaining access via command line "shells". Some of these shells can be quite primitive and can miss many of the features that the terminal on your local machine has by default. Finally, a process that relies on the entry of simple text commands is far easier to document than one that requires blueprints and step by step diagrams.
+
 
 
 Why use the command line?
@@ -180,75 +190,68 @@ Why use the command line?
 * Remote shells don't have pictures 
 
 
-
-This is a BARE BONES explanation of Linux. 
-There are many, many core details that it ignores completely. 
-It only explains the minimum needed to conquer the CTF in part 2. 
+This is a bare bones explanation of Linux. There are many, many core details that it ignores completely. It only explains the minimum needed to conquer the CTF in Part 2. 
 
 
-
-#### Linux File System:
-
-
-All of the files on a Linux system sprout from the root directory.
-Most commonly, this directory is simply called `/` by the system and pronounced "root." 
-Directories contain files and subdirectories, which may contain more subdirectories.
-Subdirectories are given specific purposes that is often standardized across all systems.
-For example, automatically generated system logs will be saved to the /var/log directory.
-Files can be read, written to, or executed. But just not anyone can just come along and make changes.
+### Linux File System:
 
 
-#### Linux Users:
+All of the files on a Linux system sprout from the root directory. Most commonly, this directory is simply called `/` by the system and pronounced "root." Directories contain files and subdirectories, which may contain more subdirectories. Subdirectories are given specific purposes that is often standardized across all systems. For example, automatically generated system logs will be saved to the `/var/log` directory. Files can be read, written to, or executed. But just not anyone can just come along and make changes.
 
 
-A Linux system is usually divided into different users.
-Not all of these users are actual humans, some are employed by the system to execute certain tasks.
-The average human user has their own "home" folder, located at `/home/username`
-In many cases, this area represents most of the files this user has access to.
-A user may have access to a few select programs, but a well-maintained system will give a user the absolute minimum of permissions necessary to accomplish what they need to.
-They might not be able to run every command, access every folder and certainly cannot access administrative files.
+### Linux Users:
+
+A Linux system is usually divided into different users. Not all of these users are actual humans, some are employed by the system to execute certain tasks. The average human user has their own "home" folder, located at `/home/username`. In many cases, this area represents most of the files this user has access to. A user may have access to a few select programs, but a well-maintained system will give a user the absolute minimum of permissions necessary to accomplish what they need to. They might not be able to run every command, access every folder and certainly cannot access administrative files.
 
 
-#### Linux Superusers:
 
-An admin user will have more permissions than an average user, and superusers have all the power.
-Superusers have read and write access to EVERY file.
-They are able to change the passwords for every user, add users, delete users, and execute any command.
-If a user needs to gain access to a file they used to not be able to access, an admin will have to come in and change the permissions to that file.
-On most Linux systems, even admin users don't actively use root all the time.
-A root user has the power to make very big, irreversible mistakes when dealing with important files.
+### Linux Superusers:
 
-On our Kali system, there is only one user - root.
-Instead of having a `/home` directory, the "home" folder for root is `/root`. This is easily confused with the `/` directory.
-I will differentiate between the two by calling `/` the "system" root directory, and `/root` the "user" root directory.
+An admin user will have more permissions than an average user, and superusers have all the power. Superusers have read and write access to EVERY file. They are able to change the passwords for every user, add users, delete users, and execute any command. If a user needs to gain access to a file they used to not be able to access, an admin will have to come in and change the permissions to that file. On most Linux systems, even admin users don't actively use root all the time. A root user has the power to make very big, irreversible mistakes when dealing with important files.
+
+
+
+On our Kali system, there is only one user - root. Instead of having a `/home` directory, the "home" folder for root is `/root`. This is easily confused with the `/` directory. I will differentiate between the two by calling `/` the "system" root directory, and `/root` the "user" root directory.
 
 
 
 ### Essential Commands:
 
-To run a command, type it into the command line and press enter. That's it. 
+To run a command, type it into the command line and press enter. That's it.
+
+__To interrupt a command while it is running, press CTRL-C.__
 
 
-To interrupt a command while it is running, press `CTRL-C`.
-Some commands are an exception to this rule, but closing the terminal window where the command is running will stop the process.
-The process can be directly killed, but we don't need to get into that here.
+Some commands are an exception to this rule, but closing the terminal window where the command is running will stop the process. The process can be directly killed, but we don't need to get into that here.
 
-__pwd__ - this command outputs the current location.
+__pwd__ - outputs the current location.
 
-When we log into Kali, it will show us that our default directory when we open up the terminal application is the user root.
-Note that `~` is synonymous with the current user's home directory.
+When we open the terminal application after login, we find ourselves in the user root.
+
+
+`pwd` confirms this
+
 
 
 ![A5](https://i.imgur.com/zOxN1ds.png)
 
 
-__clear__ - this command does exactly what it says it does. It clears the contents of the terminal. Run it between commands to get a clean slate.
+__clear__ - clears the contents of the terminal
 
 
-__man__ - "manual" 
-This is the "what am I doing?" command. Every command here, and every command with the proper documentation will contain a manual page.
-If you want to see a detailed explanation of what a command has to offer, just type `man COMMAND` and read the docs.
+Run `clear` between commands to get a clean slate.
 
+
+__man__ -  This is the "what am I doing?" command. 
+
+
+Every command here, and every command with the proper documentation will contain a manual page. If you want to see a detailed explanation of what a command has to offer, just type 
+
+
+`man COMMAND `
+
+
+and read the documentation
 
 __ls__ - this command will list the contents of a directory
 
