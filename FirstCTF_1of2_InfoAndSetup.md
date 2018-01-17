@@ -1,15 +1,8 @@
 # From "What are CTF's?" to Your First Owned System
 
-
-
-
-## 17 January 2018
-
-
-
 ![A0 Logo](https://i.imgur.com/kalt2bK.png)
 
-
+## 17 January 2018
  
 
 ## 1. Background - What are we talking about?
