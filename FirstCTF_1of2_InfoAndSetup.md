@@ -146,18 +146,20 @@ __If your mouse gets "trapped" in the VM,__
 __you can free it with the CTRL Key on the RIGHT SIDE of the keyboard on Windows and Linux__
 __or the "Command" key on the LEFT SIDE of a Mac keyboard__
 
-
-
+<br>
+<br>
 
 At the main login screen, enter the default credentials for the OVA
 * username: *root*
 * password: *toor*
 
-
+<br>
+<br>
 
 ![A3](https://i.imgur.com/a0LussY.png)
 
-
+<br>
+<br>
 
 It may come as a surprise to you that we log in with root access.
 Kali is designed for general usage like most operating systems, it is specified for security.
@@ -168,6 +170,7 @@ If you are running Kali, you are the big boss of the system (in this case, our V
 
 *The system will follow your commands and orders to the letter - __no matter what__.*
 
+<br>
 
 Root access means __any properly formatted command will be executed without asking twice, and may be irreversible__.
 
@@ -175,12 +178,17 @@ Root access means __any properly formatted command will be executed without aski
 If your command tells the system to delete itself, it won't double check if you are sure.
 The system will just begin to delete.
 
-
+<br>
 
 
 Open up the terminal app from the dock and we will go over some basic Linux operations.
 
 ![A4](https://i.imgur.com/r8jOPcU.png)
+
+<br>
+<br>
+<br>
+
 
 ## 4. Linux Basics: Users, Permissions and the Command Line
 
@@ -189,20 +197,23 @@ Open up the terminal app from the dock and we will go over some basic Linux oper
 
 __"Why do I have to use the command line? It's the 21st century! Show me some pictures!__
 
+<br>
 
 Many tools, including some that we will be using in this CTF have graphical user interfaces. While these are often functional, they may end up slowing down productivity as it is very difficult to make a given process occur, say, hundreds of times, by clicking the mouse.
 When we actually gain access to a machine we are attempting to conquer, it is not going to be through a remote desktop client. We will not be moving a mouse around and clicking icons.
 
+<br>
 
 We will be gaining access via command line "shells". Some of these shells can be quite primitive and can miss many of the features that the terminal on your local machine has by default. Finally, a process that relies on the entry of simple text commands is far easier to document than one that requires blueprints and step by step diagrams.
 
-
+<br>
 
 Why use the command line?
 * Scripting
 * Documentation
 * Remote shells don't have pictures 
 
+<br>
 
 This is a bare bones explanation of Linux. There are many, many core details that it ignores completely. It only explains the minimum needed to conquer the CTF in Part 2. 
 
@@ -238,13 +249,15 @@ __To interrupt a command while it is running, press *CTRL-C*.__
 
 Some commands are an exception to this rule, but closing the terminal window where the command is running will stop the process. The process can be directly killed, but we don't need to get into that here.
 
-
+<br>
+<br>
 
 `pwd` - outputs the current location.
 
 When we open the terminal application after login, we find ourselves in the user root.
 
-
+<br>
+<br>
 
 ![A5](https://i.imgur.com/zOxN1ds.png)
 
@@ -254,7 +267,8 @@ When we open the terminal application after login, we find ourselves in the user
 
 Run it between commands to get a clean slate.
 
-
+<br>
+<br>
 
 __man__ -  This is the "what am I doing?" command. 
 
@@ -267,8 +281,8 @@ Every command here, and every command with the proper documentation will contain
 
 and read the documentation
 
-
-
+<br>
+<br>
 
 `ls` - lists the contents of a directory
 
@@ -293,7 +307,8 @@ There are many more flags to the ls command, all of which can be combined.
 `ls` run with no directory specified shows the contents of the current directory, but it will show the contents of a specified directory if given one. Try `ls /` to see the contents of the system root directory.
 
 
-
+<br>
+<br>
 
 `mkdir` - "make directory" 
 
@@ -307,7 +322,8 @@ Let's make another, called `b_folder` as well.
 
 ![A8](https://i.imgur.com/Xt8a9Gf.png)	
 
-
+<br>
+<br>
 
 `cd` - "change directory" takes you to the directory you point it to.
 
@@ -335,14 +351,16 @@ These synonyms  can be used in paths as well. In this case, the  following three
 `..` refers to a relative location, not a full path. It will only jump out one directory.
 If we had gone one level deeper, into a subdirectory of b_folder, `..` would refer to `b_folder`, not `/root`.
 
-
-
+<br>
+<br>
 	
 `echo` - this command is used to send text to the terminal output. This string will always end with a newline. 
 
+<br>
 
 `cat` - "concatenate" - used to read files
 
+<br>
 
 We will use two these commands to demonstrate some important things about input and output.
 
@@ -365,9 +383,10 @@ We will use two these commands to demonstrate some important things about input 
 
 ![A10](https://i.imgur.com/5pHnZQI.png)	
 
+<br>
+<br>
 
 `rm` - "remove" - used to delete files and folders.
-
 
  __`rm` cannot be undone easily. Be careful__ 
 
@@ -387,7 +406,8 @@ It can be retrieved for a short while using forensics tools, but once you delete
 * `rm *`  - deletes ALL files in the current directory, but not directories or the files within them.
 * `rm -r *` - deletes ALL files and subdirectories in the current directory, recursively.
 
-	
+<br>
+<br>
 
 The `*` operator is not unique to `rm` It can be used as a wildcard to "fill in the blanks" in many contexts. 
 Here we can use it read files with something common in their name.
@@ -396,7 +416,8 @@ See the example pictured below.
 
 ![A12](https://i.imgur.com/Vx98By0.png)
 
-
+<br>
+<br>
 
 `less` - this command is used to read a file bit by bit, instead of reading the whole thing and skipping right to the end.
 
@@ -426,6 +447,9 @@ You can use less in order to scroll through them all.
 
 * `ls -la / | less`
 
+<br>
+<br>
+
 Pipe `|` is used to... pipe any output in the terminal output to a location of your choosing. This is very useful when combined with the tee command, which will allow the output to be displayed and logged simultaneously.
 
 
@@ -445,14 +469,15 @@ Note that in some instances we could use
 
 but that will not show us the terminal output in real time, just save it to the log file.
 
-
+<br>
+<br>
 
 `id` - this simple command tells us about the current user.
 
 This might not seem all that useful now, but when we get into the CTF it can be very useful for gathering information.
 
-
-
+<br>
+<br>
 
 `&&` and `;` - place these after a command to run mulitple commands in a series.
 
@@ -469,6 +494,9 @@ Either method can be used with any number of commands in a row.
 
 ![A14](https://i.imgur.com/Vx98By0.png)
 
+<br>
+<br>
+
 ### Essential Terminal Shortcuts:
 
 
@@ -477,7 +505,8 @@ Try typing `ls /ro` and then press TAB instead of enter, it will autocomplete to
 
 * __Up and Down Arrow Keys__ - the terminal "remembers" the commands you type in. If you press the up arrow, it will fill in the last command you entered in. Keep pressing it to go back further in your history. If you go past the command you wanted to use, use the down key to go the other way.
 
-
+<br>
+<br>
 
 
 There are way too many commands to go over here, and they can be combined and twisted and modified to do all kinds of things. You won't need them all for our CTF, but you WILL need to have a basic understanding of:
@@ -489,7 +518,9 @@ There are way too many commands to go over here, and they can be combined and tw
 
 We will be running most of our penetration testing commands from the terminal itself, but they can be explained in context.
 
-
+<br>
+<br>
+<br>
 
 
 ## 5. Update the Kali VM 
@@ -498,6 +529,7 @@ If your host machine has internet access, Kali should be connected to the intern
 
 `ping google.com`
 
+<br>
 
 ![A15](https://preview.ibb.co/jqBqnR/A15_ping_google.png)
 
@@ -519,10 +551,9 @@ Specific parameters can be changed later, and we will not need to alter these to
 
 The "update" portion checks the trusted Kali software repositories for the newest versions, and the "upgrade" portion upgrades the parts of your system that needs to be updated.
 
+<br>
 
-
-*You might be wondering - __can I skip this step?__ *
-
+*You might be wondering - __can I skip this step?__ * <br>
 *The answer to that question is "__You shouldn't__."*
 
 
@@ -532,6 +563,7 @@ Updated machines were simply not vulnerable to the exploit needed for WannaCry t
 Software has bugs, and most found bugs are patched away.
 There is no magic armor to protect you from all threats, and sometimes patches themselves are not perfect, but keeping your systems up to date may be THE most effective step you can take to protect your systems.
 
+<br>
 
 __"But why update my ATTACKING VM?"__
 
@@ -539,13 +571,15 @@ __"But why update my ATTACKING VM?"__
 From a practical perspective, any problems that may arise while following along with the CTF instructions in part 2 may be related to software versions.
 I will update, and by updating, you ensure that we are on the same page. 
 
+<br>
 
 ### Updating the Kali VM May Annoy Your Host System’s Antivirus: 
 
  Funnily enough, antivirus may detect that someone (you) are installing software that can be used maliciously on your computer! Good job, I guess? Look up how to whitelist the files/process in your AV's documentation.
 
-
-
+<br>
+<br>
+<br>
 
 ## 6. Setting Up the Bulldog CTF VM
 
@@ -557,9 +591,12 @@ Just go to __File -> Import Appliance__, and select the Bulldog OVA.
 
 This OVA comes with default settings practically ready to go, so just load it up and press __"Import"__ if you are happy with where it will be stored on your machine.
 
+<br>
+
 
 *__...BUT DON'T GO BOOTING BULLDOG JUST YET!__*
 
+<br>
 
 ![A16](https://image.ibb.co/cOSfnR/A16_bulldog.png)
 
@@ -571,17 +608,19 @@ If we wanted to, we could keep the Kali machine connected to the internet, but f
 
 Click on the yellow "Settings" gear with one of the boxes selected. Then select the "Network" section, and in the "Attached To:" dropdown menu, select "Host-only Adapter"
 
-
-
-
+<br>
+<br>
 
 ![A17](https://image.ibb.co/cDyQMm/A17_host_only.png)
 
-
+<br>
+<br>
 
 Do this for both boxes, and we will be ready to go!
 If you boot up Bulldog, you will not be able to log in. That is because you have to HACK in. Most CTFs are not designed for you to log in normally, we are going to have to create ourselves an alternative method of entry.
 
 
+<br>
+<br>
 
 ## You are ready to go! Stay tuned for Part 2 when we conquer Bulldog!
