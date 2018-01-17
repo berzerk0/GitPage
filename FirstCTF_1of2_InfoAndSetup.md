@@ -9,21 +9,23 @@
 ## 17 January 2018
  
 <br>
-<br>
+
 
 ## 1. Background - What are we talking about?
 
+<br>
 
 __Capture the Flags__  are intentionally vulnerable systems designed for people to hack into. They contain specially placed vulnerabilities that the attacker has to identify and exploit in order to gain a certain level of access. To prove this level of access, a "flag" file is often placed for the attacker to find.
 
 
 The "flag" might contain a unique string of characters that prove the attacker has reached their goal, or might just show a congratulatory message. In some instances, the attacker just needs to gain control over the most powerful user on the system. CTFs are created to help people learn skills needed to test real world systems while providing a safe and LEGAL method of doing so.
 
+<br>
 
 __Short Legal Caveat:__
 
 *If you want to learn to hack or how to become a penetration tester - use CTFs, not real people's machines.*<br>
-*CTFs are designed for you to experiment and play with.*<br>
+*CTFs are designed for you to experiment and play with.* <br>
 *It is very difficult to cause any real world harm if you use them properly.*<br>
 *Getting a few thrills breaking into real people's systems is not the way to learn.*<br>
 
@@ -35,13 +37,12 @@ ONLY PRACTICE TECHNIQUES LEARNED HERE ON SYSTEMS YOU HAVE
 PERMISSION TO HACK
 
 
-A locksmith and a burglar may use the same tools, it is only *HOW* they are used that separates criminals from respected professionals.
+A locksmith and a burglar may use the same tools, it is only *HOW*  they are used that separates criminals from respected professionals.
 
 <br>
 <br>
 
 ## 2. Description - What is this document?
-
 
 Regardless of what operating system your host OS uses, this guide attempts to take you from *"What is a CTF?"* and never running a Linux command in your life to capturing the root flag on a Linux machine in the span of hours.
 
@@ -67,7 +68,6 @@ Kali will run in a virtual machine at the same time as our CTF machine, and we w
 The virtualization software can run a multitude of operating systems. These OS's are broken into categories that can form a family tree. With Linux as our main branch, can treat "Debian" as our next branch, and "Kali" as the final leaf. Not all Linux-based operating systems are Debian-based, but all Debian-based OS's are Linux. The most popular Debian OS is Ubuntu. Kali is a distribution of Debian designed for security usage.
 
 
-
 Our first step is to get Kali up and running.
 
 <br>
@@ -78,13 +78,11 @@ Our first step is to get Kali up and running.
 While you may already have Virtualization software on your computer, the author of the CTF specifies that this box was designed to be run with VirtualBox. As VBox is my personal choice, I have not troubleshooted getting it running using VMWare or any other software.
 The author has also expressed problems with VMware, so it may be easiest to simply run VBox.
 
-<br>
 
 Download the Appropriate Virtual Box Files for your OS Here:
 
 [__https://www.virtualbox.org/wiki/Downloads__](https://www.virtualbox.org/wiki/Downloads)
 
-<br>
 <br>
 
 Virtualbox also comes with an "Extension Pack" that provides additional features:
@@ -93,36 +91,28 @@ Virtualbox also comes with an "Extension Pack" that provides additional features
 
 <br>
 
-We are going to run the 64 bit version of Kali. 
-
+We are going to run the 64 bit version of Kali.
 A lighter, 32-bit version, is available, and may work for our purposes.
 However, I have not tested it for this purpose.
 
-<br>
-
 Download the Kali OVA file - this can be done directly or via torrent.
-
 Make sure you download the VirtualBox version of the image, not the VMWare version.
+
+<br>
 
 [__https://www.offensive-security.com/kali-linux-vmware-virtualbox-image-download/__](https://www.offensive-security.com/kali-linux-vmware-virtualbox-image-download/)
 
 ![AA](https://i.imgur.com/NOdyFBG.png)
 
-Download the file from the above link. Torrent is likely fastest.
-
-Once VirtualBox is installed and the torrent is complete, run the downloaded .OVA file
-
 <br>
 
+Download the file from the above link. Torrent is likely fastest.
 Once VirtualBox is installed and the torrent is complete, run the downloaded .OVA file
 * Change the name to something like __"Kali"__
 * Set "Guest OS Type" to __"Linux -> Debian (64-bit)"__
 
-<br>
-
 ![A1](https://i.imgur.com/SctAvVb.png)
 
-<br>
 
 If you like, you can change the location of the VM's virtual hard disk, as well as the number of CPUs and and RAM it will use.
 Set these parameters to match the specifications of your computer.
@@ -134,52 +124,36 @@ Selecting your newly installed Kali system on the left side of the panel and cli
 
 ![A2](https://i.imgur.com/A1j6vo8.png)
 
-<br>
 
 Clicking on the window where the VM is running will bring up a prompt asking if you want to "Capture" your mouse.
 This means that the mouse will be "bounded" within the VM Window and able to interact with it.
-If you want to have your mouse escape the window, press __Right-Control__ (Windows and Linux) and Left-Command on Mac. *Don't forget this!*
+If you want to have your mouse escape the window, press __Right-Control__ on Windows and Linux and __Left-Command__ on Mac. *Don't forget this!*
 
 <br>
 
-__If your mouse gets "trapped" in the VM,__
-__you can free it with the CTRL Key on the RIGHT SIDE of the keyboard on Windows and Linux__
-__or the "Command" key on the LEFT SIDE of a Mac keyboard__
-
-<br>
-<br>
+__If your mouse gets "trapped" in the VM you can free it by pressing:__
+* __The CTRL Key on the RIGHT SIDE of the keyboard on Windows and Linux__
+__The "Command" key on the LEFT SIDE of a Mac keyboard__
 
 At the main login screen, enter the default credentials for the OVA
 * username: *root*
 * password: *toor*
 
-<br>
-<br>
-
 ![A3](https://i.imgur.com/a0LussY.png)
 
-<br>
-<br>
 
 It may come as a surprise to you that we log in with root access.
 Kali is designed for general usage like most operating systems, it is specified for security.
 It is not meant to host multiple users with different privileges.
 If you are running Kali, you are the big boss of the system (in this case, our VM) and your word is law.
-
-
-
-*The system will follow your commands and orders to the letter - __no matter what__.*
-
 <br>
-
+*The system will follow your commands and orders to the letter - __no matter what__.*
+<br>
 Root access means __any properly formatted command will be executed without asking twice, and may be irreversible__.
-
-
+<br>
 If your command tells the system to delete itself, it won't double check if you are sure.
 The system will just begin to delete.
-
 <br>
-
 
 Open up the terminal app from the dock and we will go over some basic Linux operations.
 
@@ -187,8 +161,6 @@ Open up the terminal app from the dock and we will go over some basic Linux oper
 
 <br>
 <br>
-<br>
-
 
 ## 4. Linux Basics: Users, Permissions and the Command Line
 
@@ -196,30 +168,21 @@ Open up the terminal app from the dock and we will go over some basic Linux oper
 
 
 __"Why do I have to use the command line? It's the 21st century! Show me some pictures!__
-
 <br>
-
 Many tools, including some that we will be using in this CTF have graphical user interfaces. While these are often functional, they may end up slowing down productivity as it is very difficult to make a given process occur, say, hundreds of times, by clicking the mouse.
 When we actually gain access to a machine we are attempting to conquer, it is not going to be through a remote desktop client. We will not be moving a mouse around and clicking icons.
-
 <br>
-
 We will be gaining access via command line "shells". Some of these shells can be quite primitive and can miss many of the features that the terminal on your local machine has by default. Finally, a process that relies on the entry of simple text commands is far easier to document than one that requires blueprints and step by step diagrams.
-
 <br>
-
 Why use the command line?
 * Scripting
 * Documentation
 * Remote shells don't have pictures 
-
 <br>
-
 This is a bare bones explanation of Linux. There are many, many core details that it ignores completely. It only explains the minimum needed to conquer the CTF in Part 2. 
-
-
+<br>
+<br>
 ### Linux File System:
-
 
 All of the files on a Linux system sprout from the root directory. Most commonly, this directory is simply called `/` by the system and pronounced "root." Directories contain files and subdirectories, which may contain more subdirectories. Subdirectories are given specific purposes that is often standardized across all systems. For example, automatically generated system logs will be saved to the `/var/log` directory. Files can be read, written to, or executed. But just not anyone can just come along and make changes.
 
@@ -244,24 +207,19 @@ On our Kali system, there is only one user - root. Instead of having a `/home` d
 
 To run a command, type it into the command line and press enter. That's it.
 
-__To interrupt a command while it is running, press *CTRL-C*.__
+__To interrupt a command while it is running, press `CTRL-C`__
 
 
 Some commands are an exception to this rule, but closing the terminal window where the command is running will stop the process. The process can be directly killed, but we don't need to get into that here.
-
 <br>
 <br>
-
 `pwd` - outputs the current location.
-
 When we open the terminal application after login, we find ourselves in the user root.
-
-<br>
-<br>
 
 ![A5](https://i.imgur.com/zOxN1ds.png)
 
-
+<br>
+<br>
 `clear` - clears the contents of the terminal
 
 
