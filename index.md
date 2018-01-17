@@ -4,6 +4,7 @@
 * [BEWGor](https://github.com/berzerk0/BEWGor) - Bull's Eye Wordlist Generator
 
 
+
 ## CTF Write Ups
 
 These aren't the only CTF's I've ever done, of course.
@@ -23,6 +24,7 @@ These aren't the only CTF's I've ever done, of course.
 * Part Two In Progress
 
 
+
 ## Probable-Wordlist Password Trend Analysis
 
 * [Trend Analysis of the most common passwords - contains immediately actionable password advice](https://github.com/berzerk0/Probable-Wordlists/blob/master/Trend-Analysis.md) 
@@ -30,9 +32,10 @@ These aren't the only CTF's I've ever done, of course.
 
 ## RIGA-38-Hydrant
 
-A cryptography, steganography, and OSINT CTF-Like group of challenges.
+A cryptography, steganography, and OSINT CTF-Like group of challenges. 25 in all.
 
-(Figuring out a good home for this)
+
+One day I will find a better home for these, but for now they can be found at [http://pasted.co/96db820a](http://pasted.co/96db820a)
 
 
 
