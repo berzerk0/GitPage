@@ -18,7 +18,7 @@ These aren't the only CTF's I've ever done, of course.
 * [Blue on HackTheBox](CTFWRITE-Blue-HTB.md) - 12 January 2018
 
 
-
+[Bulldog Setup Test](FirstCTF_1of2_InfoAndSetup.md) - today
 
 ## Probable-Wordlist Password Trend Analysis
 
