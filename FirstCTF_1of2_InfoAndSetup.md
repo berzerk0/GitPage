@@ -1,10 +1,16 @@
 # From "What are CTF's?" to Your First Owned System
 
 
+
+
 ## 17 January 2018
+
+
 
 ![A0 Logo](https://i.imgur.com/kalt2bK.png)
 
+
+ 
 
 ## 1. Background - What are we talking about?
 
@@ -132,11 +138,13 @@ Selecting your newly installed Kali system on the left side of the panel and cli
 
 Clicking on the window where the VM is running will bring up a prompt asking if you want to "Capture" your mouse.
 This means that the mouse will be "bounded" within the VM Window and able to interact with it.
-If you want to have your mouse escape the window, press __Right-Control__. *Don't forget this!*
+If you want to have your mouse escape the window, press __Right-Control__ (Windows and Linux) and Left-Command on Mac. *Don't forget this!*
 
 
 __If your mouse gets "trapped" in the VM,__
-__you can free it with the CTRL Key on the RIGHT SIDE of the keyboard__
+__you can free it with the CTRL Key on the RIGHT SIDE of the keyboard on Windows and Linux__
+__or the "Command" key on the LEFT SIDE of a Mac keyboard__
+
 
 
 
