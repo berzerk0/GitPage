@@ -201,7 +201,7 @@ All of the files on a Linux system sprout from the root directory. Most commonly
 
 ### Linux Users:
 
-A Linux system is usually divided into different users. Not all of these users are actual humans, some are employed by the system to execute certain tasks. The average human user has their own "home" folder, located at `/home/username`. In many cases, this area represents most of the files this user has access to. A user may have access to a few select programs, but a well-maintained system will give a user the absolute minimum of permissions necessary to accomplish what they need to. They might not be able to run every command, access every folder and certainly cannot access administrative files.
+A Linux system is usually divided into different users. Not all of these users are actual humans, some are employed by the system to execute certain tasks. The average human user has their own "home" folder, located at `/home/username` In many cases, this area represents most of the files this user has access to. A user may have access to a few select programs, but a well-maintained system will give a user the absolute minimum of permissions necessary to accomplish what they need to. They might not be able to run every command, access every folder and certainly cannot access administrative files.
 
 
 
@@ -211,7 +211,7 @@ An admin user will have more permissions than an average user, and superusers ha
 
 
 
-On our Kali system, there is only one user - root. Instead of having a `/home` directory, the "home" folder for root is `/root`. This is easily confused with the `/` directory. I will differentiate between the two by calling `/` the "system" root directory, and `/root` the "user" root directory.
+On our Kali system, there is only one user - root. Instead of having a `/home` directory, the "home" folder for root is `/root`This is easily confused with the `/` directory. I will differentiate between the two by calling `/` the "system" root directory, and `/root` the "user" root directory.
 
 
 
@@ -219,10 +219,12 @@ On our Kali system, there is only one user - root. Instead of having a `/home` d
 
 To run a command, type it into the command line and press enter. That's it.
 
-__To interrupt a command while it is running, press CTRL-C.__
+__To interrupt a command while it is running, press *CTRL-C*.__
 
 
 Some commands are an exception to this rule, but closing the terminal window where the command is running will stop the process. The process can be directly killed, but we don't need to get into that here.
+
+
 
 __pwd__ - outputs the current location.
 
@@ -242,6 +244,7 @@ __clear__ - clears the contents of the terminal
 Run `clear` between commands to get a clean slate.
 
 
+
 __man__ -  This is the "what am I doing?" command. 
 
 
@@ -253,54 +256,71 @@ Every command here, and every command with the proper documentation will contain
 
 and read the documentation
 
-__ls__ - this command will list the contents of a directory
 
-`ls -a` will show ALL contents, included those normally hidden
+
+
+__ls__ - list the contents of a directory
+
+
+`ls -a` shows ALL  directory contents, included those normally hidden
+
 	
 	
 ![A6](https://i.imgur.com/WclJrNi.png)
 
-`ls -l` will show the ownership/permissions of each file in the directory
+
+`ls -l`  shows the ownership/permissions of each file in the directory
+
 
 ![A7](https://i.imgur.com/XDq4V1B.png)
 
+
 There are many more flags to the ls command, all of which can be combined.
+
 `ls -la` is enough for our purposes.
 
-`ls` run with no directory specified shows the contents of the current directory, but it will show the contents of a specified directory if given one.
+`ls` run with no directory specified shows the contents of the current directory, but it will show the contents of a specified directory if given one. Try `ls /` to see the contents of the system root directory.
 
 
-__mkdir__ - "make directory" does exactly that, it makes a new directory.
-	Just specify the name of the directory.
-	
-`mkdir a_folder` creates a subdirectory of our current directory called `a_folder`
+
+
+__mkdir__ - "make directory" does exactly that, it makes a new directory. 
+
+
+Just specify the name of the directory.
+
+
+`mkdir a_folder`  creates a subdirectory of our current directory called `a_folder`
+
+
 Let's make another, called `b_folder` as well.
-
 
 ![A8](https://i.imgur.com/Xt8a9Gf.png)	
 
 
+
 __cd__- "change directory" will take you to the directory you point it to.
 
-We can use our directory synonyms here.
-* ~ = user's home folder
-* / = system root
-* .. = one folder above the current directory
 
-Try it out
+We can use our directory synonyms here.
+* `~` = user's home folder
+* `/` = system root
+* `..` = one folder above the current directory
+
 
 `cd a_folder`
 
+
 ![A9](https://i.imgur.com/FwVZkpm.png)
 
-These can be used in paths as well. The following three commands all do the same thing, in this instance:
+These synonyms  can be used in paths as well. In this case, the  following three commands all do the same thing:
 
 * `cd /root/b_folder`
 * `cd ~/b_folder`
 * `cd ../b_folder`
 	
 
-`/root` and `~ `are the same when the current user is root, since `~ `refers to the current user's home folder.
+`/root` and `~ `are the same when the current user is root, since `~`refers to the current user's home folder.
 	
 `..` refers to a relative location, not a full path. It will only jump out one directory.
 If we had gone one level deeper, into a subdirectory of b_folder, `..` would refer to `b_folder`, not `/root`.
@@ -310,126 +330,188 @@ If we had gone one level deeper, into a subdirectory of b_folder, `..` would ref
 	
 __echo__ - this command is used to send text to the terminal output. This string will always end with a newline. 
 
+
 __cat__ - "concatenate" - used to read files
+
 
 We will use two these commands to demonstrate some important things about input and output.
 
-`echo "hi"` - will send the word "hi" to the terminal output.
-`echo "hi" > hi.txt` - will save the word "hi" to a file called hi.txt
+* `echo "hi"` - will send the word "hi" to the terminal output.
+* `echo "hi" > hi.txt` - will save the word "hi" to a file called `hi.txt`
 	
-`cat hi.txt` - will display the contents of hi.txt to the terminal output.
+* `cat hi.txt` - will display the contents of hi.txt to the terminal output.
 
-`echo "hello" > hi.txt `- will OVERWRITE hi.txt to contain "hello"
-`echo "hello" >> hi.txt` - will ADD "hello" to the end of hi.txt without disturbing the older lines.
+* `echo "hello" > hi.txt `- will OVERWRITE `hi.txt` to contain "hello"
+* `echo "hello" >> hi.txt` - will ADD "hello" to the end of `hi.txt` without disturbing the older lines.
 
-`cat >> file.txt` - will add each line you type in to a file called file.txt
-	*to exit this, press `CTRL-D`*
+*`cat >> file.txt` - will add each line you type in to a file called file.txt
 
-`cat file.txt hi.txt`  - will display both files sandwiched together to the terminal outputs
-`cat file.txt hi.txt > bigfile.txt` - will write the combination of file.txt and hi.txt to a new file called bigfile.txt
+*to exit this, press `CTRL-D`*
+
+* `cat file.txt hi.txt`  - will display both files sandwiched together to the terminal outputs
+* `cat file.txt hi.txt > bigfile.txt` - will write the contents of  `file.txt` with the contents of  `hi.txt` tacked on to the end  a new file called `bigfile.txt`
+
 
 ![A10](https://i.imgur.com/5pHnZQI.png)	
 
 
 __rm__ - "remove" can be used to remove files and folders.
 
-This __CANNOT be undone easily__. The file is not moved to a trash folder, it is gone.
+
+ __rm cannot be undone easily__. 
+
+
+The file is not moved to a trash folder, it is gone.
 It can be retrieved for a short while using forensics tools, but once you delete something - or edit it, for that matter - it pretty much stays that way.
 	
 	
-`rm FILE_NAME` - will delete a file
-`rm -r DIRECTORY_NAME` - can be used delete a directory and all its contents - recursively.
+* `rm FILE_NAME` - will delete a file
+* `rm -r DIRECTORY_NAME` - can an be used delete a directory and all its contents, including all the contents of subdirectories within subdirectories. This is known deleting things *recursively.*
+
 
 
 ![A11](https://i.imgur.com/9AIhzDI.png)
 
 
-`rm *`  - will delete ALL files in the current directory, but not directories or the files within them.
-`rm -r *` - will delete ALL files and subdirectories in the current directory. This includes the contents of the subdirectories.
+* `rm *`  - deletes ALL files in the current directory, but not directories or the files within them.
+* `rm -r *` - deletes ALL files and subdirectories in the current directory, recursively.
 
 	
 
-The `*` operator is not unique to rm. It can be used as a wildcard to "fill in the blanks" in many contexts. 
-Here we can use it read files with something common in their name. See the example pictured below.
+The `*` operator is not unique to `rm` It can be used as a wildcard to "fill in the blanks" in many contexts. 
+Here we can use it read files with something common in their name.
+See the example pictured below.
+
 
 ![A12](https://i.imgur.com/Vx98By0.png)
 
 
-__less__ - this command is used to read a file bit by bit, instead of reading the whole thing and skipping right ot the end. To properly demonstrate this, we will need a long file. Luckily, Kali comes with wordlists pre-installed for password recovery and other bruteforcing methods.
 
-`less /usr/share/wordlists/dirb/common.txt` - will allow us to scroll through the wordlist a block at a time. 
-Use the arrow keys or scroll wheel to move around the file, and press the Q key to exit. 
+__less__ - this command is used to read a file bit by bit, instead of reading the whole thing and skipping right to the end.
+
+To properly demonstrate this, we will need a long file. 
+
+Luckily, Kali comes with wordlists pre-installed for password recovery and other bruteforcing methods. 
+
+
+`less /usr/share/wordlists/dirb/common.txt` 
+
+
+This command  allows us to scroll through the wordlist a block at a time. 
+Use the arrow keys or scroll wheel to move around the file, and press the *Q* key to exit.
+ 
+ 
+__Use the Q key to exit from `less`__
+
 
 ![A13 Less](https://i.imgur.com/cgBCKhC.png)
 
 
-`less` can be applied to any output using the pipe character, `|`
-If you were to try and read the permissions of ALL the files in the system root, it wouldn't fit in a single terminal window. You can use `less` in order to scroll through them all
-
-`ls -la / | less`
-
-Pipe `|` is used to... pipe any output in the terminal output to a location of your choosing. 
-This is very useful when combined with the tee command, which will allow the output to be displayed and logged simultaneously.
-Many programs have a built in logging option, but a quick (and sometimes inferior) logging option is to use `COMMAND | tee log.txt`-
-which will log and display to the terminal output.
-Note that in some instances we could use `COMMAND >> log_file.txt` but that will not show us the terminal output in real time, just save it to the log file.
+`less` can be applied to any output using the  `|` character, called "pipe."
 
 
-__id__ - this simple command tells us about the current user. This might not seem all that useful now, but when we get into the CTF it can be very useful for gathering information.
+If you ran `ls -la`  in the system root, the output wouldn't fit in a single terminal window. 
+You can use less in order to scroll through them all.
+
+* `ls -la / | less`
+
+Pipe `|` is used to... pipe any output in the terminal output to a location of your choosing. This is very useful when combined with the tee command, which will allow the output to be displayed and logged simultaneously.
+
+
+Many programs have a built in logging option, but a quick (and sometimes inferior) logging option is to use 
+
+
+`COMMAND | tee log.txt`
+
+
+which pipes the output to a log.txt file while displaying it to the terminal output. 
+
+Note that in some instances we could use 
+
+
+`COMMAND >> log_file.txt`
+
+
+but that will not show us the terminal output in real time, just save it to the log file.
+
+
+
+__id__ - this simple command tells us about the current user.
+
+This might not seem all that useful now, but when we get into the CTF it can be very useful for gathering information.
+
+
 
 
 __;__ and __&&__ - place these after a command to run mulitple commands in a series.
-`&&` - run the command after the &&'s only if the command before doesn't have an error.
-`;` - run the command after the ; no matter what.
+
+
+* `&&` - run the command after the &&'s only if the command before doesn't have an error.
+* `;` - run the command after the semicolon -  no matter what.
+
+
 Either method can be used with any number of commands in a row.
 	
-`pwd; ls` - will output our current directory and its contents.
+* `pwd; ls` - will output our current directory and its contents.
 	
-`cd c_folder && ls` - will only run ls if we successfully enter c_folder. If c_folder does not exist, ls will not run.
+* `cd c_folder && ls` - will only run `ls` if we successfully enter `c_folder`. If `c_folder` does not exist, `ls` will not run.
 
 ![A14](https://i.imgur.com/Vx98By0.png)
 
 #### Essential Terminal Shortcuts:
 
-* TAB - used to auto-complete a command. It can guess what file/directory you will type if you give it the first few letters
+
+* __Tab Key__ - used to auto-complete a command. It can guess what file/directory you will type if you give it the first few letters
 Try typing `ls /ro` and then press TAB instead of enter, it will autocomplete to `ls /root` - then press enter.
 
-* Up and Down Arrow Keys - the terminal "remembers" the commands you type in. If you press the up arrow, it will fill in the last command you entered in. Keep pressing it to go back further in your history. If you go past the command you wanted to use, use the down key to go the other way.
+* __Up and Down Arrow Keys__ - the terminal "remembers" the commands you type in. If you press the up arrow, it will fill in the last command you entered in. Keep pressing it to go back further in your history. If you go past the command you wanted to use, use the down key to go the other way.
+
 
 
 
 There are way too many commands to go over here, and they can be combined and twisted and modified to do all kinds of things. You won't need them all for our CTF, but you WILL need to have a basic understanding of:
+
+
 * The Basics of the file system
 * The basics of users and permissions
 * `ls`, `cd`, `cat`, `|`, `&&`
 
 We will be running most of our penetration testing commands from the terminal itself, but they can be explained in context.
 
-#### End of the Intro to Linux Section
 
-### Return to Setup: Updating the Kali Box
+## 5. Update the Kali VM 
 
 If your host machine has internet access, Kali should be connected to the internet as well. You can check this by pinging a website.
+
 `ping google.com`
 
+
 ![A15](https://preview.ibb.co/jqBqnR/A15_ping_google.png)
+
 
 If you are not connected to the internet, you may need to do some troubleshooting on your own.
 This problem can happen from time to time and [this page](https://docs.kali.org/installation/troubleshooting-wireless-driver-issues) is a good place to start looking how to fix it.
 
 
+As a Debian-based Distro, Kali uses the `apt` package manager. Instead of having to download installers and update individual applications and features manually, we can use apt to get our system up to speed with just one line.
 
-As a Debian-based Distro, Kali uses the apt package manager. Instead of having to download installers and update individual applications and features manually, we can use apt to get our system up to speed with just one line.
 
 `apt-get update && apt-get upgrade`
+
 
 This will start a long updating process that can take half an hour or so. 
 During that time, it may ask you to confirm some changes. Go with yes, or the default option for each one.
 Specific parameters can be changed later, and we will not need to alter these to do our CTF.
 
+
 The "update" portion checks the trusted Kali software repositories for the newest versions, and the "upgrade" portion upgrades the parts of your system that needs to be updated.
 
-You might be wondering - __can I skip this step?__ The answer to that question is "__You shouldn't__."
+
+
+You might be wondering - __can I skip this step?__ 
+
+The answer to that question is "__You shouldn't__."
+
 
 When dealing with cybersecurity, it pays to be up to date. 
 In 2017, a patch for the bug that allowed the WannaCry ransomware to spread was released WELL before the outbreak of the malware.
@@ -437,24 +519,29 @@ Updated machines were simply not vulnerable to the exploit needed for WannaCry t
 Software has bugs, and most found bugs are patched away.
 There is no magic armor to protect you from all threats, and sometimes patches themselves are not perfect, but keeping your systems up to date may be THE most effective step you can take to protect your systems.
 
+
 __"But why update my ATTACKING VM?"__
+
+
 From a practical perspective, any problems that may arise while following along with the CTF instructions in part 2 may be related to software versions.
 I will update, and by updating, you ensure that we are on the same page. 
 
 
-THIS STEP MAY CAUSE YOUR HOST SYSTEM'S ANTIVIRUS TO NOTIFY YOU OR BLOCK INSTALLATION 
-Funnily enough, antivirus may detect that someone (you) are installing software that can be use maliciously on your computer!
-Good job, I guess?
-Look up how to whitelist the files/process in your AV's documentation.
+### Updating the Kali VM May Annoy Your Host System’s Antivirus: 
+
+ Funnily enough, antivirus may detect that someone (you) are installing software that can be used maliciously on your computer! Good job, I guess? Look up how to whitelist the files/process in your AV's documentation.
 
 
-### Setting Up the Bulldog CTF VM
+## 6. Setting Up the Bulldog CTF VM
 
-We can set up the Bulldog OVA in the same manner that we set up the Kali OVA. 
-If you double click the OVA file, it will likely open a second instance of VirtualBox if you still have it open from Kali.
-Just go to File -> Import Appliance, and select the Bulldog OVA.
+We can set up the Bulldog OVA in the same manner that we set up the Kali OVA. If you double click the OVA file, it will likely open a second instance of VirtualBox if you still have it open from Kali.
 
-This OVA comes with default settings practically ready to go, so just load it up and press "Import" if you are happy with where it will be stored on your machine.
+
+Just go to __File -> Import Appliance__, and select the Bulldog OVA.
+
+
+This OVA comes with default settings practically ready to go, so just load it up and press __"Import"__ if you are happy with where it will be stored on your machine.
+
 
 *__...BUT DON'T GO BOOTING BULLDOG JUST YET!__*
 
@@ -463,22 +550,22 @@ This OVA comes with default settings practically ready to go, so just load it up
 
 
 
-In order to isolate/connect the VM's to each other, you will need to change their virtual network adapters to be connected to the host-only network. 
-This disconnects the VM's from the internet, and makes it so they can only "see" the host machine and each other.
-If we wanted to, we could keep the Kali machine connected to the internet, but for uniformity's sake, I chose to make it host-only as well.
+In order to isolate/connect the VM's to each other, you will need to change their virtual network adapters to be connected to the host-only network. This disconnects the VM's from the internet, and makes it so they can only "see" the host machine and each other. 
+If we wanted to, we could keep the Kali machine connected to the internet, but for the  sake of uniformity , I chose to make it host-only as well.
 
-Click on the yellow "Settings" gear with one of the boxes selected.
-Then select the "Network" section, and in the "Attached To:" dropdown menu, select "Host-only Adapter"
+
+Click on the yellow "Settings" gear with one of the boxes selected. Then select the "Network" section, and in the "Attached To:" dropdown menu, select "Host-only Adapter"
+
+
+
 
 
 ![A17](https://image.ibb.co/cDyQMm/A17_host_only.png)
 
+
+
 Do this for both boxes, and we will be ready to go!
+If you boot up Bulldog, you will not be able to log in. That is because you have to HACK in. Most CTFs are not designed for you to log in normally, we are going to have to create ourselves an alternative method of entry.
 
-
-If you boot up Bulldog, you will not be able to log in. That is because you have to HACK in. 
-Most CTFs are not designed for you to log in normally, we are going to have to create ourselves an alternative method of entry.
-
-### You are all ready to go!
 
 Stay tuned for part 2 coming next week.
