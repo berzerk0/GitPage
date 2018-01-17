@@ -1,27 +1,45 @@
 # A Few WebApp File Upload Vulnerabilities Explained - CTF Writeup: Zorz
 ## 20 November 2017
 
-This is "CTF" is more of a vulnerability sandbox than a true Capture the Flag challenge. However, it is a great way to explore some WebApp Upload vulnerabilities. 
+
+This is "CTF" is more of a vulnerability sandbox than a true Capture the Flag challenge.
+However, it is a great way to explore some WebApp Upload vulnerabilities. 
 
 The VulnHub description says:
-*This machine will probably test your web app skills once again. There are 3 different pages that should be focused on (you will see!) If you solve one or all three pages, please send me an email and quick write up on how you solved each challenge. Your goal is to successfully upload a webshell or malicious file to the server. If you can execute system commands on this box, thats good enough!!! I hope you have fun! admin@top-hat-sec.com*
+*This machine will probably test your web app skills once again.
+There are 3 different pages that should be focused on (you will see!)
+If you solve one or all three pages, please send me an email and quick write up on how you solved each challenge.
+Your goal is to successfully upload a webshell or malicious file to the server.
+If you can execute system commands on this box, thats good enough!!!
+I hope you have fun! admin@top-hat-sec.com*
+
 
 ![Logo](https://i.imgur.com/IAAnDbY.png)
 
+
 ## Pre-Intro - Setting Up the VM using VirtualBox
 
-As a VulnHub box, you will need to run it as a virtual machine on your own system. There are many ways to do this, but in my opinion, VirtualBox is the easiest. I run mine using VBox on a Kali host machine using a Host-Only Network.
+
+As a VulnHub box, you will need to run it as a virtual machine on your own system.
+There are many ways to do this, but in my opinion, VirtualBox is the easiest.
+I run mine using VBox on a Kali host machine using a Host-Only Network.
+
 
 You can download it at [https://www.vulnhub.com/entry/tophatsec-zorz,117/]([https://www.vulnhub.com/entry/tophatsec-zorz,117/])
+
+
 Once you have virtual box installed, you can simply use the "Import Appliance" feature to import the OVA file.
 
-It is safest to run your Vulnerable VMs on a Host-Only network, which is not connected to the internet. You can find [a guide to setting up your Host-Only network here][http://condor.depaul.edu/glancast/443class/docs/vbox_host-only_setup.html]
+It is safest to run your Vulnerable VMs on a Host-Only network, which is not connected to the internet. 
+You can find [a guide to setting up your Host-Only network here][http://condor.depaul.edu/glancast/443class/docs/vbox_host-only_setup.html]
+
 
 Once your Host-Only Network is set up, set up the VM to connect to the Host Only Network.
 
 ![A0](https://i.imgur.com/YFdKlgT.png)
 
 Then you are ready to begin!
+
 
 ## Initial Scans
 
@@ -47,9 +65,14 @@ Our webserver is running on the standard port, so we can go ahead and view it in
 ## Level One
 
 
-Let's see what we can find out by uploading an image. For this box, I found a creative commons image and made it nice and small. It will be advantageous to use the same image as is shown here, but you can use any image you like. Here is our [Test Burrito!](https://i.imgur.com/29eCDkq.jpg)
+Let's see what we can find out by uploading an image. For this box, I found a creative commons image and made it nice and small.
+It will be advantageous to use the same image as is shown here, but you can use any image you like.
+Here is our [Test Burrito!](https://i.imgur.com/29eCDkq.jpg)
+
+
 
 ![Test Burrito](https://i.imgur.com/29eCDkq.jpg)
+
 
 If you want to change the file type, just change the URL’s extension to .gif or .png to download other versions.
 Save it with 
@@ -69,26 +92,39 @@ We get this message:
 ![A6-recognized](https://i.imgur.com/BvPau4Q.png)
 
 
-It seems to have worked, but we don’t quite know where the file ended up. If we are going to run any of our payloads, we will need to find that out.
+It seems to have worked, but we don’t quite know where the file ended up. 
+If we are going to run any of our payloads, we will need to find that out.
 
 If we try the /test_burrito.png url, we get a 404.
 
 
-Let’s try a directory bruteforcer to see if we can find out where the image uploads. For our wordlist, we’ll use dirbuster’s small directory list, which is found by default on Kali. It can be found at `/usr/share/wordlists/dirbuster/directory-list-2.3-small.txt`, but you can also find it at [https://raw.githubusercontent.com/berzerk0/pastehost/master/directory-list-2.3-small.txt](https://raw.githubusercontent.com/berzerk0/pastehost/master/directory-list-2.3-small.txt). Let’s make a copy into our working ‘a_pentest’ directory. 
+Let’s try a directory bruteforcer to see if we can find out where the image uploads.
+For our wordlist, we’ll use dirbuster’s small directory list, which is found by default on Kali. 
+It can be found at `/usr/share/wordlists/dirbuster/directory-list-2.3-small.txt`, but you can also find it at 
+
+[https://raw.githubusercontent.com/berzerk0/pastehost/master/directory-list-2.3-small.txt](https://raw.githubusercontent.com/berzerk0/pastehost/master/directory-list-2.3-small.txt).
+
+Let’s make a copy into our working ‘a_pentest’ directory. 
 
 `cp /usr/share/wordlists/dirbuster/directory-list-2.3-small.txt dir_list.txt`
 
 or download it from the above link.
 
 
-My favorite directory bruteforcer is dirsearch. It runs in Python 3, meaning you will not have any trouble getting it to run on whatever operating system you are using. On my Kali system, I have mine installed to /opt/Web_Tools, but you can download it to and run it from your current directory as well.
+My favorite directory bruteforcer is dirsearch.
+It runs in Python 3, meaning you will not have any trouble getting it to run on whatever operating system you are using.
+On my Kali system, I have mine installed to /opt/Web_Tools, but you can download it to and run it from your current directory as well.
+
 
 `git clone https://github.com/maurosoria/dirsearch` will clone the repository to your current directory. 
+
 
 `git clone https://github.com/maurosoria/dirsearch/opt/dirsearch` will clone it to a folder called dirsearch in your /opt/ directory.
 
 
-Dirsearch requires some extensions to test for, but we aren’t looking for any of those right now. The last page we saw used the .php extension, so we will use .php. Make sure you run the command in the same directory as your copy of the wordlist, or you will have to specify the full path there as well.
+Dirsearch requires some extensions to test for, but we aren’t looking for any of those right now.
+The last page we saw used the .php extension, so we will use .php.
+Make sure you run the command in the same directory as your copy of the wordlist, or you will have to specify the full path there as well.
 
 
 `python3 /opt/Web_Tools/dirsearch/dirsearch.py -u http://192.168.56.102/ -e php -w dir_list.txt`
@@ -108,11 +144,18 @@ I don’t see test-burrito.png here. Hmm, this must not be the right directory. 
 ![A10 - uploads1](https://i.imgur.com/RJ1ogtp.png)
 
 
-There we go! Okay, we know how to upload files and confirm they have been uploaded. If we click on the link to the image, we can view it all by itself in the browser. Perfect, this means if we can figure out how to upload code, we can run it directly.
+There we go! 
+Okay, we know how to upload files and confirm they have been uploaded. 
+If we click on the link to the image, we can view it all by itself in the browser.
+Perfect, this means if we can figure out how to upload code, we can run it directly.
 
-So we know we can upload images, but just because our website says “Image Uploader” doesn’t mean we can ONLY upload images. Let’s try some arbitrary text file, and see if that will work for us.
 
-Create a simple textfile and try to upload it the same way. I am going to create mine using… 
+So we know we can upload images, but just because our website says “Image Uploader” doesn’t mean we can ONLY upload images.
+Let’s try some arbitrary text file, and see if that will work for us.
+
+
+Create a simple textfile and try to upload it the same way. 
+I am going to create mine using… 
 
 `echo 'An image is worth 1000 words.' > proverb.txt`
 
@@ -131,7 +174,11 @@ It worked! Now let’s pay it a visit at /uploads1/proverb.txt
 
 
 
-Success! It doesn’t look like this site is checking our files very closely. Now that we have proven we can upload text files, let’s try to upload a payload script and start the attack. Since we know we are running php, we can use a php "microshell" which allows us to simply add commands we want to run on the webserver at the end of a URL.  I got this microshell script from the Red Team Field Manual by Ben Clark.
+Success!
+It doesn’t look like this site is checking our files very closely.
+Now that we have proven we can upload text files, let’s try to upload a payload script and start the attack.
+Since we know we are running php, we can use a php "microshell" which allows us to simply add commands we want to run on the webserver at the end of a URL.
+I got this microshell script from the Red Team Field Manual by Ben Clark.
 
 
 `<?php passthru($_GET["cmd"]); ?>`
@@ -141,7 +188,10 @@ I save mine to a text file using echo.
 
 `echo '<?php passthru($_GET["cmd"]); ?>' > php-microshell.php`
 
-You can copy and paste if you like, but make sure that your browser doesn’t change the quotation mark characters out of plaintext! If you want to be sure, just delete them and add them yourself. If you want to be REALLY sure, you can (download the shell from me.)[https://raw.githubusercontent.com/berzerk0/pastehost/master/php-microshell.php]
+You can copy and paste if you like, but make sure that your browser doesn’t change the quotation mark characters out of plaintext!
+If you want to be sure, just delete them and add them yourself. 
+
+If you want to be REALLY sure, you can (download the shell from me.)[https://raw.githubusercontent.com/berzerk0/pastehost/master/php-microshell.php]
 
 
 If this shell works the way we hoped, we can just append "?cmd=commands" (without quotation marks) to the end of our URL. 
