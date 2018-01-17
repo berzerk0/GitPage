@@ -15,7 +15,7 @@ These aren't the only CTF's I've ever done, of course.
 * [ZorZ on VulnHub](CTFWRITE-ZorZVulnhub.md) - 20 November 2017
 * [Europa on HackTheBox](CTFWRITE-Europa-HTB.md) - 2 December 2017
 * [Blocky on HackTheBox](CTFWRITE-Blocky-HTB.md) - 9 December 2017
-* [Blue on HackTheBox](CTFWRITE-Blue-HTB.md)
+* [Blue on HackTheBox](CTFWRITE-Blue-HTB.md) - 12 January 2018
 
 
 
