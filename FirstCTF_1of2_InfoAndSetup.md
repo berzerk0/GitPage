@@ -1,6 +1,7 @@
 # From "What are CTF's?" to Your First Owned System
 
-## 15 January 2018
+
+## 17 January 2018
 
 ![A0 Logo](https://i.imgur.com/kalt2bK.png)
 
@@ -17,11 +18,8 @@ The "flag" might contain a unique string of characters that prove the attacker h
 __Short Legal Caveat:__
 
 *If you want to learn to hack or how to become a penetration tester - use CTFs, not real people's machines.*
-
 *CTFs are designed for you to experiment and play with.*
-
 *It is very difficult to cause any real world harm if you use them properly.*
-
 *Getting a few thrills breaking into real people's systems is not the way to learn.*
 
 
@@ -29,7 +27,7 @@ ONLY PRACTICE TECHNIQUES LEARNED HERE ON SYSTEMS YOU HAVE
 
 *__E X P L I C I T__*
 
-__PERMISSION TO HACK.
+PERMISSION TO HACK
 
 
 A locksmith and a burglar may use the same tools, it is only *HOW* they are used that separates criminals from respected professionals.
@@ -68,15 +66,19 @@ Our first step is to get Kali up and running.
 
 
 
+
 ## 3. Downloading the Tools and Materials
 
 While you may already have Virtualization software on your computer, the author of the CTF specifies that this box was designed to be run with VirtualBox. As VBox is my personal choice, I have not troubleshooted getting it running using VMWare or any other software.
 The author has also expressed problems with VMware, so it may be easiest to simply run VBox.
 
 
+
 Download the Appropriate Virtual Box Files for your OS Here:
 
 [__https://www.virtualbox.org/wiki/Downloads__](https://www.virtualbox.org/wiki/Downloads)
+
+
 
 
 Virtualbox also comes with an "Extension Pack" that provides additional features:
@@ -86,19 +88,22 @@ Virtualbox also comes with an "Extension Pack" that provides additional features
 
 
 We are going to run the 64 bit version of Kali. 
+
 A lighter, 32-bit version, is available, and may work for our purposes.
 However, I have not tested it for this purpose.
 
 
 
 Download the Kali OVA file - this can be done directly or via torrent.
+
 Make sure you download the VirtualBox version of the image, not the VMWare version.
 
 [__https://www.offensive-security.com/kali-linux-vmware-virtualbox-image-download/__](https://www.offensive-security.com/kali-linux-vmware-virtualbox-image-download/)
 
 ![AA](https://i.imgur.com/NOdyFBG.png)
 
-Download the file from the above link, Torrent is likely fastest.
+Download the file from the above link. Torrent is likely fastest.
+
 Once VirtualBox is installed and the torrent is complete, run the downloaded .OVA file
 
 
@@ -226,22 +231,19 @@ Some commands are an exception to this rule, but closing the terminal window whe
 
 
 
-__pwd__ - outputs the current location.
+`pwd` - outputs the current location.
 
 When we open the terminal application after login, we find ourselves in the user root.
-
-
-`pwd` confirms this
 
 
 
 ![A5](https://i.imgur.com/zOxN1ds.png)
 
 
-__clear__ - clears the contents of the terminal
+`clear` - clears the contents of the terminal
 
 
-Run `clear` between commands to get a clean slate.
+Run it between commands to get a clean slate.
 
 
 
@@ -259,7 +261,7 @@ and read the documentation
 
 
 
-__ls__ - list the contents of a directory
+`ls` - lists the contents of a directory
 
 
 `ls -a` shows ALL  directory contents, included those normally hidden
@@ -284,8 +286,7 @@ There are many more flags to the ls command, all of which can be combined.
 
 
 
-__mkdir__ - "make directory" does exactly that, it makes a new directory. 
-
+`mkdir` - "make directory" 
 
 Just specify the name of the directory.
 
@@ -299,7 +300,7 @@ Let's make another, called `b_folder` as well.
 
 
 
-__cd__- "change directory" will take you to the directory you point it to.
+`cd` - "change directory" takes you to the directory you point it to.
 
 
 We can use our directory synonyms here.
@@ -328,10 +329,10 @@ If we had gone one level deeper, into a subdirectory of b_folder, `..` would ref
 
 
 	
-__echo__ - this command is used to send text to the terminal output. This string will always end with a newline. 
+`echo` - this command is used to send text to the terminal output. This string will always end with a newline. 
 
 
-__cat__ - "concatenate" - used to read files
+`cat` - "concatenate" - used to read files
 
 
 We will use two these commands to demonstrate some important things about input and output.
@@ -341,12 +342,13 @@ We will use two these commands to demonstrate some important things about input 
 	
 * `cat hi.txt` - will display the contents of hi.txt to the terminal output.
 
-* `echo "hello" > hi.txt `- will OVERWRITE `hi.txt` to contain "hello"
+* `echo "hello" > hi.txt `- will OVERWRITE `hi.txt` to contain *"hello"*
 * `echo "hello" >> hi.txt` - will ADD "hello" to the end of `hi.txt` without disturbing the older lines.
 
-*`cat >> file.txt` - will add each line you type in to a file called file.txt
+* `cat >> file.txt` - will add each line you type in to a file called file.txt
 
 *to exit this, press `CTRL-D`*
+
 
 * `cat file.txt hi.txt`  - will display both files sandwiched together to the terminal outputs
 * `cat file.txt hi.txt > bigfile.txt` - will write the contents of  `file.txt` with the contents of  `hi.txt` tacked on to the end  a new file called `bigfile.txt`
@@ -355,10 +357,10 @@ We will use two these commands to demonstrate some important things about input 
 ![A10](https://i.imgur.com/5pHnZQI.png)	
 
 
-__rm__ - "remove" can be used to remove files and folders.
+`rm` - "remove" - used to delete files and folders.
 
 
- __rm cannot be undone easily__. 
+ __`rm` cannot be undone easily. Be careful__ 
 
 
 The file is not moved to a trash folder, it is gone.
@@ -387,7 +389,7 @@ See the example pictured below.
 
 
 
-__less__ - this command is used to read a file bit by bit, instead of reading the whole thing and skipping right to the end.
+`less` - this command is used to read a file bit by bit, instead of reading the whole thing and skipping right to the end.
 
 To properly demonstrate this, we will need a long file. 
 
@@ -436,14 +438,14 @@ but that will not show us the terminal output in real time, just save it to the 
 
 
 
-__id__ - this simple command tells us about the current user.
+`id` - this simple command tells us about the current user.
 
 This might not seem all that useful now, but when we get into the CTF it can be very useful for gathering information.
 
 
 
 
-__;__ and __&&__ - place these after a command to run mulitple commands in a series.
+`&&` and `;` - place these after a command to run mulitple commands in a series.
 
 
 * `&&` - run the command after the &&'s only if the command before doesn't have an error.
@@ -458,7 +460,7 @@ Either method can be used with any number of commands in a row.
 
 ![A14](https://i.imgur.com/Vx98By0.png)
 
-#### Essential Terminal Shortcuts:
+### Essential Terminal Shortcuts:
 
 
 * __Tab Key__ - used to auto-complete a command. It can guess what file/directory you will type if you give it the first few letters
@@ -477,6 +479,8 @@ There are way too many commands to go over here, and they can be combined and tw
 * `ls`, `cd`, `cat`, `|`, `&&`
 
 We will be running most of our penetration testing commands from the terminal itself, but they can be explained in context.
+
+
 
 
 ## 5. Update the Kali VM 
@@ -508,9 +512,9 @@ The "update" portion checks the trusted Kali software repositories for the newes
 
 
 
-You might be wondering - __can I skip this step?__ 
+*You might be wondering - __can I skip this step?__ *
 
-The answer to that question is "__You shouldn't__."
+*The answer to that question is "__You shouldn't__."*
 
 
 When dealing with cybersecurity, it pays to be up to date. 
@@ -530,6 +534,8 @@ I will update, and by updating, you ensure that we are on the same page.
 ### Updating the Kali VM May Annoy Your Host System’s Antivirus: 
 
  Funnily enough, antivirus may detect that someone (you) are installing software that can be used maliciously on your computer! Good job, I guess? Look up how to whitelist the files/process in your AV's documentation.
+
+
 
 
 ## 6. Setting Up the Bulldog CTF VM
@@ -568,4 +574,5 @@ Do this for both boxes, and we will be ready to go!
 If you boot up Bulldog, you will not be able to log in. That is because you have to HACK in. Most CTFs are not designed for you to log in normally, we are going to have to create ourselves an alternative method of entry.
 
 
-Stay tuned for part 2 coming next week.
+
+## You are ready to go! Stay tuned for Part 2 when we conquer Bulldog!
