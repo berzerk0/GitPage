@@ -8,7 +8,8 @@
 
 ## 17 January 2018
  
-<br> testbr 
+<br>
+<br>
 
 ## 1. Background - What are we talking about?
 
@@ -21,10 +22,10 @@ The "flag" might contain a unique string of characters that prove the attacker h
 
 __Short Legal Caveat:__
 
-*If you want to learn to hack or how to become a penetration tester - use CTFs, not real people's machines.*
-*CTFs are designed for you to experiment and play with.*
-*It is very difficult to cause any real world harm if you use them properly.*
-*Getting a few thrills breaking into real people's systems is not the way to learn.*
+*If you want to learn to hack or how to become a penetration tester - use CTFs, not real people's machines.*<br>
+*CTFs are designed for you to experiment and play with.*<br>
+*It is very difficult to cause any real world harm if you use them properly.*<br>
+*Getting a few thrills breaking into real people's systems is not the way to learn.*<br>
 
 
 ONLY PRACTICE TECHNIQUES LEARNED HERE ON SYSTEMS YOU HAVE
@@ -36,7 +37,8 @@ PERMISSION TO HACK
 
 A locksmith and a burglar may use the same tools, it is only *HOW* they are used that separates criminals from respected professionals.
 
-
+<br>
+<br>
 
 ## 2. Description - What is this document?
 
@@ -68,35 +70,35 @@ The virtualization software can run a multitude of operating systems. These OS's
 
 Our first step is to get Kali up and running.
 
-
-
+<br>
+<br>
 
 ## 3. Downloading the Tools and Materials
 
 While you may already have Virtualization software on your computer, the author of the CTF specifies that this box was designed to be run with VirtualBox. As VBox is my personal choice, I have not troubleshooted getting it running using VMWare or any other software.
 The author has also expressed problems with VMware, so it may be easiest to simply run VBox.
 
-
+<br>
 
 Download the Appropriate Virtual Box Files for your OS Here:
 
 [__https://www.virtualbox.org/wiki/Downloads__](https://www.virtualbox.org/wiki/Downloads)
 
-
-
+<br>
+<br>
 
 Virtualbox also comes with an "Extension Pack" that provides additional features:
 
 [__http://download.virtualbox.org/virtualbox/5.2.4/Oracle_VM_VirtualBox_Extension_Pack-5.2.4-119785.vbox-extpack__](http://download.virtualbox.org/virtualbox/5.2.4/Oracle_VM_VirtualBox_Extension_Pack-5.2.4-119785.vbox-extpack)
 
-
+<br>
 
 We are going to run the 64 bit version of Kali. 
 
 A lighter, 32-bit version, is available, and may work for our purposes.
 However, I have not tested it for this purpose.
 
-
+<br>
 
 Download the Kali OVA file - this can be done directly or via torrent.
 
@@ -110,17 +112,17 @@ Download the file from the above link. Torrent is likely fastest.
 
 Once VirtualBox is installed and the torrent is complete, run the downloaded .OVA file
 
-
+<br>
 
 Once VirtualBox is installed and the torrent is complete, run the downloaded .OVA file
 * Change the name to something like __"Kali"__
 * Set "Guest OS Type" to __"Linux -> Debian (64-bit)"__
 
-
+<br>
 
 ![A1](https://i.imgur.com/SctAvVb.png)
 
-
+<br>
 
 If you like, you can change the location of the VM's virtual hard disk, as well as the number of CPUs and and RAM it will use.
 Set these parameters to match the specifications of your computer.
@@ -132,12 +134,13 @@ Selecting your newly installed Kali system on the left side of the panel and cli
 
 ![A2](https://i.imgur.com/A1j6vo8.png)
 
-
+<br>
 
 Clicking on the window where the VM is running will bring up a prompt asking if you want to "Capture" your mouse.
 This means that the mouse will be "bounded" within the VM Window and able to interact with it.
 If you want to have your mouse escape the window, press __Right-Control__ (Windows and Linux) and Left-Command on Mac. *Don't forget this!*
 
+<br>
 
 __If your mouse gets "trapped" in the VM,__
 __you can free it with the CTRL Key on the RIGHT SIDE of the keyboard on Windows and Linux__
