@@ -1,3 +1,6 @@
+[Main Page](index.md)
+
+
 # From "What are CTF's?" to Your First Owned System
 
 <br>
@@ -163,6 +166,7 @@ When we actually gain access to a machine we are attempting to conquer, it is no
 <br>
 We will be gaining access via command line "shells". Some of these shells can be quite primitive and can miss many of the features that the terminal on your local machine has by default. Finally, a process that relies on the entry of simple text commands is far easier to document than one that requires blueprints and step by step diagrams.
 <br>
+
 Why use the command line?
 * Scripting
 * Documentation
