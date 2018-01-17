@@ -12,7 +12,7 @@ The VulnHub description says:
 
 As a VulnHub box, you will need to run it as a virtual machine on your own system. There are many ways to do this, but in my opinion, VirtualBox is the easiest. I run mine using VBox on a Kali host machine using a Host-Only Network.
 
-You can download it (here)[https://www.vulnhub.com/entry/tophatsec-zorz,117/] at https://www.vulnhub.com/entry/tophatsec-zorz,117/
+You can download it [https://www.vulnhub.com/entry/tophatsec-zorz,117/](here) at https://www.vulnhub.com/entry/tophatsec-zorz,117/
 Once you have virtual box installed, you can simply use the "Import Appliance" feature to import the OVA file.
 
 It is safest to run your Vulnerable VMs on a Host-Only network, which is not connected to the internet. You can find [a guide to setting up your Host-Only network here][http://condor.depaul.edu/glancast/443class/docs/vbox_host-only_setup.html]
