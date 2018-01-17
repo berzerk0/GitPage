@@ -12,7 +12,7 @@ These aren't the only CTF's I've ever done, of course.
 
 * [Optimum on HackTheBox](CTFWRITE-Optimum-HTB.md) - 30 October 2017
 * [LazySysAdmin on VulnHub](CTFWRITE-LazySysAdminAtVulnHub.md) - 8  November 2017
-* [Bulldog on VulnHub](CTFWRITE-BulldogAtVulnhub.md) - 11 November 2017
+* [Bulldog on VulnHub - Non-Introductory Version](CTFWRITE-BulldogAtVulnhub.md) - 11 November 2017
 * [ZorZ on VulnHub](CTFWRITE-ZorZVulnhub.md) - 20 November 2017
 * [Europa on HackTheBox](CTFWRITE-Europa-HTB.md) - 2 December 2017
 * [Blocky on HackTheBox](CTFWRITE-Blocky-HTB.md) - 9 December 2017
