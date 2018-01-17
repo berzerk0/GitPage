@@ -21,7 +21,7 @@ These aren't the only CTF's I've ever done, of course.
 
 ## From "What is a CTF" to Your First Root Flag
 * [Part One - Setting Up Kali and Bulldog VMs](FirstCTF_1of2_InfoAndSetup.md) - 17 Jan 2018
-* Part Two In Progress
+* Part Two: In Progress
 
 
 
