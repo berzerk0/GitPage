@@ -1,5 +1,11 @@
+[Main Page](index.md)
+
+
 # CTF Writeup: Bulldog on VulnHub
 ## 11 November 2017
+
+
+## There are two versions of this walkthrough: This is the original, NON-INTRODUCTORY VERSION.
 
 
 A fun box from Vulnhub, written by Nick Frichette.
