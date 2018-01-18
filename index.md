@@ -1,3 +1,6 @@
+# berzerk0's GitBlog
+
+
 ## Projects and Tools
 
 * [Probable Wordlists](https://github.com/berzerk0/Probable-Wordlists) - Wordlists sorted by popularity. For password generation and testing
@@ -20,6 +23,9 @@ These aren't the only CTF's I've ever done, of course.
 
 
 ## From "What is a CTF" to Your First Root Flag
+
+A two part series that can take you from having never heard of CTFs or running Linux to capturing your first root flag in a matter of hours. Turbo-start your CTF Skills!
+
 * [Part One - Setting Up Kali and Bulldog VMs](FirstCTF_1of2_InfoAndSetup.md) - 17 Jan 2018
 * Part Two: In Progress
 
