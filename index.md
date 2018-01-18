@@ -27,7 +27,7 @@ These aren't the only CTF's I've ever done, of course.
 
 ## Probable-Wordlist Password Trend Analysis
 
-* [Trend Analysis of the most common passwords - contains immediately actionable password advice](https://github.com/berzerk0/Probable-Wordlists/blob/master/Trend-Analysis.md) 
+* [Trend Analysis of the most common passwords - contains immediately actionable password advice](Trend-Analysis.md) 
 
 
 ## RIGA-38-Hydrant
