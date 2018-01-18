@@ -201,7 +201,7 @@ I save mine to a text file using echo.
 You can copy and paste if you like, but make sure that your browser doesn’t change the quotation mark characters out of plaintext!
 If you want to be sure, just delete them and add them yourself. 
 
-If you want to be REALLY sure, you can (download the shell from me.)[https://raw.githubusercontent.com/berzerk0/pastehost/master/php-microshell.php]
+If you want to be REALLY sure, you can [download the shell from me.](https://raw.githubusercontent.com/berzerk0/pastehost/master/php-microshell.php)
 
 
 If this shell works the way we hoped, we can just append "?cmd=commands" (without quotation marks) to the end of our URL. 
