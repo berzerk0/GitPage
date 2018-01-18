@@ -537,10 +537,12 @@ Boot up Bulldog. After some setup, you should see a screen like this:
 
 
 The IP address should be on the same network as the Kali box - by default this will be `192.168.56.xx`
+
 If you see that, you are all ready to go!
 
 
-If you don't, check your installation steps again.
+
+If you don't see something like the image above, check your installation steps again.
 
 <br>
 <br>
