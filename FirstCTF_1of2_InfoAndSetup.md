@@ -67,7 +67,7 @@ The virtualization software can run a multitude of operating systems. These OS's
 Our first step is to get Kali up and running.
 <br>
 <br>
-## 3. Downloading the Tools and Materials
+## 3. Setting Up Virtualbox and Kali
 
 While you may already have Virtualization software on your computer, the author of the CTF specifies that this box was designed to be run with VirtualBox. As VBox is my personal choice, I have not troubleshooted getting it running using VMWare or any other software.
 The author has also expressed problems with VMware, so it may be easiest to simply run VBox.
