@@ -36,7 +36,7 @@ Once you have virtual box installed, you can simply use the "Import Appliance" f
 
 It is safest to run your Vulnerable VMs on a Host-Only network, which is not connected to the internet. 
 
-You can find [a guide to setting up your Host-Only network here][http://condor.depaul.edu/glancast/443class/docs/vbox_host-only_setup.html]
+You can find [a guide to setting up your Host-Only network here](http://condor.depaul.edu/glancast/443class/docs/vbox_host-only_setup.html)
 
 
 Once your Host-Only Network is set up, set up the VM to connect to the Host Only Network.
