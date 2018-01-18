@@ -5,7 +5,7 @@
 
 <br>
 
-![A0 Logo](https://i.imgur.com/kalt2bK.png)
+![A0 Logo](https://i.imgur.com/cqBVhbI.png)
 
 <br>
 ### 17 January 2018
