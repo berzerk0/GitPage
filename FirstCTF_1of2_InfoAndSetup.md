@@ -544,6 +544,14 @@ If you see that, you are all ready to go!
 
 If you don't see something like the image above, check your installation steps again.
 
+
+#### A Quick Note About Networking VMs - it is often annoying:
+This process will work for Bulldog, but it seems to be set up for Host-Only Networking via Virtualbox.
+
+Not every CTF VM you try will work with this process. Some VM's are meant to be connected via bridged mode, some via NAT.
+
+Others take more naturally to VMWare than VirtualBox. You may need to employ some trial and error for other boxes.
+
 <br>
 <br>
 
