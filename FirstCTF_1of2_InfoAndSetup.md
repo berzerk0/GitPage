@@ -530,9 +530,21 @@ Do this for both boxes, and we will be ready to go!
 If you boot up Bulldog, you will not be able to log in. That is because you have to HACK in. Most CTFs are not designed for you to log in normally, we are going to have to create ourselves an alternative method of entry.
 
 
+Boot up Bulldog. After some setup, you should see a screen like this:
+
+
+![A18](https://i.imgur.com/RXH5c3I.png)
+
+
+The IP address should be on the same network as the Kali box - by default this will be `192.168.56.xx`
+If you see that, you are all ready to go!
+
+
+If you don't, check your installation steps again.
+
 <br>
 <br>
 
-## You are ready to go! 
+ 
 
-Stay tuned for Part 2 when we conquer Bulldog!
+## Stay tuned for Part 2 when we conquer Bulldog!
