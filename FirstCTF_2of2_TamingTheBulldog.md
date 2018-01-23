@@ -66,8 +66,7 @@ The Bulldog VM will run in the background even if we aren't looking at it and we
 Therefore, shortly after boot, we can simply minimize it.
 If you accidentally view the IP, it isn't the end of the world.
 
-
-__To keep the spoilers at a minimum, minimize Bulldog right after boot while the screen looks something like this:__
+### To keep the spoilers at a minimum, minimize Bulldog right after boot while the screen looks something like this:__
 
 ![A2_minimize_here](https://i.imgur.com/AYbLQ70.png)
 
@@ -130,7 +129,7 @@ If we add a line pointing our IP to a name like `bulldog.ctf` we can save oursel
 __IF YOU MAKE A TYPO HERE - YOU CAN MESS UP YOUR SYSTEM!__
 
 If you accidentally use `>` instead of `>>` - your host file will be overwritten!
-This will require manually fixing this file, so don't let it happen!
+This will require a manual fix - don't let it happen.
 
 
 Add the IP address to your hosts file:
@@ -141,7 +140,7 @@ Add the IP address to your hosts file:
 Run `ping bulldog.ctf` to see that your system has associated the address to the hostname `bulldog.ctf`
 
 
-Let's create a working directory for our pentest.
+Let's create a working directory for our pentest, and we'll get started in earnest.
 
 `mkdir bulldog && cd bulldog`
 
@@ -226,7 +225,7 @@ This might prevent a program like `dirb` from getting a complete result.
  
 However, if we know there is a robots.txt, we can simply visit it in the browser and read the entries with our eyeballs.
 
-![A7-robots]((https://i.imgur.com/zz4dkIO.png)
+![A7-robots](https://i.imgur.com/zz4dkIO.png)
 
 The BlackHat German Shepherds have left the mark of a truly skilled hacker - ASCII ART!
 There is nothing else here. It is just a .txt - so there is no source to view.
@@ -275,7 +274,7 @@ Let's take a look at the /dev page source for clues.
 ![A11](https://i.imgur.com/FPEQrTa.png)
 
 
-"It's not like a hacker can do anything with a hash" - sounds like an invitation to me!
+*"It's not like a hacker can do anything with a hash"*  sounds like an invitation to me!
 
 
 ## 3. Making Use of Password Hashes
@@ -302,7 +301,7 @@ It is even its own reverse.
 Since it affects individual letters, it also does not have what is called "avalanche" in cryptography.
 If we alter one small part of a known plaintext, only one small part of the ciphertext will be changed.
 `hello` rot13's to `urryb` while `jello` rot13's to `wrryb`.
-The ciphertext will always be the exact length of the plaintext as well, which reveals plenty of information.
+The ciphertext will always be the exact length of the plaintext as well, which is very revealing.
 
 The md5 hashing algorithm is not simple to understand, but it is openly published.
 We can understand the process it uses, but it is very complicated and not feasible to reverse.
