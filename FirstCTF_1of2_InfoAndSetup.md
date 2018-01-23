@@ -2,6 +2,7 @@
 
 
 # From "What are CTF's?" to Your First Owned System
+## Part 1: Introduction and Setup
 
 <br>
 
