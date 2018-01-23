@@ -2,104 +2,111 @@
 
 
 # From "What are CTF's?" to Your First Owned System
+<br>
 ## Part 2: Taming the Bulldog
 
 <br>
 
-![A0 Logo](https://i.imgur.com/cqBVhbI.png)
+![A0 Logo](https://i.imgur.com/e0IdL1W.jpg)
 
 <br>
 ### 23 January 2018
 
+<br>
 
 ## Before We Start 
 
 
-We've set up our VM's, connected them to each other and are ready to boot.
+We've set up our VM's, connected them to each other and are ready to boot.<br>
 Let's get into "character"
 
-*Bulldog Industries recently had its website defaced and owned by the malicious German Shepherd Hack Team.
-Could this mean there are more vulnerabilities to exploit? Why don't you find out? :)*
+*Bulldog Industries recently had its website defaced and owned by the malicious German Shepherd Hack Team.<br>
+Could this mean there are more vulnerabilities to exploit?<br>
+Why don't you find out? :)*
 
 
-As a white-hat penetration testing team, we have been asked to test the new protections set up after the initial hacking.
+
+As a white-hat penetration testing team, we have been asked to test the new protections set up after the initial hacking.<br>
 This type of internal testing is broken up into to two groups: the Red Team and the Blue Team.
 These choices loosely align with "offense" and "defense" respectively.
-The defensive blue team has set up a system they believe is more secure than what it was before,
+The blue team has set up a system they believe is more secure than what it was before,
 and it is our job as the red team to find out how true that is.
 
 
 
-Our flag-capturing, root-accessing process will go something like this:
+Our flag-capturing, root-accessing process will go something like this:<br>
 (Most of these are not widely used terms)
 
-1.	Ensuring Connection
-2.	Information Gathering - What does the box offer? Where should we look?
-3.	External Observation/Reconnaissance  - Finding Vulnerable points from the outside
-4.	Gaining Low-Privilege Access to the System - Attempting to gain access and pop a  "user" shell
-5.	Internal Observation/Enumeration - finding vulnerable points from the inside
-6.	Privilege Escalation - Gaining root access by via exploit, misconfiguration, or by taking advantage of privileged information insecurely stored.
+1.	__Getting Connected__
+2.	__Information Gathering__ - What does the box offer? Where should we look?
+3.	__External Observation/Reconnaissance__  - Finding Vulnerable points from the outside
+4.	__Gaining Low-Privilege Access to the System__ - Attempting to gain access and pop a  "user" shell
+5.	__Internal Observation/Enumeration__ - finding vulnerable points from the inside
+6.	__Privilege Escalation__ - Gaining root access by via exploit, misconfiguration, or by taking advantage of privileged information insecurely stored.
 
 The above process is NOT up to the standards used by professionals, and is not meant to be scalable.
 It aims to simply demonstrate a general outline of the steps we need to perform in order to get the flag.
-There are many standards for penetration testing, and the [Penetration Testing Execution Standard]( http://www.pentest-standard.org/index.php/Main_Page) is a good resource.
+There are many standards for penetration testing, and the [Penetration Testing Execution Standard]( http://www.pentest-standard.org/index.php/Main_Page) is a great outline.
 
-
+<br>
+<br>
 
 ## 1. Getting Connected
 
 ### Locating the Target
 
-Let's get our toolset warmed up and ready to work - boot up your Kali VM.
+Let's get our toolset warmed up and ready to work - boot up your Kali VM. <br>
 Upon boot, type `ifconfig` and ensure it has been automatically assigned a host-only IP address starting with `192.168.56.xx`
 
 
 ![A1](https://i.imgur.com/6VcSjXM.png)
 
 
-Before we do the same for Bulldog, we want to make sure we don't miss an opportunity to learn something. 
-Bulldog is set up to show us its host-only IP on start up.
-We can look at this if we want to CONFIRM the IP, but why miss the opportunity to learn how to use Kali to identify it?
+Before we do the same for Bulldog, we want to make sure we don't miss an opportunity to learn something.<br>
+Bulldog is set up to show us its host-only IP on startup. <br>
+
+We can look at this if we want to *confirm* the IP, but why miss the opportunity to learn how to use Kali to identify it?
 
 
-The Bulldog VM will run in the background even if we aren't looking at it and we will be interacting with it entirely through Kali.
+The Bulldog VM will run in the background, even if we aren't looking at it. and we will be interacting with it entirely through Kali.
 Therefore, shortly after boot, we can simply minimize it.
 If you accidentally view the IP, it isn't the end of the world.
 
-### To keep the spoilers at a minimum, minimize Bulldog right after boot while the screen looks something like this:__
+### To keep the spoilers at a minimum<br>
+### minimize Bulldog right after boot while the screen looks something like this:
 
 ![A2_minimize_here](https://i.imgur.com/AYbLQ70.png)
 
 
-Return to your Kali VM.
+Return to your Kali VM.<br>
 From this moment on, we will not need to exit it until Bulldog is conquered.
 
-We know a little bit about our target system.
-It is being run through Virtualbox and is connected to a network with addresses containing 192.168.56.xx. 
+We know a little bit about our target system due to our setup process. <br>
+It is being run through Virtualbox and is connected to a network with addresses containing `192.168.56.xx` <br>
 We also know our own system's IP.
 These three pieces of information will allow us to find the IP of the target.
 
 
-Time to meet your first tool: __nmap__
-The __nmap__ network mapper is a fantastic tool for any kind of network interactions.
+Time to meet your first tool: __nmap__ <br>
+<br>
+The `nmap` network mapper is a fantastic tool for any kind of network interactions.
 It can show you information computers on a network may "know" about one another,
 but aren't necessarily obvious to the user.
-Nmap can scan for vulnerabilities, identify software versions and so much more.
+`nmap` can scan for vulnerabilities, identify software versions and much more.
 
-First, we will be using it to sniff out the Bulldog.
+First, we will use it to sniff out the Bulldog.
 
-If you run `man nmap` you can spend some time reading about all the flags and many functions, but for now we just need one: `-sn`
+If you run `man nmap` you can spend some time reading about all the flags and many functions.<br>
+For, now we just need one flag: `-sn`
 
-The `-sn` flag tells nmap to just send a ping to each address in scope.
-It will use your computer to send out calls to each of the addresses, and tell you if any of them respond.
+The `-sn` flag tells nmap to just send a ping to each address in a defined scope.
+It will use your computer to send out pings to each of the addresses, and tell you if any of them respond.
 
-Bulldog is hiding somewhere between 192.168.56.0 and 192.168.56.255, so let's scan that range. 
-The syntax used for this is `192.168.56.0/24` 
+Bulldog is hiding somewhere between `192.168.56.0` and `192.168.56.255`, so let's scan that range. <br>
+The syntax used for this is `192.168.56.0/24` <br>
 `0/24`  is what is called "CIDR" notation, and for our purposes can be thought of as the range 0-255
 
-
-We are ready to run nmap!
-
+Let's run the first command of the pentest.
 
 `nmap -sn 192.168.56.0/24`
 
@@ -108,34 +115,41 @@ We are ready to run nmap!
 
 
 
-Nmap is able to read the unique hardware address of each device found.
+`nmap` is able to read the unique hardware address of each device found.
 It can look up the first parts of these addresses to associate each device with a possible manufacturer.
- In our case, we get two boxes with a network interface "manufactured by" VirtualBox. 
+In our case, we get two boxes with a network interface "manufactured by" VirtualBox. 
 
 
 Since we only have two hits from VirtualBox machines, and we know our machine's IP, we know which one is Bulldog.
 
-You may see two other devices that are not VirtualBoxes.
-One of these is the Host OS itself, and the other is the host-only network's DHCP server.
-The DHCP server automatically assigns IP addresses to the devices on our network.
+You may see two other devices that are not VirtualBoxes. <br>
+One of these is the Host OS itself, and the other is the host-only network's DHCP server. <br>
+The DHCP server automatically assigns IP addresses to the devices on our network. <br>
+
+`nmap` may have given you an error about DNS if Kali is not connected to the internet. We can ignore such an error. Since we are not t connected to the internet, Kali's attempts to translate the IP addresses it finds into human readable formats using a DNS Server will fail. That's okay, we have another way of identifyin bulldog.
+
 
 ### Adding Bulldog to Your Hosts File
 
-It can be a bit cumbersome to type in 192.168.56.4 every single time, so we are going to set up a shortcut.
+It can be a bit cumbersome to type in `192.168.56.102` every single time, so we are going to set up a shortcut.
 
-At /etc/hosts, we have a file that contains these "shortcuts."
-If we add a line pointing our IP to a name like `bulldog.ctf` we can save ourselves some trouble.
+At /etc/hosts, we have a file that contains these "shortcuts." <br>
+These are called `hostnames`. <br>
+If we add a line pointing our IP to a name like `bulldog.ctf` we can save ourselves some trouble. <br>
 
-__IF YOU MAKE A TYPO HERE - YOU CAN MESS UP YOUR SYSTEM!__
+<br>
+__IF YOU MAKE A TYPO HERE. YOU CAN MESS UP YOUR SYSTEM!__
 
-If you accidentally use `>` instead of `>>` - your host file will be overwritten!
+If you accidentally use `>` instead of `>>` - your host file will be __overwritten!__
 This will require a manual fix - don't let it happen.
+<br>
 
 
-Add the IP address to your hosts file:
+Add the IP address to your hosts file using this command:
 
 `echo "192.168.56.102 bulldog.ctf" >> /etc/hosts`
 
+<br>
 
 Run `ping bulldog.ctf` to see that your system has associated the address to the hostname `bulldog.ctf`
 
@@ -144,23 +158,23 @@ Let's create a working directory for our pentest, and we'll get started in earne
 
 `mkdir bulldog && cd bulldog`
 
+<br>
+<br>
 
-
-
-## 2. Information Gathering and Reconnaissance - What are we looking at?
+## 2. Information Gathering/Reconnaissance - What are we looking at?
 
 ### Enumerating Bulldog from the Outside
 
-Now that we have found Bulldog's address, we have exhausted all the info we have. 
+Now that we have found Bulldog's address, we have exhausted all the info we have.<br>
 What IS Bulldog? Is it running a website? Hosting files? Can it run doom?
 
-Nmap's `-sV` flag can answer all of these questions.
+nmap's `-sV` flag can answer all of these questions.
 
 "Scan Versions" attempts to identify what services the box is running at what ports, and what software version it uses to do so.
 
-`-F` enters "Fast" Mode - this only scans the Top 100 most popular ports.
-This is usually enough to find something interesting. 
-If none of these ports produce results, we can scan deeper and see if we find additional information
+`-F` enters "Fast" Mode - this only scans the Top 100 most popular ports.<br>
+This is usually enough to find something interesting.<br>
+If none of these ports produce results, we can scan deeper and see if we find additional information.<br>
 
 
 For all of our scans, we are also going to run a quick, hacky little logging method.
@@ -169,19 +183,20 @@ For all of our scans, we are also going to run a quick, hacky little logging met
 ` COMMAND | tee COMMAND_output.txt`
 
 
-will save our tool's outputs to a textfile in the `bulldog` directory - as long as it is our working directory.
+This will save our tool's terminal output to a textfile in the `bulldog` directory - as long as it is our working directory.<br>
 If we wanted to write a report, repeat our process quickly, or just forget a result, it pays to have logs.
 
 
 `nmap -sV -F bulldog.ctf | tee nmap_quickscan.txt`
 
 
-
 ![A4](https://i.imgur.com/Ml4Agfv.png)
 
+<br>
+<br>
 
 
-This scan has already told us a lot of useful information:
+This scan has already provided plenty of useful information:
 
 * SSH (a secure remote command line) is running, but on a non-standard port. Normally SSH is port 22
 * We know that the version of SSH it is running is for Ubuntu - we now know Bulldog is running Ubuntu!
@@ -196,38 +211,42 @@ We can find the main page and the /notice page, but nothing on either seems part
 We can view the sources on the pages, but nothing there jumps out at us either.
 
 
- ### Directory Bruteforcing 
+### Directory Bruteforcing 
 
-We suspect there is more to this website than the 2 pages we have seen, but we haven't found any links to take us there.
+We suspect there is more to this website than the 2 pages we have seen, but we haven't found any links to take us anywhere else.<br>
 There might be some pages like /mail, /login, or other common names, but we don't want to just type them in manually in the browser.
 
-Enter `dirb` - a tool that will take a wordlist of common webpage names, append them to a URL and simply check if they exist
+Enter `dirb`. <br>
+This tool that will take a wordlist of common webpage names, append them to a URL and simply check if they exist. <br>
 We can feed it different flags in order to do things like dig deeper, look for extensions like `.php` and more.
 
 `dirb http://bulldog.ctf -r | tee dirb_result.txt`
 
 
-The `-r` flag tells dirb NOT to search recursively. 
+The `-r` flag tells dirb __NOT__ to search recursively. 
 When you do your own CTFs, you may not want to enable this option, but we will use it here to demonstrate our process while keeping things light.
 
+<br>
 
 ![A6](https://i.imgur.com/22yjLD9.png)
 
+<br>
 
 We get 3 hits - `/admin`, `/dev`, `/robots.txt`
 
+<br>
 
 ### Probing the Website for Avenues of Attack
 
-Let's start with `/robots.txt` - since that might contain the names of some restricted areas.
-Ideally, a robots.txt file forbids certain webcrawlers from accessing the pages they list.
+Let's start with `/robots.txt` - since that might contain the names of some restricted areas. <br>
+Ideally, a `robots.txt` file forbids certain webcrawlers from accessing the pages they list. <br>
 This might prevent a program like `dirb` from getting a complete result.
  
-However, if we know there is a robots.txt, we can simply visit it in the browser and read the entries with our eyeballs.
+However, if we know there is a `robots.tx`t, we can simply visit it in the browser and read the entries with our eyeballs.
 
 ![A7-robots](https://i.imgur.com/zz4dkIO.png)
 
-The BlackHat German Shepherds have left the mark of a truly skilled hacker - ASCII ART!
+The BlackHat German Shepherds have left the mark of a truly skilled hacker - ASCII ART!<br>
 There is nothing else here. It is just a .txt - so there is no source to view.
 
 Let's check out `/admin`
@@ -242,9 +261,9 @@ This page's existence gives us two key pieces of information
 
 Even if you don't know what Django means in this context, useful terms like this may lead to productive searches in the future.
 
-Some potentially interesting info lies in the page source, but there may be some lower hanging fruit on the /dev page.
-It can be tempting to dive deeply into one aspect of a CTF right off the bat.
-So far, my (somewhat limited) experience has shown that reconnaissance should focus on breadth before depth.
+Some potentially interesting info lies in the page source, but there may be some lower hanging fruit on the /dev page.<br>
+It can be tempting to dive deeply into one aspect of a CTF right off the bat.<br>
+So far, my (somewhat limited) experience has shown that reconnaissance should focus on breadth before depth.<br>
 
 
 
@@ -252,8 +271,9 @@ So far, my (somewhat limited) experience has shown that reconnaissance should fo
 
 ![A10](https://i.imgur.com/A5fuPXu.png)
 
+<br>
 
-This page is full of information, laid out for us by the designers themselves.
+This page is full of information, laid out for us by the designers themselves.<br>
 Here are the key points:
 
 * The previous attackers had a good strategy, but odds are we won't be able to recreate it entirely.
@@ -262,8 +282,10 @@ Here are the key points:
 * A custom-made program is in the works, but isn't finished yet
 * A team hierarchy as well as contact information. If this were a real company, this could be used in social engineering.
 
-If we try that big __Web-Shell__ link, all we find  is a message telling us told to log in.
-This is a very interesting lead.
+<br>
+
+If we try that big __Web-Shell__ link, all we find  is a message telling us told to log in.<br>
+This is a very interesting lead.<br>
 If we are able to log in as one of the users - we might get access to some sort of settings panel we can leverage.
 
 
@@ -274,12 +296,17 @@ Let's take a look at the /dev page source for clues.
 ![A11](https://i.imgur.com/FPEQrTa.png)
 
 
-*"It's not like a hacker can do anything with a hash"*  sounds like an invitation to me!
+*"It's not like a hacker can do anything with a hash"*  - sounds like an invitation to me!
+
+<br>
+<br>
 
 
 ## 3. Making Use of Password Hashes
 
 Not only do we have a listing of contacts for each member of the company, but we have them paired with what appear to be password hashes!
+
+<br>
 
 ### What are hashes?
 
@@ -292,39 +319,41 @@ To better explain this, we are going to use encryption as an analogy for hashing
 ![A12](https://i.imgur.com/DlL3gAM.png)
 
 Algorithms are often explained as black, white, or grey box.
-A white box algorithm is completely understood and in this case, reversible.
+For our purposes, a "white box" algorithm is completely understood and reversible.
 Black is unknown entirely, and not reversible.
-For our purposes, grey is somewhere in the middle.
+Grey is somewhere in the middle.
 
-Rot13 is white box because we understand and can easily perform every single step.
-It is even its own reverse.
-Since it affects individual letters, it also does not have what is called "avalanche" in cryptography.
-If we alter one small part of a known plaintext, only one small part of the ciphertext will be changed.
-`hello` rot13's to `urryb` while `jello` rot13's to `wrryb`.
-The ciphertext will always be the exact length of the plaintext as well, which is very revealing.
+Rot13 is white box because we understand and can easily perform every single step.<br>
+It is even its own reverse.<br>
+Since it affects individual letters, it also does not have what is called "avalanche" in cryptography.<br>
+If we alter one small part of a known plaintext, only one small part of the ciphertext will be changed.<br>
+`hello` rot13's to `urryb` while `jello` rot13's to `wrryb`.<br>
+The ciphertext will always be the exact length of the plaintext as well, which is very revealing.<br>
 
-The md5 hashing algorithm is not simple to understand, but it is openly published.
-We can understand the process it uses, but it is very complicated and not feasible to reverse.
-For this reason, we are calling it grey box. It also has very powerful avalanche, as demonstrated above.
-md5 hashes are always the same length, no matter how long the plaintext is. 
+The md5 hashing algorithm is not simple to understand, but it is openly published.<br>
+We can understand the process it uses, but it is very complicated and not feasible to reverse.<br>
+For this reason, we are calling it grey box. It also has very powerful avalanche, as demonstrated above.<br>
+md5 hashes are always the same length, no matter how long the plaintext is. <br>
 
-As nice as md5 sounds, it is considered obsolete and vulnerable to dictionary and side channel attacks.
+As nice as md5 sounds, it is considered obsolete and vulnerable to dictionary and side channel attacks.<br>
 Unfortunately, it might be the most popular hashing algorithm in use today, in addition to SHA-1.
 
+<br> 
  
 ### How are these hashes used in the login process?
 
-When a user enters in a password string, the system runs the hashing algorithm and stores the result.
+When a user enters in a password string, the system runs the hashing algorithm and stores the result.<br>
 The hash is compared with user's associated password hash, if it doesn't match, access is not granted.
 
 ![A13](https://i.imgur.com/Mfi7fNY.png)
 
 ![A14](https://i.imgur.com/fdII1L3.png)
 
+<br>
 
 ### How is any of this relevant to Bulldog?
 
-If an attacker were to somehow get a list of hashes, they could attempt to "reverse" the hashes using a dictionary attack.
+If an attacker were to somehow get a list of hashes, they could attempt to "reverse" the hashes using a dictionary attack.<br>
 This simple attack users the attacker's system to run the hashing algorithm on known words, and then compare the results to a list of acquired hashes.
 
 ![A15](https://i.imgur.com/auey4jB.png)
@@ -332,12 +361,13 @@ This simple attack users the attacker's system to run the hashing algorithm on k
 
 If a the hash of a known word matches a user's password hash, that word is the user's password.
 
-Modern systems can perform this operation at speeds that would make Alan Turing faint.
+Modern systems can perform this operation at speeds that would make Alan Turing faint.<br>
 A GPU-powered md5 dictionary attack can run billions of hashes per second.
 However, the number of possible combinations of characters is essentially infinite.
 The time it would take to brute force a reasonable set of possibilities may be unrealistic.
 We will need to use a good wordlist and hope that one of our users is not very creative.
 
+<br>
 
 ### Preparing the Dictionary Attack on Bulldog
 
@@ -345,13 +375,13 @@ In your terminal, run `gedit` to open up the text editor.
 
 From the `/dev` page source, copy all lines containing hashes into the editor and save it as `raw_creds.txt` in your working directory.
 
-![A16](blob:https://imgur.com/847ad189-c86a-4fc1-a7b8-243c06f04478) 
+![A16](https://i.imgur.com/GnuPgTY.png) 
 
 Then close gedit.
 
 In order to use our dictionary attack tool, we need to format our credentials into `user:hash` format.
 
-For the sake of time, I am going to show you a quick method of achieving this result from the command line based on the `cut` `paste` and `tr` commands.
+For the sake of time, I am going to show you a quick method of achieving this result from the command line based on the `cut` `paste` and `tr` commands.<br>
 If you'd like to understand them better, you can check out their `man` pages. 
 
 * `cut` separates lines of text into columns based on a chosen character.
@@ -359,20 +389,20 @@ If you'd like to understand them better, you can check out their `man` pages.
 * `tr` replaces one group of characters with those from another group. We only need to repalce one character.
 
 
-First, we extract the hashes:
+First, we extract the hashes and save them to a file:
 
 `cat raw_creds.txt | cut -d '!' -f 2 | cut -d '-' -f 3 > hashes.txt `
 
 ![A17](https://i.imgur.com/2uMnPVO.png)
 
 
-Then, extract the users:
+Then, do the same for the users:
 
 `cat raw_creds.txt | cut -d '<' -f 1 | cut -d ':' -f 2 > users.txt`
 
 ![A18](https://i.imgur.com/7M7kRiI.png)
 
-Now we `paste` them together, and use `tr` to change the tab column separators with colons:
+Finally, `paste` them together, and use `tr` to change the tab column separators with colons:
 
 `paste users.txt hashes.txt | tr '\t' ':' > crackme.txt`
 
@@ -381,20 +411,17 @@ Now we `paste` them together, and use `tr` to change the tab column separators w
 
 Our file is ready, we just need to check what kind of hashes we are attempting to crack.
 
-Copy one of the hashes, 
-
-Try to access the web shell - we need to be logged in.
-
 Copy one of the hashes, and then paste it into the hash identifying command `hashid`
 
 `hashid '6515229daf8dbdc8b89fed2e60f10743'`
 
 ![A20](https://i.imgur.com/BWaysZi.png)
 
-`hashid` tells us that our hashes are most likely. SHA-1, 
-This is one of the  of the easier hashes to crack, and is about as old and insecure as md5.
+`hashid` tells us that our hashes are most likely SHA-1.<br> 
+This is one of the easier hashes to crack, and is about as old and insecure as md5.<br>
 Let's introduce our file to our friend John.
 
+<br>
 
 ### Performing the Dictionary Attack Using John The Ripper
 
@@ -410,8 +437,12 @@ In this case, all we need to specify is what file we are attempting to crack, an
 Very quickly, we get a result - and I can't say it is a surprising one.
 This result will be stored, so we can interrupt john with `CTRL-C`
 
+<br>
+<br>
 
 ## 4. Gaining A Low-Privilege Shell
+
+### Making Use of Our Credentials
 
 Let's go right for the most rewarding result and try to login to ssh.
  Our nmap scan told us that ssh was at a non-standard port, so we can check our logs to see which port we need to specify.
@@ -438,21 +469,22 @@ This works! We have site access.
 *"You don't have permission to edit anything"* doesn't seem promising.
 But now that we have logged in, let's try the webshell at /dev/shell
 
+<br>
+
 ### Exploiting the Web-Shell
 
 ![A24](https://i.imgur.com/D00ch7i.png)
 
-The shell claims that we can only run a list of "friendly" commands, and all commands are run directly on the server itself.
-If we figure out how to allow arbitrary commands through, we can get the server to do our bidding.
-All we need to do is bypass this filter process.
+The shell claims that we can only run a list of "friendly" commands, and all commands are run directly on the server itself.<br>
+If we figure out how to allow arbitrary commands through, we can get the server to do our bidding.<br>
+All we need to do is bypass this filter process.<br>
+
+We can hypothesize that the command filtering employs some kind of simple `if` statement.<br>
+If a command contains one of the allowed commands, the server executes the inputted command.<br>
 
 
-We can hypothesize that the command filtering employs some kind of simple *"if"* statement.
-If a command contains one of the allowed commands, the server executes the inputted command.
-
-
-Perhaps the `if` statement only checks to see if the input __contains__ one of the approved commands - not if the input is __only__ made up of approve commands.
-If that is the case, we might be able to bypassthe filter by using an approved command immediately followed by an arbitrary command.
+Perhaps the `if` statement only checks to see if the input __contains__ one of the approved commands - not if the input is __only__ made up of approve commands.<br>
+If that is the case, we might be able to bypass the filter by using an approved command immediately followed by an arbitrary command.
 This would entail running two commands on the same line.
 
 
@@ -463,7 +495,7 @@ To check our theory, we need to prove two concepts:
 
 We know how to run commands on the same line using the `;` and `&&` characters, so let's give those a try.
 
-In the webshell, run `ls; pwd`
+In the webshell, run `ls; pwd` <br>
 Both of these commands are on the "nice" list, but before running some nasty commands we will need to prove our concept.
 
 
@@ -476,20 +508,23 @@ Perhaps we can have more luck with `ls && pwd`
 
 ![A26](https://i.imgur.com/3z0kdps.png)
 
-Let's try something unapproved, like `id`,  or `cd` .
+It worked! We can run more than one command at a time. <br>
+Let's try something unapproved, like `id`,  or `cd`
 
 In the webshell, run  `pwd && id && cd /tmp && pwd`
 
-/tmp is a useful directory since all users have access to it by default - it is a great place for us to set up camp. 
+`/tmp` is a useful directory since all users have access to it by default.<br>
+It is a great place for us to set up camp on the target system. 
 
-If you know a little Linux, the word "sudo" will catch your eye in the image above.
-We won't be needing to use that functionality here, and can privesc with other methods.
+![A26.5](https://i.imgur.com/hCYS54E.png)
 
+If you know a little Linux, the word `sudo` will catch your eye in the image above. <br>
+We won't be needing to use that functionality here, and can escalate our privileges with other methods.
 
-# A26.5! - oops! Forgot this screenie!
 
 With our concepts proven, we can take advantage of our ability to excute code remotely.
 
+<br>
 
 ## Our Shelling Process
 
