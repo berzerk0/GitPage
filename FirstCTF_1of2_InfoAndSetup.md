@@ -10,6 +10,9 @@
 
 <br>
 ### 17 January 2018
+
+
+This is Part One of a two-part set. Check out [Part Two here](FirstCTF_2of2_TamingTheBulldog.md)
  
 <br>
 ## 1. Background - What are we talking about?
@@ -558,4 +561,4 @@ Others take more naturally to VMWare than VirtualBox. You may need to employ som
 
  
 
-## Stay tuned for Part 2 when we conquer Bulldog!
+## You are ready to move on to [Part Two!](FirstCTF_2of2_TamingTheBulldog.md)
