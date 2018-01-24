@@ -56,7 +56,7 @@ The CTF we will use is Nick Frichette's "[Bulldog](https://www.vulnhub.com/entry
 [__https://www.vulnhub.com/entry/bulldog-1,211/__](https://www.vulnhub.com/entry/bulldog-1,211/)
 
 
-__Note:__ You will be able to find walkthroughs for this box online, but reading them will spoil the learning process for you. Many walkthroughs (including one of my own) assume the reader already has some knowledge of pentesting and Linux, and might only contain the shortest possible path to root. Walkthroughs may show you the fastest route, but it is likely they will not explain much.
+__Note:__ You will be able to find walkthroughs for this box online, but reading them will spoil the learning process for you. Many walkthroughs (including one of my own) assume the reader already has some knowledge of pentesting and Linux, and might only contain the shortest possible path to root. Walkthroughs may show you the fastest route, but it is likely tthey will not provide much information aimed at the absolute beginner.
 
 
 The pathway we will take might not be the absolute shortest, and may not always follow best practices, but it is beginner friendly and will teach you enough to tame the Bulldog. The tools we will use to  accomplish our goal can be found conveniently organized in the Kali Linux distribution. 
@@ -90,8 +90,8 @@ Virtualbox also comes with an "Extension Pack" that provides additional features
 <br>
 
 We are going to run the 64 bit version of Kali.
-A lighter, 32-bit version, is available, and may work for our purposes.
-However, I have not tested it for this purpose.
+A lighter, 32-bit version, is available, and might work for our purposes.
+However, I have not tested it.
 
 Download the Kali OVA file - this can be done directly or via torrent.
 Make sure you download the VirtualBox version of the image, not the VMWare version.
@@ -131,7 +131,7 @@ If you want to have your mouse escape the window, press __Right-Control__ on Win
 
 __If your mouse gets "trapped" in the VM you can free it by pressing:__
 * __The CTRL Key on the RIGHT SIDE of the keyboard on Windows and Linux__
-__The "Command" key on the LEFT SIDE of a Mac keyboard__
+* __The "Command" key on the LEFT SIDE of a Mac keyboard__
 
 At the main login screen, enter the default credentials for the OVA
 * username: *root*
