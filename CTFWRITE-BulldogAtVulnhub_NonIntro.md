@@ -6,6 +6,8 @@
 
 
 ## There are two versions of this walkthrough: This is the original, NON-INTRODUCTORY VERSION.
+Find the [Introductory Version here](https://berzerk0.github.io/gitblog/FirstCTF_1of2_InfoAndSetup.html)
+
 
 
 A fun box from Vulnhub, written by Nick Frichette.
