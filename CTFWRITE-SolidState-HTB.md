@@ -30,6 +30,7 @@ It is a great test of your ability to understand what exactly you might be looki
 This write up assumes that the reader is using Kali, but any pentesting distro such as [BlackArch](https://blackarch.org/) will work.
 The tools come with a stock Kali installation, unless otherwise mentioned.
 
+<br>
 
 ## 1. Initial Scans
 
@@ -103,19 +104,19 @@ Let’s just run it and see if we get RCE.
 <br>
 
 
-*"Will be executed when someone logs in"*
+*"Payload will be executed when someone logs in."*
 
-But, Who is going to log in? Some other HackTheBox user?
+Who is going to log in? Some other HackTheBox user?<br>
 I’d rather not wait for that.
 
 
-This exploit can’t be useless, however.
-RCE usually entails some sort of powerful access.
+RCE usually entails some sort of powerful access. <br>
+There has to be something we can dig out of it.
 
 
 ## 2. Enumerating James
 
-If we can look into the exploid code, we might be able to determine what gives the exploit its effectiveness and redirect it in some way. 
+If we can look into the exploit code, we might be able to determine what gives the exploit its effectiveness and redirect it in some way. 
 
 
 
@@ -124,7 +125,7 @@ If we can look into the exploid code, we might be able to determine what gives t
 <br>
 
 
-The exploit script contains credentials.<br>
+The exploit script contains credentials!<br>
 Both username and password are `root`<br>
 Seems like we are dealing with top notch security here.<br>
  
@@ -172,19 +173,19 @@ Will Frank get an email containing a randomly generated SSH password?
 
 
 
-* `nc telnet solidstate.htb 110` didn't work! 
+* `nc telnet solidstate.htb 110` didn't wor. 
 
 How can we connect to this port?
  
 
 Eventually, I found found that POP3 can be communicated with over `telnet`<br>
-I had never given POP3 commands before, but a quick online search showed it wasn't tough to operate.<br>
+I had never used POP3 commands before, but a quick online search showed it wasn't tough to operate.<br>
 
 
 * `telnet solidstate.htb 110`
 * `USER frank`
 * `PASS beans`
-* `LIST` -
+* `LIST` - this command shows information on messages for the current user
 
 <br>
 ![A9](https://i.imgur.com/X2jxwoJ.png)
@@ -192,7 +193,7 @@ I had never given POP3 commands before, but a quick online search showed it wasn
 
 
 No messages for Frank.<br>
-Port 4555 also allowed me to change the passwords for the other users.
+The interface on port 4555 also allowed me to change the passwords for the other users.<br>
 Maybe one of them has something interesting in their inbox?
 
 
@@ -200,6 +201,7 @@ Maybe one of them has something interesting in their inbox?
 * `nc solidstate.htb 4555`
 * `listusers`
 
+(This is detailed in the image below)
 
 We see a username with `bash_completion.d` exists, I bet this was created by the exploit script we ran earlier.<br>
 If there aren’t any interesting emails, we will look into that.
@@ -223,7 +225,7 @@ No luck - except...
 ![A11]( https://i.imgur.com/cTXYfdh.png)
 <br>
 
-Mindy has two emails for us!
+Mindy has two emails for us.
 
 * `RETR 1`
 
@@ -398,7 +400,7 @@ Does `root` run it with a cronjob?
 
 <br>
 
-*Rambling Side Note:*
+### Rambling Side Note
 It wasn't until I had already been attempting this box for some time did I learn about the existence of cronjobs.<br>
 I had to come across the concept in my other attempts to familiarize myself with Linux. <br>
 This underscores a ned to understand the fundamentals of the OS.<br>
@@ -413,6 +415,7 @@ Thematically, this concept is the opposite of this box which runs a script "unex
 My academic background included classes on circuit design, and the term *Solid State* got conflated with the concept of *steady-state*.<br>
 This confusion ended up helping me put the pieces together.<br>
 When introduced to time-dependent circuitry, such as LC circuits, problems often include an important phrase.<br>
+
 *Assume that at t=0, the circuit had been in steady-state for a long time.*<br>
 
 This is meant to convey that the circuit had been unchanging until we began obvserving it.<br>
@@ -506,8 +509,7 @@ From here we can do as we please, starting with the capture of the root flag.
 My experience with this box underscored how important it is to actually be familiar with the territory.<br>
 I haven't been using Linux very long, and there is so much to know, so much that MIGHT be useful, that it can be paralyzing to find a place to start. 
 
-In this instance, I was able to find a foothold based on context and some prior knowledge. But I got a bit lucky.<br>
-There have been boxes that stumped me because I *knew* there was something I just hadn't learned yet.<br>
+In this instance, I was able to find a foothold based on context and some prior knowledge. But I got a bit lucky. There have been boxes that stumped me because I *knew* there was something I just hadn't learned yet.<br>
 <br>
 Time to crack open some books.
 
