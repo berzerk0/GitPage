@@ -9,24 +9,30 @@
 
 
 
-As a whole, SolidState is a beginner’s CTF. However, if you are able to solve it, you are well on your way to the more intermediate level CTFs. You can’t just run an exploit, get root and reuse passwords all the way to glory. This box requires actual enumeration, exploit research and investigation, and prior knowledge.
+As a whole, SolidState is a beginner’s CTF.<br>
+However, if you are able to solve it, you are well on your way to the more intermediate level CTFs.<br>
+You can’t just run an exploit, get root and reuse passwords all the way to glory.<br>
+This box requires actual enumeration, exploit research and investigation, and prior knowledge.<br>
 
 
-There is a key concept that you will have to know about ahead of time, as the box does not offer much in the way of a hint in it’s direction. 
+There is a key concept that you will have to know about ahead of time.<br>
+The box does not offer much in the way of a hint in it’s direction. <br>
 
 
-I was able to solve it by browsing through Ben Clark’s *Red Team Field Manual* and researching enumeration and privilege escalation guides online. Shoutout to (g0tm1lk)[ https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/] and [mubix]( https://github.com/mubix/post-exploitation/wiki/Linux-Post-Exploitation-Command-List) for showing the way.
+I was able to solve it by browsing through Ben Clark’s *Red Team Field Manual* and researching enumeration and privilege escalation guides online.<br>
+Shoutout to (g0tm1lk)[ https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/] and [mubix]( https://github.com/mubix/post-exploitation/wiki/Linux-Post-Exploitation-Command-List) for showing the way.
 
 It is a great test of your ability to understand what exactly you might be looking for while enumerating. It’s a fun one.
 
 
-This write up assumes that the reader is using Kali, but any pentesting distro such as [BlackArch](https://blackarch.org/) will work. The tools come with a stock Kali installation, unless otherwise mentioned.
+This write up assumes that the reader is using Kali, but any pentesting distro such as [BlackArch](https://blackarch.org/) will work.<br>
+The tools come with a stock Kali installation, unless otherwise mentioned.
 
 
 ## 1. Initial Scans
 
 
-Before anything, I added the IP to my `/etc/hosts` for convenience as `solidstate.htb`
+Before anything, I added the IP to my `/etc/hosts` for convenience as `solidstate.htb` <br>
 
 
 
@@ -437,9 +443,3 @@ From here we can do as we please, starting with the capture of the root flag.
 `cat /root/root.txt`
 
 
-
-
-1-5 https://imgur.com/a/j8t7u
-6-10 https://imgur.com/a/9M2JB
-11-15 https://imgur.com/a/EUVWE
-16-22 https://imgur.com/a/SKN3d
