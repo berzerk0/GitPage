@@ -1,3 +1,6 @@
+[Main Page](index.md)<br>
+
+
 # CTF Writeup: Blocky on HackTheBox
 ## 9 December 2017
 
@@ -14,7 +17,7 @@ Blocky is a fun beginner's box that was probably the second or third CTF I ever 
 This box will begin to give you a good understanding of the power of the tools at your disposal. By stumbling around trying out tools that I saw were part of the Kali suite, I began to figure the important concepts and found myself learning very quickly.
 
 
-If you have never tried a CTF before, this box would be a nice place to start - assuming you can get past the HackTheBox Invite process. 
+If you have never tried a CTF before, this box would be a nice place to start - assuming you can get past the HackTheBox Invite process.
 
 This write up assumes that the reader is using Kali, but any pentesting distro such as [BlackArch](https://blackarch.org/) will work. The tools come with a stock Kali installation, unless otherwise mentioned.
 
@@ -48,9 +51,9 @@ Our `-h` flag tells nikto the location of our target, and the `-output` flag cre
 My nikto scan didn't actually finish until after my dirsearch, and ended up not telling me anything dirsearch didn't tell me already. This will not always be the case, I always run both.
 
 
-`dirsearch` is a web directory bruteforcer implemented in python3. If you don't want to use it, you can use `dirb` or `dirbuster`, which come with Kali, or another program such as `gobuster`. 
+`dirsearch` is a web directory bruteforcer implemented in python3. If you don't want to use it, you can use `dirb` or `dirbuster`, which come with Kali, or another program such as `gobuster`.
 
-I cloned it using 
+I cloned it using
 
 `git clone https://github.com/maurosoria/dirsearch /opt/dirsearch`
 
@@ -61,7 +64,7 @@ and ran it with
 * `-u` points to our URL starting point
 * `-e` lists some common file extensions to look for
 * `--plain-text-report=` specifies that I want a log file generated
-* `-t 25` uses more CPU threads 
+* `-t 25` uses more CPU threads
 
 
 ![a3](https://i.imgur.com/HReNAk5.png)
@@ -78,13 +81,13 @@ wpscan -u http://10.10.10.37 -e uvp
 (Today, I would append ` | tee wpscan_blocky.txt` to save the output.)
 
 
-WPScan finds many, many vulnerabilities we can dive into, but lets keep enumerating to make sure we get the full lay of the land. 
+WPScan finds many, many vulnerabilities we can dive into, but lets keep enumerating to make sure we get the full lay of the land.
 
 ## 2. Using our Reconnoitered Information to Dig Deeper
 
 Let's review what we have so far. We find the username *notch*, and 2 places to log in, *phpmyadmin* and *wp-login*. Well, 3 places if we count SSH. The strategy here is to try to use this username to log in somewhere for further access
 
-If we get phpmyadmin database access, we might be able to find some credentials to login somewhere else, or drop in some kind of reverse shell. If we get Wordpress admin access, we can also spawn a reverse shell pretty easily. 
+If we get phpmyadmin database access, we might be able to find some credentials to login somewhere else, or drop in some kind of reverse shell. If we get Wordpress admin access, we can also spawn a reverse shell pretty easily.
 
 Maybe the site has some more useful information. It looks like a simple Wordpress blog with only one post. Let's read it.
 
@@ -158,7 +161,7 @@ When I first attempted this box, I got stuck here for a few hours. I knew I was 
 So far we have:
 
 
-Usernames: 
+Usernames:
 * *notch* - from the WP site
 * *root* - exists by default for SSH and phpmyadmin, seen in plugin code
 * *admin* - exists by default on WP
@@ -207,7 +210,7 @@ Didn't hurt to try, as unlikely as it was. Since we only have a few usernames, a
 ![A14-notchsshwin](https://i.imgur.com/wDjcZOo.png)
 
 
-And we're in! 
+And we're in!
 
 
 ## 4. Capturing the User Flag
@@ -226,7 +229,7 @@ A little prior knowledge tells me that Notch is the inventor and boss of the Min
 ![A15-sudo_L](https://i.imgur.com/CQOQ3YB.png)
 
 
-Yup, he's an admin. This could be all we need to know to gain root access. 
+Yup, he's an admin. This could be all we need to know to gain root access.
 
 
 
@@ -234,7 +237,7 @@ Yup, he's an admin. This could be all we need to know to gain root access.
 
 ![A16 - rootshell](https://i.imgur.com/vc1DDda.png)
 
-We have a root shell, and it feels good 
+We have a root shell, and it feels good
 
 
 ## 5. Call Me Markus, Superuser.
@@ -248,7 +251,7 @@ From here, it is as trying to read the root flag.
 Success! Grab the root flag and let's clean up.
 
 
-__NOTE:__ These are some pretty simple cleanup commands meant to cover our tracks a little bit, but only a little bit. A trained admin would notice that these files have been altered, so look at these commands as the beginning of your tracks-covering career and not as a MIB-Style mind wipe. 
+__NOTE:__ These are some pretty simple cleanup commands meant to cover our tracks a little bit, but only a little bit. A trained admin would notice that these files have been altered, so look at these commands as the beginning of your tracks-covering career and not as a MIB-Style mind wipe.
 
 
 * `echo '' > /home/notch/.bash_history`
@@ -269,3 +272,6 @@ then repeat this command as notch, and you're all done.
 Thanks to HackTheBox and Arrexel!
 
 ## Thanks for reading!
+
+<br>
+[Main Page](index.md)

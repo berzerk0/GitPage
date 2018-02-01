@@ -1,3 +1,5 @@
+[Main Page](index.md)
+
 # CTF Writeup: LazySysAdmin on VulnHub
 ## 8 November 2017
 
@@ -29,63 +31,63 @@ It's also encrypted (weakly) - but if you can root the box using just the spoile
 
 ### 1. Initial Scans
 As always, we start with `nmap`
- 
+
 *  `nmap -sV -T4 lazysysadmin.ctf`
- 
+
  ![A1](https://i.imgur.com/FiyPXpn.png)
- 
+
  Alright, we have a website, so let's run our regular http battery of tests.
  After that we will investigate Smb, MYSQL, and IRC - if we need to.
  If we figure out the credentials, we can SSH in as well.
- 
+
  Run dirsearch, nikto, nmap w/ vuln scan, and manually browse the website. Run these scans in parallel.
- 
+
  I like to run dirsearch twice - a quick scan without specifying a wordlist to find common things, then a deeper dive.
  Even my quick can uses a large number of extensions - I usually don't run it recursively until I find an interesting starting point,
  or get stuck and think I need to keep digging.
- 
+
 *  `dirsearch -u lazysysadmin.ctf -e sh,txt,php,html,htm,asp,aspx,js,xml,log,json,jpg,jpeg,png,gif,doc,pdf,mpg,mp3,zip,tar.gz,tar`
 
  ![A2](https://i.imgur.com/tjDk2in.png)
- 
+
 *  `nmap -A -O -T4 --script=vuln lazysysadmin.ctf`
- 
+
  ![A3](https://i.imgur.com/WV6qfti.png)
  ![A4](https://i.imgur.com/XHKjJFc.png)
- 
- 
+
+
  * `nikto -h http://lazysysadmin.ctf`
- 
+
  ![A5](https://i.imgur.com/WiAW82Q.png)
- 
+
  And manual browsing, of course. I took a peek at the page sources for anything interesting - didn't find much here.
- 
+
  ![A6](https://i.imgur.com/d05dbp8.png)
- 
+
  I like steganography (there is some in this gist) - so I read "The answer is within you" as "Check this image for stego."
  Nothing came up, with `steghide`, `strings` or stegsolve; so I checked my scan outputs.
 
  The first thing I checked was `robots.txt` - something that the scanners might not be able to do for me.
  It didn't contain anything too interesting... unlike my nmap vulnscan, which dumped out a ton of useful info.
- 
- 
- 
- 
- 
- 
+
+
+
+
+
+
  ### 2. Investigating the Website
- 
+
 * /wordpress/ suggests we have a very fertile ground for planting an attack. User access = shell.
 * /phpmyadmin/ suggests there is a database ready to plunder.
 * /info.php gives us Kernel, hostname and OS information immediately.
- 
- I dove right in with 
+
+ I dove right in with
  * `wpscan -u lazysysadmin.ctf/wordpress/ -e u,v,p`
- 
+
  and browsed it myself while it ran.
- 
+
  ![A8](https://i.imgur.com/y3FdRcQ.png)
- 
+
 
 wpscan found a bunch of potential vulnerabilities - but I like to start simply.
 The default username is being used, so maybe the default password is too.
@@ -101,7 +103,7 @@ No hits. I think it might be time to look at the other services and see if there
 
 
 ### 3. Investigating the Other Services
- 
+
 SMB might hold some interesting information, and I know that it is running Linux, so I used `enum4linux`!
 
 * `enum4linux lazysysadmin.ctf`
@@ -113,7 +115,7 @@ Right off the bat, `[+] Server lazysysadmin.ctf allows sessions using username '
 
 It is shortly followed by `//lazysysadmin.ctf/share$	Mapping: OK, Listing: OK`
 
-We connect with a simple 
+We connect with a simple
 * `smbclient //lazysysadmin.ctf/share$`
 and just press enter when asked for the password.
 
@@ -161,7 +163,7 @@ I tried logging out and back in with `root:TogieMYSQL12345^^` - but to no avail.
 There is the option to try manually inputting SQL commands, so let's try that.
 
 First thing I want to see is if I can write a file - that could allow me to drop a shell script and gain access.
-I try 
+I try
 
 * `select 'hello' into outfile 'hello.txt'`
 
@@ -169,7 +171,7 @@ I try
 
 Hmm, this user has pretty limited privileges.  Might be worth trying to view the db contents using SQL commands, however.
 
-* `select * from wp_users from wordpress` 
+* `select * from wp_users from wordpress`
 
 was forbidden, so I tried the more specific
 
@@ -177,7 +179,7 @@ was forbidden, so I tried the more specific
 
 ![A16](https://i.imgur.com/3D9gBmG.png)
 
-user_pass looks good to me, and some of the other fields aren’t bad either. I made sure the wordpress database was selected in phpmyadmin, then ran 
+user_pass looks good to me, and some of the other fields aren’t bad either. I made sure the wordpress database was selected in phpmyadmin, then ran
 
 * `select user_login, user_pass, user_nicename, user_email from wp_users`
 
@@ -203,7 +205,7 @@ Let’s go ahead and drop a php shell into one of the plugins.
 
 I’ve messed this process up before – so I always make a copy of the original text before trying any alterations. This also allows us to revert the plugin back to normal if we give ourselves another way in later.
 
-From `/usr/share/webshells/php/` I grab what I like to call the “monkey shell” and make a copy in my pentest directory. 
+From `/usr/share/webshells/php/` I grab what I like to call the “monkey shell” and make a copy in my pentest directory.
 
 I know the plugin code already includes <?php and ?> flags, so I chop those off and edit in the correct IP and port information.
 
@@ -214,8 +216,8 @@ Then, we just paste it in at the end of our plugin code.
 
 ![A20](https://i.imgur.com/GiASGXe.png)
 
-Now we can start our listener with 
-* `nc -lnvp PORTNUMBER` 
+Now we can start our listener with
+* `nc -lnvp PORTNUMBER`
 
 and hit “Update File.” My shell didn’t pop immediately, but after I clicked “Installed Plugins” again in order to make sure the plugin was active.
 
@@ -304,7 +306,7 @@ Seeing that little “#” brings a smile to my face.
 
 ## Lessons Learned
 * Try using passwords in multiple locations, password reuse is rampant.
-* If you have access to a group of files, READ THEM. At least grep for "pass\[word\]" 
+* If you have access to a group of files, READ THEM. At least grep for "pass\[word\]"
 * Don't leave your web root in a publicly accessible SMB.
 * Don't leave your root password lying around! Or any other for that matter!
 
@@ -323,8 +325,8 @@ __Are there any obvious things that you missed, which you shouldn't have missed?
  Had I taken the time to look at all the files, I would have saved a lot of time.
 
 __Did you learn anything interesting?__ and __What have you added to your enumeration process to prevent you from wasting time?__
- 
-The answer to both of these questions is related to breadth-vs-depth searching. I didn't even realize that I was diving deeply instead of lightly browsing everything first. 
+
+The answer to both of these questions is related to breadth-vs-depth searching. I didn't even realize that I was diving deeply instead of lightly browsing everything first.
 
 
 
@@ -332,5 +334,6 @@ The answer to both of these questions is related to breadth-vs-depth searching. 
 Thanks Togie McDogie!
 Good Luck on your next OSCP!
 
- 
+<br>
+[Main Page](index.md)
 󠁈󠁔󠁂󠁻󠁴󠁲󠀱󠁴󠁨󠀳󠁭󠀱󠁵󠀵󠁟󠀱󠀴󠀹󠀹󠁽

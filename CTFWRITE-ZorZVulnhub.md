@@ -1,9 +1,12 @@
+[Main Page](index.md)<br>
+
+
 # A Few WebApp File Upload Vulnerabilities Explained - CTF Writeup: Zorz
 ## 20 November 2017
 
 
 This is "CTF" is more of a vulnerability sandbox than a true Capture the Flag challenge.
-However, it is a great way to explore some WebApp Upload vulnerabilities. 
+However, it is a great way to explore some WebApp Upload vulnerabilities.
 
 
 The VulnHub description says:
@@ -34,7 +37,7 @@ You can download it at [https://www.vulnhub.com/entry/tophatsec-zorz,117/]([http
 
 Once you have virtual box installed, you can simply use the "Import Appliance" feature to import the OVA file.
 
-It is safest to run your Vulnerable VMs on a Host-Only network, which is not connected to the internet. 
+It is safest to run your Vulnerable VMs on a Host-Only network, which is not connected to the internet.
 
 You can find [a guide to setting up your Host-Only network here](http://condor.depaul.edu/glancast/443class/docs/vbox_host-only_setup.html)
 
@@ -85,7 +88,7 @@ Here is our [Test Burrito!](https://i.imgur.com/29eCDkq.jpg)
 
 
 If you want to change the file type, just change the URL’s extension to .gif or .png to download other versions.
-Save it with 
+Save it with
 
 `wget https://i.imgur.com/29eCDkq.png -O test_burrito.png`
 
@@ -102,19 +105,19 @@ We get this message:
 ![A6-recognized](https://i.imgur.com/BvPau4Q.png)
 
 
-It seems to have worked, but we don’t quite know where the file ended up. 
+It seems to have worked, but we don’t quite know where the file ended up.
 If we are going to run any of our payloads, we will need to find that out.
 
 If we try the /test_burrito.png url, we get a 404.
 
 
 Let’s try a directory bruteforcer to see if we can find out where the image uploads.
-For our wordlist, we’ll use dirbuster’s small directory list, which is found by default on Kali. 
-It can be found at `/usr/share/wordlists/dirbuster/directory-list-2.3-small.txt`, but you can also find it at 
+For our wordlist, we’ll use dirbuster’s small directory list, which is found by default on Kali.
+It can be found at `/usr/share/wordlists/dirbuster/directory-list-2.3-small.txt`, but you can also find it at
 
 [https://raw.githubusercontent.com/berzerk0/pastehost/master/directory-list-2.3-small.txt](https://raw.githubusercontent.com/berzerk0/pastehost/master/directory-list-2.3-small.txt).
 
-Let’s make a copy into our working ‘a_pentest’ directory. 
+Let’s make a copy into our working ‘a_pentest’ directory.
 
 `cp /usr/share/wordlists/dirbuster/directory-list-2.3-small.txt dir_list.txt`
 
@@ -126,7 +129,7 @@ It runs in Python 3, meaning you will not have any trouble getting it to run on 
 On my Kali system, I have mine installed to /opt/Web_Tools, but you can download it to and run it from your current directory as well.
 
 
-`git clone https://github.com/maurosoria/dirsearch` will clone the repository to your current directory. 
+`git clone https://github.com/maurosoria/dirsearch` will clone the repository to your current directory.
 
 
 `git clone https://github.com/maurosoria/dirsearch/opt/dirsearch` will clone it to a folder called dirsearch in your /opt/ directory.
@@ -154,8 +157,8 @@ I don’t see test-burrito.png here. Hmm, this must not be the right directory. 
 ![A10 - uploads1](https://i.imgur.com/RJ1ogtp.png)
 
 
-There we go! 
-Okay, we know how to upload files and confirm they have been uploaded. 
+There we go!
+Okay, we know how to upload files and confirm they have been uploaded.
 If we click on the link to the image, we can view it all by itself in the browser.
 Perfect, this means if we can figure out how to upload code, we can run it directly.
 
@@ -164,8 +167,8 @@ So we know we can upload images, but just because our website says “Image Uplo
 Let’s try some arbitrary text file, and see if that will work for us.
 
 
-Create a simple textfile and try to upload it the same way. 
-I am going to create mine using… 
+Create a simple textfile and try to upload it the same way.
+I am going to create mine using…
 
 `echo 'An image is worth 1000 words.' > proverb.txt`
 
@@ -199,12 +202,12 @@ I save mine to a text file using echo.
 `echo '<?php passthru($_GET["cmd"]); ?>' > php-microshell.php`
 
 You can copy and paste if you like, but make sure that your browser doesn’t change the quotation mark characters out of plaintext!
-If you want to be sure, just delete them and add them yourself. 
+If you want to be sure, just delete them and add them yourself.
 
 If you want to be REALLY sure, you can [download the shell from me.](https://raw.githubusercontent.com/berzerk0/pastehost/master/php-microshell.php)
 
 
-If this shell works the way we hoped, we can just append "?cmd=commands" (without quotation marks) to the end of our URL. 
+If this shell works the way we hoped, we can just append "?cmd=commands" (without quotation marks) to the end of our URL.
 
 
 Go ahead and upload the php-microshell.php using the same method we have used so far, then visit /uploads1/php-microshell.php
@@ -238,7 +241,7 @@ All of those seem like they’d belong on a normal website, except for "l337sauc
 
 ![A16](https://i.imgur.com/IRVYXhG.png)
 
-Well, that’s obviously meant for us to leave alone and not bother with. I mean, it IS a secret. 
+Well, that’s obviously meant for us to leave alone and not bother with. I mean, it IS a secret.
 
 `http://192.168.56.102/uploads1/php-microshell.php?cmd=cat%20../l337saucel337/SECRETFILE`
 
@@ -250,7 +253,7 @@ Alright, we have two more uploaders to try, so lets go to `http://192.168.56.102
 
 
 
-## Level Two 
+## Level Two
 
 Visit `http://192.168.56.102/index2.html`
 
@@ -286,10 +289,10 @@ Within our browser, it will look just like the file uploads we have done so far,
 
 
 
-ZAP is the "Zed Attack Proxy," and we will need to tell our browser that we are using a proxy. By default, ZAP runs on the localhost at port 8008 (127.0.0.1:8008), which we will have to set up in our browser. 
+ZAP is the "Zed Attack Proxy," and we will need to tell our browser that we are using a proxy. By default, ZAP runs on the localhost at port 8008 (127.0.0.1:8008), which we will have to set up in our browser.
 
 
-Firefox does have built in proxy preferences, but endorses the FoxyProxy plugin in its Proxy Error messages. (Which I saw while trying to set up the proxy without FoxyProxy) 
+Firefox does have built in proxy preferences, but endorses the FoxyProxy plugin in its Proxy Error messages. (Which I saw while trying to set up the proxy without FoxyProxy)
 
 
 If you aren’t using Kali, go ahead and download the latest version of FoxyProxy and skip the next section.
@@ -297,7 +300,7 @@ If you aren’t using Kali, go ahead and download the latest version of FoxyProx
 
 __Kali and FoxyProxy:__
 
-At the time of this writing, FoxyProxy’s newest available version doesn’t play well with Kali’s LTS Firefox version. This isn’t that much of a problem, since we can still use the “Old” version from earlier this year. 
+At the time of this writing, FoxyProxy’s newest available version doesn’t play well with Kali’s LTS Firefox version. This isn’t that much of a problem, since we can still use the “Old” version from earlier this year.
 
 
 Keep in mind that 99.9% of the time, you should USE THE LATEST VERSIONS OF EVERYTHING. Frequently updating your software will keep you safer than any antivirus program ever could.  We are allowing ourselves to run the older version because we aren’t connecting to the real internet, only to a VM that doesn’t have the ability to access the internet without us setting it up – which we haven’t. (You are using a Host-Only Network, right? Don’t connect intentionally vulnerable systems the internet!)
@@ -337,7 +340,7 @@ With ZAP up and running, visit http://192.168.56.102/index2.html – this should
 All of our interactions in the browser will be noticed by ZAP. In addition to merely logging our upload actions, we want ZAP to intercept at the right time. The easiest way to do this is to upload something, then set a "Breakpoint" on that activity.
 
 
-Begin by uploading the test burrito. 
+Begin by uploading the test burrito.
 
 
 ![A24](https://i.imgur.com/VgWOV67.png)
@@ -388,10 +391,10 @@ If we hit this button once, we will get a preview of the response. Our file did 
 ![A31](https://i.imgur.com/mYd4uWw.png)
 
 
-Rats. Don’t worry, however, since this tells us what our next step will be. We know that the file checker does not rely on extensions and the "Content Type" field to decide what kinds of files it is looking at. This means it likely uses the "Magic Bytes" method of looking at some of the data at the beginning of a file and making a determination based on that. 
+Rats. Don’t worry, however, since this tells us what our next step will be. We know that the file checker does not rely on extensions and the "Content Type" field to decide what kinds of files it is looking at. This means it likely uses the "Magic Bytes" method of looking at some of the data at the beginning of a file and making a determination based on that.
 
 
-This changes our attack very slightly. Instead of deleting ALL of the information in the file, we know we just need to allow some to remain at the beginning before sneaking in the microshell. 
+This changes our attack very slightly. Instead of deleting ALL of the information in the file, we know we just need to allow some to remain at the beginning before sneaking in the microshell.
 
 
 Upload the test burrito and alter the request. Chop off most of the file’s data,but leave a bit at the beginning. Then, change the filename to " not_a_microshell.png"
@@ -405,7 +408,7 @@ Then hit the Step Through button again.
 
 ![A33](https://i.imgur.com/SBc2okD.png)
 
-Success! 
+Success!
 
 
 Let’s visit the file’s location. We already know about the /uploads2 folder, so let’s see if it’s in there.
@@ -451,7 +454,7 @@ Now visit  `http://192.168.56.102/uploads2/php-microshell.php.png?cmd=cat%20../l
 
 
 
-This level uses Javascript, but our attack methodology still applies. Since we already have ZAP running, we can repeat the successful process we did in Level Two. 
+This level uses Javascript, but our attack methodology still applies. Since we already have ZAP running, we can repeat the successful process we did in Level Two.
 
 
 We begin by uploading the test burrito, and then trying to find out where it is kept on the server.
@@ -481,7 +484,7 @@ Looks good, it even made it into the favicon! Let’s set a breakpoint in ZAP li
 
 ![A45](https://i.imgur.com/ZaM1BXi.png)
 
-Lastly, we can visit it in the browser to make sure it is working as expected. 
+Lastly, we can visit it in the browser to make sure it is working as expected.
 
 
 `http://192.168.56.102/uploads3/php-microshell.php.png`
@@ -491,7 +494,7 @@ Lastly, we can visit it in the browser to make sure it is working as expected.
 
 
 
-There it is! The same result as level 2! Let’s prove it works by dropping in some commands. 
+There it is! The same result as level 2! Let’s prove it works by dropping in some commands.
 
 
 `http://192.168.56.102/uploads3/php-microshell.php.png?cmd=echo this shell works on level 3; id`
@@ -518,3 +521,5 @@ If you'd like to learn more about File Upload Vulnerabilities, check out these l
 
 Thanks to TopHatSec for the VM!
 
+<br>
+[Main Page](index.md)

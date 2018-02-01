@@ -1,4 +1,4 @@
-[Main Page](index.md)
+[Main Page](index.md)<br>
 
 
 # CTF Writeup: SolidState on HackTheBox
@@ -42,7 +42,7 @@ Before anything, I added the IP to my `/etc/hosts` for convenience as `solidstat
 I began with my [benmap.sh]( https://github.com/berzerk0/textfiles/blob/master/Shell_Scripts/benmap.sh) script, which runs nmap in stages.
 
 
-The most important outputs came from an `nmap` command that was similar to 
+The most important outputs came from an `nmap` command that was similar to
 
 * `nmap -F solidstate.htb`
 
@@ -58,7 +58,7 @@ Our scan finds the box is running
 * NNTP at port 119
 
 
-Ports 25, 110 and 119 all seemed to contain software named James, which was very interesting. However, I usually like to start with HTTP scans. I set those in motion before investigating James. 
+Ports 25, 110 and 119 all seemed to contain software named James, which was very interesting. However, I usually like to start with HTTP scans. I set those in motion before investigating James.
 
 `nikto` and `dirsearch` are must-runs when investigating HTTP.
 
@@ -116,7 +116,7 @@ There has to be something we can dig out of it.
 
 ## 2. Enumerating James
 
-If we can look into the exploit code, we might be able to determine what gives the exploit its effectiveness and redirect it in some way. 
+If we can look into the exploit code, we might be able to determine what gives the exploit its effectiveness and redirect it in some way.
 
 
 
@@ -128,7 +128,7 @@ If we can look into the exploit code, we might be able to determine what gives t
 The exploit script contains credentials!<br>
 Both username and password are `root`<br>
 Seems like we are dealing with top notch security here.<br>
- 
+
 Just for the hell of it, I tried `ssh root@solidstate.htb` with the password `root`<br>
 This didn’t work. unsurprisingly.
 
@@ -159,7 +159,7 @@ Let’s see what will happen.
 <br>
 
 
-Frank is here to cause trouble, but what can he *do*? 
+Frank is here to cause trouble, but what can he *do*?
 Let’s look at the ports for guidance.
 
 
@@ -173,10 +173,10 @@ Will Frank get an email containing a randomly generated SSH password?
 
 
 
-* `nc telnet solidstate.htb 110` didn't wor. 
+* `nc telnet solidstate.htb 110` didn't wor.
 
 How can we connect to this port?
- 
+
 
 Eventually, I found found that POP3 can be communicated with over `telnet`<br>
 I had never used POP3 commands before, but a quick online search showed it wasn't tough to operate.<br>
@@ -283,8 +283,8 @@ Look at all this mess in the terminal, let's `clear` it away.
 <br>
 
 
-No clear?<br> 
-Uh... this can't be good. 
+No clear?<br>
+Uh... this can't be good.
 I hope I can grab the user flag, at least.
 
 <br>
@@ -315,7 +315,7 @@ Some time before doing this box, I had done [Bandit at overthewire.org.](http://
 One of the levels involved using `ssh` to run a command that would be executed right as a user logged in.<br>
 This would be run faster than an automatic *kick user* command, allowing the user to maintain access.
 
- 
+
 Perhaps this method could be deployed here as well?
 
 
@@ -335,7 +335,7 @@ Then, we can take advantage of the fact that `vi` can run shell commands from wi
 While this method did work, I ultimately found out there was a faster method.
 
 
-* `ssh mindy@solidstate.htb bash` 
+* `ssh mindy@solidstate.htb bash`
 
 
 `bash` is simply run as a command, skipping the `vi` step.<br>
@@ -433,7 +433,7 @@ Since the script would be executed as root, the created shell would have root pr
 
 
 We want to catch this shell as soon as the command is sent - so we don't miss it.<br>
-Let's set up our listener before altering the script. 
+Let's set up our listener before altering the script.
 
 
 On our local machine, we run:
@@ -485,14 +485,14 @@ Make sure your `PORTNUM` matches the listener.
 
 
 With the trap set, all we have to do is wait for the cronjob to run.<br>
-If the process takes more than 5-10 minutes, you have done something wrong.	
+If the process takes more than 5-10 minutes, you have done something wrong.
 Start by checking for typos, incorrect IPs, ports, etc.
 
 
 #### Soon...
 
 <br>
-![A23](https://i.imgur.com/KwNR7Xl.png)	
+![A23](https://i.imgur.com/KwNR7Xl.png)
 <br>
 
 
@@ -507,7 +507,7 @@ From here we can do as we please, starting with the capture of the root flag.
 ## 7. Conclusion
 
 My experience with this box underscored how important it is to actually be familiar with the territory.<br>
-I haven't been using Linux very long, and there is so much to know, so much that MIGHT be useful, that it can be paralyzing to find a place to start. 
+I haven't been using Linux very long, and there is so much to know, so much that MIGHT be useful, that it can be paralyzing to find a place to start.
 
 In this instance, I was able to find a foothold based on context and some prior knowledge. But I got a bit lucky. There have been boxes that stumped me because I *knew* there was something I just hadn't learned yet.<br>
 <br>
@@ -517,4 +517,5 @@ Time to crack open some books.
 
 *Thanks to HackTheBox and ch33zplz for this CTF!*
 
+<br>
 [Main Page](index.md)

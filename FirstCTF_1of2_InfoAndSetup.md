@@ -1,4 +1,4 @@
-[Main Page](index.md)
+[Main Page](index.md)<br>
 
 
 # From "What are CTF's?" to Your First Owned System
@@ -13,7 +13,7 @@
 
 
 This is Part One of a two-part set. Check out [Part Two here](FirstCTF_2of2_TamingTheBulldog.md)
- 
+
 <br>
 ## 1. Background - What are we talking about?
 <br>
@@ -51,7 +51,7 @@ Our capture the flag will take the form of a Linux virtual machine that we will 
 
 We will use the VirtualBox virtualization software, which runs on Windows, Mac and Linux. The setup process for each type of operating system is pretty similar, so this document will only cover a general outline.
 
-The CTF we will use is Nick Frichette's "[Bulldog](https://www.vulnhub.com/entry/bulldog-1,211/)" found on VulnHub.com at 
+The CTF we will use is Nick Frichette's "[Bulldog](https://www.vulnhub.com/entry/bulldog-1,211/)" found on VulnHub.com at
 
 [__https://www.vulnhub.com/entry/bulldog-1,211/__](https://www.vulnhub.com/entry/bulldog-1,211/)
 
@@ -59,7 +59,7 @@ The CTF we will use is Nick Frichette's "[Bulldog](https://www.vulnhub.com/entry
 __Note:__ You will be able to find walkthroughs for this box online, but reading them will spoil the learning process for you. Many walkthroughs (including one of my own) assume the reader already has some knowledge of pentesting and Linux, and might only contain the shortest possible path to root. Walkthroughs may show you the fastest route, but it is likely tthey will not provide much information aimed at the absolute beginner.
 
 
-The pathway we will take might not be the absolute shortest, and may not always follow best practices, but it is beginner friendly and will teach you enough to tame the Bulldog. The tools we will use to  accomplish our goal can be found conveniently organized in the Kali Linux distribution. 
+The pathway we will take might not be the absolute shortest, and may not always follow best practices, but it is beginner friendly and will teach you enough to tame the Bulldog. The tools we will use to  accomplish our goal can be found conveniently organized in the Kali Linux distribution.
 
 
 Kali will run in a virtual machine at the same time as our CTF machine, and we will route all of our attacks through it. Kali can be run natively, but is designed to be easy to run as a virtual machine or live boot. The CTF machine is quite minimal - it does not run a graphical interface of any kind, and can only be accessed via command line. However, running two virtual machines simultaneously may heavily tax some computers. We will be able to adjust our specifications as needed.
@@ -174,9 +174,9 @@ We will be gaining access via command line "shells". Some of these shells can be
 Why use the command line?
 * Scripting
 * Documentation
-* Remote shells don't have pictures 
+* Remote shells don't have pictures
 <br>
-This is a bare bones explanation of Linux. There are many, many core details that it ignores completely. It only explains the minimum needed to conquer the CTF in Part 2. 
+This is a bare bones explanation of Linux. There are many, many core details that it ignores completely. It only explains the minimum needed to conquer the CTF in Part 2.
 <br>
 <br>
 
@@ -224,10 +224,10 @@ When we open the terminal application after login, we find ourselves in the user
 Run it between commands to get a clean slate.
 <br>
 <br>
-`man` -  This is the "what am I doing?" command. 
+`man` -  This is the "what am I doing?" command.
 
 
-Every command here, and every command with the proper documentation will contain a manual page. If you want to see a detailed explanation of what a command has to offer, just type 
+Every command here, and every command with the proper documentation will contain a manual page. If you want to see a detailed explanation of what a command has to offer, just type
 
 
 `man COMMAND `
@@ -241,8 +241,8 @@ and read the documentation
 
 `ls -a` shows ALL  directory contents, included those normally hidden
 
-	
-	
+
+
 ![A6](https://i.imgur.com/WclJrNi.png)
 
 
@@ -261,7 +261,7 @@ There are many more flags to the ls command, all of which can be combined.
 <br>
 <br>
 
-`mkdir` - "make directory" 
+`mkdir` - "make directory"
 
 Just specify the name of the directory.
 
@@ -271,7 +271,7 @@ Just specify the name of the directory.
 
 Let's make another, called `b_folder` as well.
 
-![A8](https://i.imgur.com/Xt8a9Gf.png)	
+![A8](https://i.imgur.com/Xt8a9Gf.png)
 <br>
 <br>
 `cd` - "change directory" takes you to the directory you point it to.
@@ -293,15 +293,15 @@ These synonyms  can be used in paths as well. In this case, the  following three
 * `cd /root/b_folder`
 * `cd ~/b_folder`
 * `cd ../b_folder`
-	
+
 
 `/root` and `~`are the same when the current user is root, since `~`refers to the current user's home folder.
-	
+
 `..` refers to a relative location, not a full path. It will only jump out one directory.
 If we had gone one level deeper, into a subdirectory of b_folder, `..` would refer to `b_folder`, not `/root`.
 <br>
 <br>
-`echo` - this command is used to send text to the terminal output. This string will always end with a newline. 
+`echo` - this command is used to send text to the terminal output. This string will always end with a newline.
 <br>
 `cat` - "concatenate" - used to read files
 <br>
@@ -309,7 +309,7 @@ We will use two these commands to demonstrate some important things about input 
 
 * `echo "hi"` - will send the word "hi" to the terminal output.
 * `echo "hi" > hi.txt` - will save the word "hi" to a file called `hi.txt`
-	
+
 * `cat hi.txt` - will display the contents of hi.txt to the terminal output.
 
 * `echo "hello" > hi.txt `- will OVERWRITE `hi.txt` to contain *"hello"*
@@ -324,7 +324,7 @@ We will use two these commands to demonstrate some important things about input 
 * `cat file.txt hi.txt > bigfile.txt` - will write the contents of  `file.txt` with the contents of  `hi.txt` tacked on to the end  a new file called `bigfile.txt`
 
 
-![A10](https://i.imgur.com/5pHnZQI.png)	
+![A10](https://i.imgur.com/5pHnZQI.png)
 <br>
 <br>
 `rm` - "remove" - used to delete files and folders.
@@ -333,8 +333,8 @@ We will use two these commands to demonstrate some important things about input 
 
 The file is not moved to a trash folder, it is gone.
 It can be retrieved for a short while using forensics tools, but once you delete something - or edit it, for that matter - it pretty much stays that way.
-	
-	
+
+
 * `rm FILE_NAME` - will delete a file
 * `rm -r DIRECTORY_NAME` - can an be used delete a directory and all its contents, including all the contents of subdirectories within subdirectories. This is known deleting things *recursively.*
 
@@ -347,7 +347,7 @@ It can be retrieved for a short while using forensics tools, but once you delete
 * `rm -r *` - deletes ALL files and subdirectories in the current directory, recursively.
 <br>
 <br>
-The `*` operator is not unique to `rm` It can be used as a wildcard to "fill in the blanks" in many contexts. 
+The `*` operator is not unique to `rm` It can be used as a wildcard to "fill in the blanks" in many contexts.
 Here we can use it read files with something common in their name.
 See the example pictured below.
 
@@ -356,18 +356,18 @@ See the example pictured below.
 <br>
 `less` - this command is used to read a file bit by bit, instead of reading the whole thing and skipping right to the end.
 
-To properly demonstrate this, we will need a long file. 
+To properly demonstrate this, we will need a long file.
 
-Luckily, Kali comes with wordlists pre-installed for password recovery and other bruteforcing methods. 
-
-
-`less /usr/share/wordlists/dirb/common.txt` 
+Luckily, Kali comes with wordlists pre-installed for password recovery and other bruteforcing methods.
 
 
-This command  allows us to scroll through the wordlist a block at a time. 
+`less /usr/share/wordlists/dirb/common.txt`
+
+
+This command  allows us to scroll through the wordlist a block at a time.
 Use the arrow keys or scroll wheel to move around the file, and press the *Q* key to exit.
- 
- 
+
+
 __Use the `Q` key to exit from `less`__
 
 
@@ -377,7 +377,7 @@ __Use the `Q` key to exit from `less`__
 `less` can be applied to any output using the  `|` character, called "pipe."
 
 
-If you ran `ls -la`  in the system root, the output wouldn't fit in a single terminal window. 
+If you ran `ls -la`  in the system root, the output wouldn't fit in a single terminal window.
 You can use less in order to scroll through them all.
 
 * `ls -la / | less`
@@ -386,15 +386,15 @@ You can use less in order to scroll through them all.
 Pipe `|` is used to... pipe any output in the terminal output to a location of your choosing. This is very useful when combined with the tee command, which will allow the output to be displayed and logged simultaneously.
 
 
-Many programs have a built in logging option, but a quick (and sometimes inferior) logging option is to use 
+Many programs have a built in logging option, but a quick (and sometimes inferior) logging option is to use
 
 
 `COMMAND | tee log.txt`
 
 
-which pipes the output to a log.txt file while displaying it to the terminal output. 
+which pipes the output to a log.txt file while displaying it to the terminal output.
 
-Note that in some instances we could use 
+Note that in some instances we could use
 
 
 `COMMAND >> log_file.txt`
@@ -415,9 +415,9 @@ This might not seem all that useful now, but when we get into the CTF it can be 
 
 
 Either method can be used with any number of commands in a row.
-	
+
 * `pwd; ls` - will output our current directory and its contents.
-	
+
 * `cd c_folder && ls` - will only run `ls` if we successfully enter `c_folder`. If `c_folder` does not exist, `ls` will not run.
 
 ![A14](https://i.imgur.com/Vx98By0.png)
@@ -442,7 +442,7 @@ There are way too many commands to go over here, and they can be combined and tw
 We will be running most of our penetration testing commands from the terminal itself, but they can be explained in context.
 <br>
 <br>
-## 5. Update the Kali VM 
+## 5. Update the Kali VM
 
 If your host machine has internet access, Kali should be connected to the internet as well. You can check this by pinging a website.
 
@@ -462,7 +462,7 @@ As a Debian-based Distro, Kali uses the `apt` package manager. Instead of having
 `apt-get update && apt-get upgrade`
 
 
-This will start a long updating process that can take half an hour or so. 
+This will start a long updating process that can take half an hour or so.
 During that time, it may ask you to confirm some changes. Go with yes, or the default option for each one.
 Specific parameters can be changed later, and we will not need to alter these to do our CTF.
 
@@ -474,7 +474,7 @@ The "update" portion checks the trusted Kali software repositories for the newes
 
 
 
-When dealing with cybersecurity, it pays to be up to date. 
+When dealing with cybersecurity, it pays to be up to date.
 In 2017, a patch for the bug that allowed the WannaCry ransomware to spread was released WELL before the outbreak of the malware.
 Updated machines were simply not vulnerable to the exploit needed for WannaCry to work as intended.
 Software has bugs, and most found bugs are patched away.
@@ -486,11 +486,11 @@ __"But why update my ATTACKING VM?"__
 
 
 From a practical perspective, any problems that may arise while following along with the CTF instructions in part 2 may be related to software versions.
-I will update, and by updating, you ensure that we are on the same page. 
+I will update, and by updating, you ensure that we are on the same page.
 
 <br>
 
-#### Updating the Kali VM May Annoy Your Host System’s Antivirus: 
+#### Updating the Kali VM May Annoy Your Host System’s Antivirus:
 
  Funnily enough, antivirus may detect that someone (you) are installing software that can be used maliciously on your computer! Good job, I guess? Look up how to whitelist the files/process in your AV's documentation.
 <br>
@@ -517,7 +517,7 @@ This OVA comes with default settings practically ready to go, so just load it up
 
 
 
-In order to isolate/connect the VM's to each other, you will need to change their virtual network adapters to be connected to the __host-only network.__ This disconnects the VM's from the internet, and makes it so they can only "see" the host machine and each other. 
+In order to isolate/connect the VM's to each other, you will need to change their virtual network adapters to be connected to the __host-only network.__ This disconnects the VM's from the internet, and makes it so they can only "see" the host machine and each other.
 If we wanted to, we could keep the Kali machine connected to the internet, but for the  sake of uniformity , I chose to __make both machines host-only.__
 
 
@@ -559,6 +559,10 @@ Others take more naturally to VMWare than VirtualBox. You may need to employ som
 <br>
 <br>
 
- 
+
 
 ## You are ready to move on to [Part Two!](FirstCTF_2of2_TamingTheBulldog.md)
+
+
+<br>
+[Main Page](index.md)

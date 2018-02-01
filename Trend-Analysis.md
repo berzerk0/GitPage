@@ -1,4 +1,15 @@
+[Main Page](index.md)
+<br>
+
 # Probable Password Trend Analysis
+
+![Logo](https://raw.githubusercontent.com/berzerk0/Probable-Wordlists/master/ProbableWordlistLogo.png)
+
+<br>
+
+Updated: 31 Jan 2018
+
+<br>
 
 ## Overview
 
@@ -104,6 +115,8 @@ The l33tspeak phenomenon has been around for some time now, and it doesn't take 
 Mutations of dictionary words and other common passwords are easy to guess, and shouldn't form your entire password.
 
 
+<br>
+
 ### Make Your Password Buck the Trends With These Tips:
 
 Let's walk through the process of taking a weak password, based on a dictionary word, and altering based on the advice based on the data from this analysis.
@@ -145,4 +158,9 @@ We began with started with `noodle`, and ended up with `-Noodle-17-SOUP-`, which
 `-Noodle-17-SOUP` is much harder to crack than `noodle`, and is even harder to crack than `n00dl3$0UP` which might be mutated out of dictionary words.
 
 
+<br>
+
 ## Thanks for reading!
+
+<br>
+[Main Page](index.md)

@@ -1,3 +1,6 @@
+[Main Page](index.md)
+
+
 # CTF Writeup: Blue on HackTheBox
 
 ## 12 January 2018
@@ -46,12 +49,12 @@ With no idea what else to do, I attempted to place this list of machines into co
 By paying attention to Cybersecurity news (mostly by listening to the Cyberwire podcast) I had learned some interesting terms and concepts, but had no context or practical knowledge.
 The big cybersecurity stories of the year so far had been WannaCry and NotPetya.
 I knew Wannacry was a huge ransomware attack that was infecting Windows server machines all over the world, despite a well-known patch that had been released.
-Hospitals had to divert ambulances, businesses had to shut down, and some conniving crooks out there were raking in the big bucks $300 in Bitcoin at a time. 
+Hospitals had to divert ambulances, businesses had to shut down, and some conniving crooks out there were raking in the big bucks $300 in Bitcoin at a time.
 
 
 These attacks were particularly noteworthy because of the vulnerability they exploited.
 CVE-2017-0144 came to light after it was published by a group known as the Shadow Brokers.
-They claimed to have stolen an exploit that took advantage of this vulnerability from the "Equation Group," which is widely believed to be the United States National Security Agency. 
+They claimed to have stolen an exploit that took advantage of this vulnerability from the "Equation Group," which is widely believed to be the United States National Security Agency.
 
 
 This secret weapon had been stolen a government cyber-armory and was placed into the hands of hackers all over the world.
@@ -77,10 +80,10 @@ Something clicked in my head when I saw this:
 
 
 Of course! This information was sure to carry me to the legendary flag I had heard needed to be captured.
-I just needed to implement my strategy and it would be mine. 
+I just needed to implement my strategy and it would be mine.
 
 However, my grand revelation had not provided me an idea of *what to actually do*.
-So, I began clicking around on Kali to get my bearings and looking for some kind of lead. 
+So, I began clicking around on Kali to get my bearings and looking for some kind of lead.
 In the default applications dock was Armitage, and I looked it up online to find out it was a graphical front end for Metasploit.
 I had heard Metasploit was very effective, but had no idea what it looked like or how it was operated.
 I wondered, "if this Metasploit is so useful, surely I should be able to use it to wield EternalBlue?"
@@ -88,7 +91,7 @@ I wondered, "if this Metasploit is so useful, surely I should be able to use it 
 
 Metasploit was a mystery, but I did know how to look at graphics. Armitage seemed to be a good place to start.
 I clicked all the default options upon startup and  I found myself looking at some folders, a empty void and a console.
-After browsing through the options at the top of the page, I decided I might need to add a target. I went to "Hosts" and selected "Add Hosts." 
+After browsing through the options at the top of the page, I decided I might need to add a target. I went to "Hosts" and selected "Add Hosts."
 
 
 ![A2](https://i.imgur.com/R9fasSy.png)
@@ -107,7 +110,7 @@ I now had a monitor icon representing a machine. I noticed there was a search bo
 ![A4](https://i.imgur.com/uuSx1g6.png)
 
 
-That last result looked very promising! 
+That last result looked very promising!
 I didn't know any other name for the exploit besides "EternalBlue," but the fact that there was as "17" in the title suggested this was the the exploit I needed.
 I clicked on the "target" machine, then on the eternalblue line. An options Window came up, but I didn't know how to interpret any of those options, so I just hit enter.
 The console buzzed to life, and the machine's icon changed.
@@ -198,7 +201,7 @@ Research on the rpc port reminds me that I can use the `enum4linux` tool
 
 
 This command mostly informed me that the scanned ports were off-limits.
-It doesn't seem like a way to move forward. The same was true for nbtscan and smbmap. 
+It doesn't seem like a way to move forward. The same was true for nbtscan and smbmap.
 
 
 Without the context of "Blue" - this box didn't provide me much I recognized.
@@ -207,7 +210,7 @@ This way I can test my process and see if I would "discover" the exploit I neede
 
 
 While I had been searching for information about the ports and not finding anything to grab on to, nmap finished the deeper scan.
-It produced a very, very interesting result. 
+It produced a very, very interesting result.
 
 
 ![A10](https://i.imgur.com/uF7fah7.png)
@@ -260,9 +263,9 @@ Make sure your Meterpreter IP is set to your HTB VPN IP
 ![A13](https://i.imgur.com/0u72HoI.png)
 
 
-Once again, it is just really cool to know that you've used an NSA cyberweapon! 
+Once again, it is just really cool to know that you've used an NSA cyberweapon!
 
-* `getuid` 
+* `getuid`
 
 
 getuid tells us we are the boss of this system, and can go ahead and grab whatever flags we wish.
@@ -298,8 +301,5 @@ Now, all that is left to do is clean up using the built-in meterpreter methods.
 Thanks to HackTheBox for making such an approachable and timely CTF!
 
 
-
-
-
-
-
+<br>
+[Main Page](index.md)
