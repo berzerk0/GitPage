@@ -13,7 +13,7 @@ Check out the [Shoutout Page](shoutouts.md) for the (incomplete) list of mention
 
 ## Probable-Wordlist Password Trend Analysis
 
-* [Trend Analysis of the most common passwords - contains immediately actionable password advice](Trend-Analysis.md)
+* [Actionable, Data-Supported Advice Based on the Probable-Wordlists](Trend-Analysis.md)
 
 
 ## From "What is a CTF" to Your First Root Flag
