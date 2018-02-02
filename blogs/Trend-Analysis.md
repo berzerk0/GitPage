@@ -13,17 +13,18 @@
 
 ## Overview
 
-In order to get a better idea of the trends of secure and insecure passwords, I ran a portion of my [Probable Wordlists](https://github.com/berzerk0/Probable-Wordlists) through [DigiNinja's Pipal](https://digi.ninja/projects/pipal.php) analysis tool
+This document will show *why* you need a unique, secure password. It then will describe what the *least* unique passwords have in common, and why they are catnip for password cracking software. Finally, I'll show you how to create a more unique password that buck the trends while still being memorable.
+
+
+In order to get a better idea of the trends of secure and insecure passwords, I ran a portion of my [Probable Wordlists](https://github.com/berzerk0/Probable-Wordlists) through [DigiNinja's Pipal](https://digi.ninja/projects/pipal.php) analysis tool.
 
 
 If you'd like to get right to the findings, scroll right to the __Results__ section.
 
 
-This document provides context for *why* a person needs a unique, secure password. It then will describe what the least-unique passwords have in common, and how these trends are taken advantage of by password attacking software. Finally, it will walk you through the creation of an example password designed to buck the trends of common passwords to end up statistically unique while still being memorable.
-
-
-__Caveat:__
-A person dedicated to determining a password has many tricks at their disposal. Sophisticated threat actors will use a combination of methodologies in this process. A password that is extremely resistant to brute forcing may still be stolen via social engineering or malware. There may be no way to become 100% secure, but steps can be taken to make it harder for your passwords to become compromised.
+__Caveat:__ <br>
+Following this guide will make it harder for an attacker to compromise your password via brute force. However, there may be no way to become 100% secure.
+A person dedicated to determining a password has many tricks at their disposal. Sophisticated threat actors will use a combination of methodologies in this process. A password that is extremely resistant to brute forcing may still be stolen via social engineering or malware. Always exercise caution.
 
 
 ## Background
@@ -32,11 +33,13 @@ A person dedicated to determining a password has many tricks at their disposal. 
 
 A giant list of passwords *sounds* useful, but what can I *do* with it?
 
-You could search through it for your passwords. If they're found, you rush to change them. If they aren't, you think *"Phew, that's a relief."* In both cases, a person is likely to simply move on and stop thinking about password security. You might share the list with a few friends, or you might revisit the list the next time you come up with a new password, but it's entirely possible that you don't continue to give your passwords much thought.
+You could search through it for your passwords. If they're found, you rush to change them. If they aren't, you think *"Phew, that's a relief."* In both cases, you are likely to simply move on and stop thinking about password security.
+
+You might share the list with a few friends, or you might revisit the list the next time you come up with a new password, but it's entirely possible that you don't continue to give your passwords much thought.
 We have a lot to worry about, and not spending days worrying about password security is hardly a personal failure.
 
 
- It's possible that the only time some people think about how secure or unique their passwords are, or even consider password security as a whole, is when they hear about leaks. A headline will appear talking about how a record-breaking breach resulted passwords blasted all over the internet. Experts appear and tell us that foreign governments and gangs are after our information and that the sky is falling. A person might get concerned for an afternoon, but what else can be done? We know that identity theft happens, but that's what the protections at our banks are for - right? They've got it all under control, of course! Surely, the sky isn't really falling - why not leave this problem to "the cybersecurity people?"
+It's possible that the only time syou think about how secure or unique your passwords are, or even consider password security as a whole, is when you hear about leaks. A headline will appear talking about how a record-breaking breach resulted passwords blasted all over the internet. Experts appear and tell us that foreign governments and gangs are after our information and that the sky is falling. You might get concerned for an afternoon, but what else can be done? We know that identity theft happens, but that's what the protections at our banks are for - right? They've got it all under control, of course! Surely, the sky isn't really falling - why not leave this problem to "the cybersecurity people?"
 
 
 The truth of the matter is that "the cybersecurity people" are working hard to make the internet a safer place. Security is a complex problem, however, and everyone can play a role. User participation in cybersecurity measures need not be intense or even difficult. We can find parallels in other aspect of our lives. Allow me to create an overly dramatic analogy.
@@ -55,13 +58,13 @@ Here, the "security people" are locksmiths. They did everything they could to cr
 
 ### Actionable, Data-Supported Advice
 
-I did say the analogy was going to be overly dramatic, but I hope the implications are clear. __The best security systems can be defeated if those who use them don't take proper care.__ The average person doesn't need to spend too much time working directly with a cybersecurity team, but a little bit of effort can make a *huge* difference. Using the right password generation techniques can make it *astronomically* harder for passwords to be guessed via common methods.
+I did say the analogy was going to be overly dramatic, but I hope the implications are clear. __The best security systems can be defeated if you are careless.__ You don't have to become a certified cybersecurity expert, but a little bit of effort can make a *huge* difference here. Use the right password generation techniques and it will be *astronomically* harder for anyone to brute force your password.
 
 
  Armed with [DigiNinja's Pipal](https://github.com/digininja/pipal), I performed an analysis on the list of the Top 32 Million Most Common Passwords. This isn't the largest list in the repository, but it is sizable enough to encompass notable trends. Pipal provided valuable data to interpret and chart, These findings provide actionable, data-supported information that is useful to everyone, even if your passwords weren't on the list.
 
 
-Passwords included in this analysis appeared at least 10 times in the __Rev 1.2__ Files.
+Passwords included in this analysis appeared at least 10 times in the [Probable Wordlists](https://github.com/berzerk0/Probable-Wordlists) __Rev 1.2__ Files of the Probable-Worl
 
 
 ## Results

@@ -34,16 +34,16 @@ and it is our job as the red team to find out how true that is.
 <br>
 
 Our flag-capturing, root-accessing process will go something like this:<br>
-(Most of these are not widely used terms)
+(The terms below are not standard, I am using them organize the process for you)
 
 1.	__Getting Connected__
 2.	__Information Gathering__ - What does the box offer? Where should we look?
-3.	__External Observation/Reconnaissance__  - Finding Vulnerable points from the outside
-4.	__Gaining Low-Privilege Access to the System__ - Attempting to gain access and pop a  "user" shell
+3.	__External Observation/Reconnaissance__  - Finding vulnerable points from the outside
+4.	__Gaining Low-Privilege Access to the System__ - Attempting to gain access and pop a "user" shell
 5.	__Internal Observation/Enumeration__ - finding vulnerable points from the inside
 6.	__Privilege Escalation__ - Gaining root access by via exploit, misconfiguration, or by taking advantage of privileged information insecurely stored.
 
-The above process is NOT up to the standards used by professionals, and is not meant to be scalable.
+The above process is *not* up to the standards used by professionals, and is meant to be more of a base to build a more comprehensive process of your own.
 It aims to simply demonstrate a general outline of the steps we need to perform in order to get the flag.
 There are many standards for penetration testing, and the [Penetration Testing Execution Standard]( http://www.pentest-standard.org/index.php/Main_Page) is a great outline.
 
@@ -54,7 +54,7 @@ There are many standards for penetration testing, and the [Penetration Testing E
 
 ### Locating the Target
 
-Let's get our toolset warmed up and ready to work - boot up your Kali VM. <br>
+Let's get our tools ready to work - Boot up your Kali VM. <br>
 Upon boot, type `ifconfig` and ensure it has been automatically assigned a host-only IP address starting with `192.168.56.xx`
 
 <br>
@@ -72,7 +72,7 @@ Therefore, shortly after boot, we can simply minimize it.
 If you accidentally view the IP, it isn't the end of the world.
 
 ### PREVENT SPOILERS!
-__Minimize Bulldog right after boot while the screen looks something like this:
+__Minimize Bulldog right after boot while the screen looks something like this:__
 
 <br>
 ![A2_minimize_here](https://i.imgur.com/AYbLQ70.png)
