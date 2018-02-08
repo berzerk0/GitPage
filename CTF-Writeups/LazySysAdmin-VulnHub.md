@@ -1,6 +1,10 @@
 [Main Page](../index.md)
 
-# CTF Writeup: LazySysAdmin on VulnHub
+# CTF Writeup:
+# LazySysAdmin on VulnHub
+<br>
+![a0](https://i.imgur.com/iFDpFwb.jpg)
+<br>
 ## 8 November 2017
 
 
@@ -8,7 +12,7 @@ A fun box from Vulnhub, written by Togie McDogie.
 You can find it [here](https://www.vulnhub.com/entry/lazysysadmin-1,205/) at https://www.vulnhub.com/entry/lazysysadmin-1,205/
 
 
-### Introduction
+## Introduction
 
 LazySysAdmin was a fun little box that reminds us to keep it simple.
 This write up assumes the reader has beginner knowledge of pentesting.
@@ -18,18 +22,18 @@ I ran it on my native Kali host machine using VirtualBox; on a host-only network
 
 Before beginning, I added its IP to my hosts file for convenience.
 
-[Here](https://pastebin.com/raw/briMUhtu) is a very quick summary *__that is entirely full of spoilers__* - it doesn't show my methodology or process.
-This will tell you how to get the root flag, but you won't learn much.
+[Here](https://pastebin.com/raw/briMUhtu) is a very quick summary __*that is entirely composed of spoilers*__ -
+
+It doesn't show my methodology or process.
+It will tell you how to get the root flag, but you won't learn much.
 It's also encrypted (weakly) - but if you can root the box using just the spoiler, you'll know how to decode it.
 
 
 
 
-## Method
 
 
-
-### 1. Initial Scans
+## 1. Initial Scans
 As always, we start with `nmap`
 
 *  `nmap -sV -T4 lazysysadmin.ctf`
@@ -38,13 +42,13 @@ As always, we start with `nmap`
 ![A1](https://i.imgur.com/FiyPXpn.png)
 <br>
 
- Alright, we have a website, so let's run our regular http battery of tests.
- After that we will investigate Smb, MYSQL, and IRC - if we need to.
+ Alright, we have a website, so let's launch our regular HTTP battery.
+ After that we will investigate SMB, MYSQL, and IRC - if we need to.
  If we figure out the credentials, we can SSH in as well.
 
- Run dirsearch, nikto, nmap w/ vuln scan, and manually browse the website. Run these scans in parallel.
+ Run `dirsearch`, `nikto`, `nmap` w/ vuln scan, and manually browse the website. Run these scans in parallel.
 
- I like to run dirsearch twice - a quick scan without specifying a wordlist to find common things, then a deeper dive.
+ I like to run `dirsearch` twice - a quick scan without specifying a wordlist to find common things, then a deeper dive.
  Even my quick can uses a large number of extensions - I usually don't run it recursively until I find an interesting starting point,
  or get stuck and think I need to keep digging.
 
@@ -57,36 +61,36 @@ As always, we start with `nmap`
 *  `nmap -A -O -T4 --script=vuln lazysysadmin.ctf`
 
 <br>
- ![A3](https://i.imgur.com/WV6qfti.png)
- <br>
- ![A4](https://i.imgur.com/XHKjJFc.png)
- <br>
+![A3](https://i.imgur.com/WV6qfti.png)
+<br>
+![A4](https://i.imgur.com/XHKjJFc.png)
+<br>
 
+<br>
 
  * `nikto -h http://lazysysadmin.ctf`
 
 <br>
- ![A5](https://i.imgur.com/WiAW82Q.png)
- <br>
+![A5](https://i.imgur.com/WiAW82Q.png)
+<br>
 
- And manual browsing, of course. I took a peek at the page sources for anything interesting - didn't find much here.
+
+In the browser, I took a peek at the page sources for anything interesting. However, won't find much there.
 
 <br>
- ![A6](https://i.imgur.com/d05dbp8.png)
- <br>
+![A6](https://i.imgur.com/d05dbp8.png)
+<br>
 
- I like steganography (there is some in this guide) - so I read "The answer is within you" as "Check this image for stego."
- Nothing came up, with `steghide`, `strings` or stegsolve; so I checked my scan outputs.
+
+ I like steganography (there is some in this guide) - so I read *"The answer is within you"* as *"Check this image for stego."* <br>
+ Nothing came up with `steghide`, `strings` or stegsolve; so I checked my scan outputs.
 
  The first thing I checked was `robots.txt` - something that the scanners might not be able to do for me.
  It didn't contain anything too interesting... unlike my `nmap` vulnscan, which dumped out a ton of useful info.
 
 
 
-
-
-
- ### 2. Investigating the Website
+## 2. Investigating the Website
 
 * `/wordpress`/ suggests we have a very fertile ground for planting an attack. Wordpress admin access = shell.
 * `/phpmyadmin/` suggests there is a database ready to plunder.
@@ -98,11 +102,11 @@ As always, we start with `nmap`
  and browsed it myself while it ran.
 
 <br>
- ![A8](https://i.imgur.com/y3FdRcQ.png)
- <br>
+![A8](https://i.imgur.com/y3FdRcQ.png)
+<br>
 
 
-wpscan found a bunch of potential vulnerabilities - but I like to start simply.
+`wpscan` found a bunch of potential vulnerabilities - but I like to start simply.
 The default username is in use, so maybe the default password will be as well.
 The only blog post is just *my name is togie* 50 times - so maybe thats the password?
 
@@ -144,7 +148,7 @@ and just press enter when asked for the password.
 <br>
 
 What looks interesting or new... hmm.
-`todolist.txt`, `deets.txt`... and ooh! A wWrdpress directory! That might have our website setup in it!
+`todolist.txt`, `deets.txt`... and ooh! A Wordpress directory! That might have our website setup in it!
 
 * `cd wordpress`
 * `ls`
@@ -153,13 +157,15 @@ What looks interesting or new... hmm.
 ![A11](https://i.imgur.com/CzDqWaI.png)
 <br>
 
-wp-config.php has given me passwords, or at least hashes, in the past. Let's check it out.
+`wp-config.php` has given me passwords, or at least hashes, in the past. Let's check it out.
 
 * `get wp-config.php`
 * `exit`
 * `less wp-config.php`
 
+<br>
 ![A12](https://i.imgur.com/NyhJkrk.png)
+<br>
 
 *Why, hello there...*
 
@@ -169,9 +175,7 @@ Visit `/phpmyadmin` and try logging in with `Admin:TogieMYSQL12345^^` - and get 
 
 
 
-
-
-### 4. Plundering the SQL Database
+## 4. Plundering the SQL Database
 
 Alright, let's see what goodies we can find.
 
@@ -215,22 +219,25 @@ was forbidden, so I tried the more specific
 
 * `select user_login, user_pass, user_nicename, user_email from wp_users`
 
+<br>
 ![A17](https://i.imgur.com/OvAtVBq.png)
+<br>
 
-Great, a hash! Maybe we can crack it… I wonder if it’s the same as the MySQL password…
+Great, a hash! Maybe we can crack it. <br>
+I wonder if it’s the same as the MySQL password…
 
-Wait.
+Wait. <br>
 
 We can try just try logging in with that password to the wordpress site.
 Should have tried that first!
 
 <br>
- ![A18](https://i.imgur.com/aJmC9LI.png)
+![A18](https://i.imgur.com/aJmC9LI.png)
 <br>
 
 
 
-### 5. Wordpress Admin Access
+## 5. Wordpress Admin Access
 
 It’s a gift to be simple…
 
@@ -238,7 +245,7 @@ Let’s go ahead and drop a php shell into one of the plugins.
 
 I’ve messed this process up before – so I always make a copy of the original text before trying any alterations. This also allows us to revert the plugin back to normal if we give ourselves another way in later.
 
-From `/usr/share/webshells/php/` I grab what I like to call the “monkey shell” and make a copy in my pentest directory.
+From `/usr/share/webshells/php/` I grab what I like to call the *"monkey shell"* and make a copy in my pentest directory.
 
 I know the plugin code already includes <?php and ?> flags, so I chop those off and edit in the correct IP and port information.
 
@@ -255,17 +262,18 @@ Then, we just paste it in at the end of our plugin code.
 Now we can start our listener with
 * `nc -lnvp PORTNUMBER`
 
-and hit *“Update File.”* My shell didn’t pop immediately, but after I clicked *“Installed Plugins”* again in order to make sure the plugin was active.
+and hit *"Update File.""* My shell didn’t pop immediately, but after I clicked *"Installed Plugins"* again in order to make sure the plugin was active.
 
 <br>
 ![A21](https://i.imgur.com/3PjSoOB.png)
 <br>
+
 We've got a shell, and it is time to enumerate!
 
 
 
 
-### 6. Enumerating the box with the www-data user
+### 6. Enumerating With `www-data`
 
 Enumerating a system from the inside can sometimes feel like looking for a needle in a haystack. To be honest, if I lost a needle in a haystack, I’d just go look for another needle. But if I didn’t have another needle, I’d try to use a magnet. That can’t help us here, however.
 
@@ -324,7 +332,7 @@ Use password `12345`
 
 
 
-### 7. Call me Togie!
+### 7. Call Me Togie!
 
 This `togie` user seems to be the LazySysAdmin in question. I wonder if they can run anything as superuser.
 
@@ -335,17 +343,17 @@ This `togie` user seems to be the LazySysAdmin in question. I wonder if they can
 ![A26](https://i.imgur.com/Lco9hyd.png)
 <br>
 
-Well, it looks like Togie CAN run anything as superuser.<br>
-Togie can run *every* thing as superuser.
+Well, it looks like Togie *can* run some things as superuser.<br>
+In fact, Togie can run *every* thing as superuser.
 
 * `sudo su`
 
 
 ### 8. Did I say Togie? Sorry, my name is Oot. Richard Oot.
 
-(For presentation’s sake, I logged into SSH – but this is entirely optional and leads another entry in a log file)
+For presentation’s sake, I logged into SSH – but this is entirely optional and leads another entry in a log file. While doing the CTF myself, I continued to use the reverse shell.
 
-Seeing that little “#” brings a smile to my face.
+Seeing that little `#` brings a smile to my face.
 
 * `cd ~`
 * `ls`
@@ -362,6 +370,7 @@ Seeing that little “#” brings a smile to my face.
 * If you have access to a group of files, READ THEM. At least grep for "pass\[word\]"
 * Don't leave your web root in a publicly accessible SMB.
 * Don't leave your root password lying around! Or any other for that matter!
+
 
 
 ## Togie's Questions:
@@ -384,7 +393,7 @@ The answer to both of these questions is related to breadth-vs-depth searching. 
 
 
 
-Thanks Togie McDogie!
+## Thanks Togie McDogie!
 Good Luck on your next OSCP!
 
 <br>

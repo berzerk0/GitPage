@@ -1,12 +1,18 @@
 [Main Page](../index.md)<br>
 
 
-# CTF Writeup: Blocky on HackTheBox
+# CTF Writeup:
+# Blocky on HackTheBox
+
+<br>
+![a0-logo](https://i.imgur.com/Y0d03Mo.png)
+<br>
+
 ## 9 December 2017
 
 
 
-![a0-logo](https://i.imgur.com/Y0d03Mo.png)
+
 
 ## Introduction
 

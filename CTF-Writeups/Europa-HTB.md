@@ -1,11 +1,13 @@
 [Main Page](../index.md)
 
-# CTF Writeup: Europa on HackTheBox
-## 2 December 2017
-
+# CTF Writeup:
+# Europa on HackTheBox
 <br>
 ![A0-Logo](https://i.imgur.com/iDTsn80.png)
 <br>
+## 2 December 2017
+
+
 
 ## Introductory Info
 Solving this box was a great example of my learning process - trial by fire. I've been attempting to do tons of CTFs, whether I am ready for them or not. This method is summed up by a phrase I've borrowed from a Childish Gambino song: "I did everything I could, then I kept going."
@@ -421,7 +423,7 @@ Grab the root flag with...
 
 * `cat /root/root.txt`
 
-...and if you want, you can be done here. I'm going to clean up after myself and remove a few traces of my presence here. NOTE: I am not doing this in the stealthiest way possible. I'm doing this to form good habits, but do not see this as an example of a phantom-like dissappearance.
+...and if you want, you can be done here. I'm going to clean up after myself and remove a few traces of my presence here. NOTE: I am not doing this in the stealthiest way possible. I'm doing this to form good habits, but do not see this as an example of a phantom-like disappearance.
 
 * `cd /tmp; rm f fa script.sh`
 * `rm /var/www/cmd/logcleared.sh`

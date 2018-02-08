@@ -1,11 +1,15 @@
 [Main Page](index.md)
 
 
-# CTF Writeup: Blue on HackTheBox
+# CTF Writeup:
+# Blue on HackTheBox
+
+<br>
+![A0-Logo](https://i.imgur.com/ZQYZ6mJ.png)
+<br>
 
 ## 12 January 2018
 
-![A0-Logo](https://i.imgur.com/ZQYZ6mJ.png)
 
 
 
@@ -72,9 +76,9 @@ That's it. I had no idea what services it exploited and  couldn't recall what ac
 With this information bouncing around inside my head somewhere, I looked for the CTFs with the lowest difficulty ratings.
 Something clicked in my head when I saw this:
 
-
+<br>
 ![A1](https://i.imgur.com/QoRG1NK.png)
-
+<br>
 
 *Blue + Windows + (current year = 2017) + Easy* = This machine must crack under EternalBlue!
 
@@ -93,43 +97,43 @@ Metasploit was a mystery, but I did know how to look at graphics. Armitage seeme
 I clicked all the default options upon startup and  I found myself looking at some folders, a empty void and a console.
 After browsing through the options at the top of the page, I decided I might need to add a target. I went to "Hosts" and selected "Add Hosts."
 
-
+<br>
 ![A2](https://i.imgur.com/R9fasSy.png)
-
+<br>
 
 
 I supposed I needed to enter "10.10.10.40" - the box IP
 
-
+<br>
 ![A3](https://i.imgur.com/3MhI8xO.png)
-
+<br>
 
 I now had a monitor icon representing a machine. I noticed there was a search box under the folders, so I went ahead and entered "blue"
 
-
+<br>
 ![A4](https://i.imgur.com/uuSx1g6.png)
-
+<br>
 
 That last result looked very promising!
 I didn't know any other name for the exploit besides "EternalBlue," but the fact that there was as "17" in the title suggested this was the the exploit I needed.
 I clicked on the "target" machine, then on the eternalblue line. An options Window came up, but I didn't know how to interpret any of those options, so I just hit enter.
 The console buzzed to life, and the machine's icon changed.
 
-
+<br>
 ![A5-redlightning!](https://i.imgur.com/YHT9Nj5.png)
-
+<br>
 
 It turned red! There was lightning! I MUST be a hacker now.
-Had I just used an NSA secret weapon? Woooooaaaaaaaah.
+Had I just used an NSA secret weapon? __*Woooooaaaaaaaah.*__
 
 
 
 I didn't know how to move forward, so I attempted my tried and true method: clicking on things until something happened.
 I struck gold when I right-clicked the box icon and saw the "Interact" option - a Windows command line appeared in the bottom console.
 
-
+<br>
 ![A6-Console](https://i.imgur.com/J2usYNe.png)
-
+<br>
 
 At this time, I could stumble around the Linux command line with some effectiveness, but in Windows I was fumbling around in the dark.
 All I knew was `cd` , `dir` which proved to be just barely enough to get around, albeit slowly.
@@ -141,9 +145,9 @@ All I knew was `cd` , `dir` which proved to be just barely enough to get around,
 * `cd Users`
 * `dir`
 
-
+<br>
 ![A7-users](https://i.imgur.com/AcombN2.png)
-
+<br>
 
 
 I knew that I had to capture the "System" and "User" flags - so I assumed "haris" was the user, and "Administrator" was the path that lead to the system flag.
@@ -158,9 +162,9 @@ A quick online search lead me to `type` and my first flag was captured!
 
 * `type root.txt.txt`
 
-
+<br>
 ![A8-admin](https://i.imgur.com/tADNwpx.png)
-
+<br>
 
 It was very exciting, and I immediately set out on the next boxes, stumbling along into new knowledge.
 
@@ -179,9 +183,9 @@ A good scan is in order.
 
 `nmap -sV -F -T4 10.10.10.40 -oA nmap_fast_scan`
 
-
+<br>
 ![A9 - nmap quickscan](https://i.imgur.com/8DEdi44.png)
-
+<br>
 
 
 Most of the CTF's I have done so far revolve around a HTTP port, and aren't Windows machines, so I am a bit out of my element.
@@ -201,7 +205,7 @@ Research on the rpc port reminds me that I can use the `enum4linux` tool
 
 
 This command mostly informed me that the scanned ports were off-limits.
-It doesn't seem like a way to move forward. The same was true for nbtscan and smbmap.
+It doesn't seem like a way to move forward. The same was true for `nbtscan` and `smbmap`.
 
 
 Without the context of "Blue" - this box didn't provide me much I recognized.
@@ -209,19 +213,19 @@ Even though I did know that the box was named Blue, I decided to pretend that I 
 This way I can test my process and see if I would "discover" the exploit I needed.
 
 
-While I had been searching for information about the ports and not finding anything to grab on to, nmap finished the deeper scan.
+While I had been searching for information about the ports and not finding anything to grab on to, `nmap` finished the deeper scan.
 It produced a very, very interesting result.
 
-
+<br>
 ![A10](https://i.imgur.com/uF7fah7.png)
-
+<br>
 
 What is this mysterious "ms17-010" of which it speaks?
 Maybe [Findsploit](https://github.com/1N3/Findsploit) has something about this? Remote Code Execution is exactly what I'd like to have.
 
-
+<br>
 ![A11](https://i.imgur.com/YsYQzpf.png)
-
+<br>
 
 How convenient: Metasploit has both a scanning and exploitation module for this vulnerability.
 
@@ -231,9 +235,9 @@ How convenient: Metasploit has both a scanning and exploitation module for this 
 * `set RHOSTS 10.10.10.40`
 * `run`
 
-
+<br>
 ![A12](https://i.imgur.com/GHE0YIK.png)
-
+<br>
 
 The scanning module reports that we have a decent chance of success if we run the exploit, so let's do it.
 
@@ -259,9 +263,9 @@ Make sure your Meterpreter IP is set to your HTB VPN IP
 * `set RHOST 10.10.10.40`
 * `run`
 
-
+<br>
 ![A13](https://i.imgur.com/0u72HoI.png)
-
+<br>
 
 Once again, it is just really cool to know that you've used an NSA cyberweapon!
 
@@ -275,23 +279,23 @@ getuid tells us we are the boss of this system, and can go ahead and grab whatev
 * `ls`
 * `cat root.txt.txt`
 
-
+<br>
 ![A14](https://i.imgur.com/MvYcrvu.png)
-
+<br>
 
 * `ls /Users`
 
 
-haris appears to be the name of our flag-holding user.
+`haris` appears to be the name of our flag-holding user.
 
 
 * `cd /Users/haris/Desktop`
 * `ls`
 * `cat user.txt.txt`
 
-
+<br>
 ![A15](https://i.imgur.com/5rQZySt.png)
-
+<br>
 
 Now, all that is left to do is clean up using the built-in meterpreter methods.
 

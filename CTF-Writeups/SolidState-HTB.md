@@ -1,12 +1,14 @@
 [Main Page](../index.md)<br>
 
 
-# CTF Writeup: SolidState on HackTheBox
-## 27 January 2018
-
+# CTF Writeup:
+# SolidState on HackTheBox
 <br>
 ![A0](https://i.imgur.com/TiihkOi.png)
 <br>
+## 27 January 2018
+
+
 
 ## Introduction
 
