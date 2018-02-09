@@ -1,4 +1,4 @@
-[Main Page](../index.md)<br>
+[Main Page](../index.md) | [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) <br>
 
 
 # From "What are CTF's?" to Your First Owned System
@@ -887,4 +887,4 @@ I hope you had fun capturing your first flag!<br>
 
 
 <br>
-[Main Page](../index.md)
+[Main Page](../index.md) | [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing)

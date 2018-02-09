@@ -1,4 +1,4 @@
-[Main Page](../index.md)<br>
+[Main Page](../index.md) | [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) <br>
 
 
 # CTF Writeup:
@@ -521,4 +521,4 @@ Time to crack open some books.
 *Thanks to HackTheBox and ch33zplz for this CTF!*
 
 <br>
-[Main Page](../index.md)
+[Main Page](../index.md) | [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) <br>

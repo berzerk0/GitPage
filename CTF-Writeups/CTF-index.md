@@ -1,4 +1,4 @@
-[Main Page](../index.md)<br>
+[Main Page](../index.md) | [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) <br>
 
 # CTF Writeups
 
@@ -15,4 +15,4 @@ These aren't the only CTF's I've ever done, of course.
 
 
 
-[Main Page](../index.md)<br>
+[Main Page](../index.md) | [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) <br>

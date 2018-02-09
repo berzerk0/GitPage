@@ -1,4 +1,4 @@
-[Main Page](../index.md)<br>
+[Main Page](../index.md) | [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) <br>
 
 
 # From "What are CTF's?" to Your First Owned System
@@ -565,4 +565,4 @@ Others take more naturally to VMWare than VirtualBox. You may need to employ som
 
 
 <br>
-[Main Page](../index.md)
+[Main Page](../index.md) | [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) <br>

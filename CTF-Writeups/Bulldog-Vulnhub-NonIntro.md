@@ -1,4 +1,4 @@
-[Main Page](../index.md)
+[Main Page](../index.md) | [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) <br>
 
 
 # CTF Writeup:
@@ -543,4 +543,4 @@ Looking forward to the sequel!
 
 
 <br>
-[Main Page](../index.md)
+[Main Page](../index.md) | [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) <br>
