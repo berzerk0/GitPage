@@ -1,4 +1,4 @@
-[Main Page](../index.md) | [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) <br>
+[Main Page](../index.md) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) <br>
 
 # berzerk0's How-To Guides
 
@@ -15,4 +15,4 @@ A two part series that can take you from having never heard of CTFs or running L
 
 
 
-[Main Page](../index.md) | [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) <br>
+[Main Page](../index.md) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) <br>

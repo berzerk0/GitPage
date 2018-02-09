@@ -1,4 +1,4 @@
-[Main Page](../index.md) | [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) <br>
+[Main Page](../index.md) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) <br>
 
 
 # CTF Writeup:
@@ -306,4 +306,4 @@ Thanks to HackTheBox for making such an approachable and timely CTF!
 
 
 <br>
-[Main Page](../index.md) | [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) <br>
+[Main Page](../index.md) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) <br>

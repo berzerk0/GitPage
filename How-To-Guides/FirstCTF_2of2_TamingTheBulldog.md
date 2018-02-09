@@ -1,4 +1,4 @@
-[Main Page](../index.md) | [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) <br>
+[Main Page](../index.md) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) <br>
 
 
 # From "What are CTF's?" to Your First Owned System

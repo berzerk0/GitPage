@@ -1,7 +1,8 @@
 # berzerk0's GitPage
 
 
-### Content
+
+## Content
 * [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing)
 * [How-To-Guides](How-To-Guides/HowTo-index.md) <br>
 * [CTF Writeups](CTF-Writeups/CTF-index.md)
@@ -9,7 +10,7 @@
 
 
 
-### Projects and Tools
+## Projects and Tools
 
 * [Probable Wordlists](https://github.com/berzerk0/Probable-Wordlists)  -Wordlists sorted by popularity. Make sure your passwords aren't popular!
 
