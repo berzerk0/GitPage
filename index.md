@@ -1,7 +1,5 @@
 # berzerk0's GitPage
 
-Click a subject to see items in that category.
-
 
 ### Content
 * [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing)
