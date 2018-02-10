@@ -1,4 +1,4 @@
-[Main Page](../index.md)<br>
+[Main Page](../index.md) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.md) \| [How-To Guides](../How-To-Guides/HowTo-index.md) <br>
 
 
 # CTF Writeup:
@@ -6,7 +6,7 @@
 <br>
 ![a0-logo](https://i.imgur.com/RqLR1q1.png)
 <br>
-## 9 February 2018
+## 10 February 2018
 
 
 
@@ -88,16 +88,15 @@ Then, something clicked loudly in my head.
 * __Mirai__ is an extremely successful botnet that gained access by merely trying the default credentials to IoT devices.
 
 
-If using default passwords worked well enough to make international headlines, surely default passwords will be good enough for us.
+If the use of default passwords worked well enough create a globally significant botnet, they might will be good enough for us, too.
 
 <br>
 ![a5.5 - search for default password](https://i.imgur.com/rZJNhqQ.png)
 <br>
 
-Ultimately, I found the answer on a [reddit post.](https://www.reddit.com/r/pihole/comments/6eqyw4/pihole_ssh_login/)
+Ultimately, I found the password in a [reddit post.](https://www.reddit.com/r/pihole/comments/6eqyw4/pihole_ssh_login/)
 
-The search results contained the full credentials, both username and password. <br>
-Web access is nice, but with full creds we can go right after SSH.
+This post contained the full credentials, both username and password. Web access is nice, but with full creds we can go right after SSH.
 
 
 * `ssh pi@10.10.10.48`
@@ -368,4 +367,4 @@ Mirai was the second CTF I ever completed, and I got a lot out of it. Wandering 
 
 ## Thanks for reading!
 
-[Main Page](../index.md)<br>
+[Main Page](../index.md) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.md) \| [How-To Guides](../How-To-Guides/HowTo-index.md) <br>
