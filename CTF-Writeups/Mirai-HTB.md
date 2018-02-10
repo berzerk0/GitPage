@@ -270,7 +270,7 @@ Our backup file's data has got to be on that device.
 
 
 
-## 5. Where is that USB Stick, Anyway?
+## 5. Where is that USB Stick?
 
 At this point, I theorized that we might have to use digital forensics methods to recovery this information. However, at this point, I had *no idea* how that could actually be done.
 
@@ -283,7 +283,7 @@ Seems like the perfect perfect place to start.
 
  One line caught my eye:
 
-`df -h        Disk Usage(free)`
+`df -h`]    `-`   `Disk Usage(free)`
 
 The flash drive is a disk, right? I'd love to know how it is being used.
 
