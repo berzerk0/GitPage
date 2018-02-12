@@ -1,11 +1,6 @@
-# Pages
-
-berzerk0's github gitblog repo.
-
-I host a site here. 
-
+I host a site here.
 Here are the files.
 
-The site is [https://berzerk0.github.io/gitblog/](https://berzerk0.github.io/gitblog/)
+The site is [https://berzerk0.github.io/GitPage/](https://berzerk0.github.io/GitPage/)
 
-Check it out!
+Files are in the __gh__ branch.
