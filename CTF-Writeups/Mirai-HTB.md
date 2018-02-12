@@ -10,7 +10,7 @@
 
 
 
-## 1. Introduction
+## Introduction
 
 Mirai on HackTheBox highlights a fundamental truth about penetration testing that sounds laughably obvious:
 
@@ -28,7 +28,7 @@ This write up assumes that the reader is using Kali, but any pentesting distro s
 
 <br>
 
-## 2. Initial Scans
+## 1. Initial Scans
 
 * `nmap -F 10.10.10.48 -oA nmap_fastscan`
 
@@ -88,7 +88,7 @@ Then, something clicked loudly in my head.
 * __Mirai__ is an extremely successful botnet that gained access by merely trying the default credentials to IoT devices.
 
 
-If the use of default passwords worked well enough create a globally significant botnet, they might will be good enough for us, too.
+If the use of default passwords worked well enough create a globally significant botnet, they might be good enough for us, too.
 
 <br>
 ![a5.5 - search for default password](https://i.imgur.com/rZJNhqQ.png)
@@ -139,7 +139,7 @@ Our `pi` user can run ALL commands as root.  Without a password, even.
 
 Who needs `hack_the_root.exe` when we have `sudo su`? <br>
 So far, this CTF has been pretty easy. <br>
-*Perhaps too easy...*
+*Perhaps __too__ easy...*
 
 * `ls /root`
 * `cat /root/root.txt`
@@ -278,12 +278,11 @@ At this point, I theorized that we might have to use digital forensics methods t
 So, I turned to my favorite resource: Ben Clark's __Red Team Field Manual__.
 I knew that I needed to find how our system organized its filesystem and attached devices, so I simply started at the beginning of the \*nix section and read descriptions until something that looked like it might fit that context appeared.
 
-On the very first page of the \*nix section, I found a section called *Linux System Info*.
-Seems like the perfect perfect place to start.
+On the very first page of the \*nix section, I found a section called *Linux System Info*. It seemed like the perfect place to start.
 
  One line caught my eye:
 
-`df -h`]    `-`   `Disk Usage(free)`
+`df -h`    `-`   `Disk Usage(free)`
 
 The flash drive is a disk, right? I'd love to know how it is being used.
 
@@ -353,8 +352,8 @@ This is optional, but it's the polite thing to do when sharing a CTF machine wit
 * `echo '' > /var/log/auth.log` - replaces the authorization log with a blank file.
 * `echo '' > ~/.*sh_history`  - blanks out all shell history files for `root`
 * `echo '/home/pi/.*sh_history` - blanks out all shell history files for `pi`
-* `history -c && su pi` - clear the command history for `root` and switch to the `pi` user
-* `history -c && kill -9 $$` - clear the command history for `pi` and exit the box
+* `history -c && su pi` - clears the command history for `root` and switches to the `pi` user
+* `history -c && kill -9 $$` - clears the command history for `pi` and exits the box
 
 
 *The RTFM uses* `echo '' > ~/.bash_history`*, which is slightly different than what I like to use. Using* `.*sh_history` *will blank out all shell history files, not just bash.*
