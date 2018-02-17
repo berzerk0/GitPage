@@ -5,7 +5,8 @@
 These aren't the only CTF's I've ever done, of course.
 
 
-*  [Mirai on HackTheBox](Mirai-HTB.md) - 10 January 2018
+* [Shocker on HackTheBox](Shocker-HTB.md) - 17 January 2018
+* [Mirai on HackTheBox](Mirai-HTB.md) - 10 January 2018
 * [SolidState on HackTheBox](SolidState-HTB.md) - 27 January 2018
 * [Blue on HackTheBox](Blue-HTB.md) - 12 January 2018
 * [Blocky on HackTheBox](Blocky-HTB.md) - 9 December 2017
