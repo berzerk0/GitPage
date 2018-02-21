@@ -3,21 +3,21 @@
 
 
 ## Content
-* [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing)
-* [How-To-Guides](How-To-Guides/HowTo-index.html) <br>
-* [CTF Writeups](CTF-Writeups/CTF-index.html)
 * [About Me](About-Me.html)
+* [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing)
+* [How-To-Guides](How-To-Guides/HowTo-index.html)
+* [CTF Writeups](CTF-Writeups/CTF-index.html)
+
 
 
 
 
 ## Projects and Tools
-
-* [Probable Wordlists](https://github.com/berzerk0/Probable-Wordlists)  - Wordlists sorted by popularity. Make sure your passwords aren't popular! Completely overhauled version 2 released.
-
-* [BEWGor](https://github.com/berzerk0/BEWGor) - Bull's Eye Wordlist Generator: Does your password rely on predictable patterns of accessible info?
-
-* [@WorstPasswords](https://twitter.com/worstpasswords) - Twitter bot inspired by @redteamwrangler that tweets out one of the world's most common 747 passwords twice a day.
+| Name | Description|
+| -- | --|
+| [Probable Wordlists](https://github.com/berzerk0/Probable-Wordlists) | Wordlists sorted by popularity. Make sure your passwords aren't popular! <br> Completely overhauled version 2 released.
+| [BEWGor](https://github.com/berzerk0/BEWGor) | __Bull's Eye Wordlist Generator:__ Does your password rely on predictable patterns of accessible info? |
+| [@WorstPasswords](https://twitter.com/worstpasswords) | Twitter bot inspired by [@redteamwrangler](https://twitter.com/redteamwrangler) that tweets out one of the world's most common 747 passwords twice a day. Get more info [here](https://github.com/berzerk0/GitPage/wiki/%40WorstPasswords-Twitter-Bot). |
 
 
 

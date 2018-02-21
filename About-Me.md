@@ -25,4 +25,4 @@ Check out my projects and writings linked at the top and bottom of this page. Yo
 Thanks for stopping by!
 
 
-[Main Page](index.html) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.html) \| [How-To Guides](../How-To-Guides/HowTo-index.html) <br>
+[Main Page](index.html) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](CTF-Writeups/CTF-index.html) \| [How-To Guides](How-To-Guides/HowTo-index.html) <br>
