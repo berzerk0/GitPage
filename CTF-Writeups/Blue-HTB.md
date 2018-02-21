@@ -1,4 +1,4 @@
-[Main Page](../index.md) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.md) \| [How-To Guides](../How-To-Guides/HowTo-index.md) <br>
+[Main Page](../index.html) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.html) \| [How-To Guides](../How-To-Guides/HowTo-index.html) <br>
 
 
 # CTF Writeup:
@@ -306,4 +306,4 @@ Thanks to HackTheBox for making such an approachable and timely CTF!
 
 
 <br>
-[Main Page](../index.md) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.md) \| [How-To Guides](../How-To-Guides/HowTo-index.md) <br>
+[Main Page](../index.html) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.html) \| [How-To Guides](../How-To-Guides/HowTo-index.html) <br>

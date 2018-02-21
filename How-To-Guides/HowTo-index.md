@@ -1,4 +1,4 @@
-[Main Page](../index.md) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.md) \| [How-To Guides](../How-To-Guides/HowTo-index.md) <br>
+[Main Page](../index.html) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.html) \| [How-To Guides](../How-To-Guides/HowTo-index.html) <br>
 
 # berzerk0's How-To Guides
 
@@ -6,8 +6,8 @@
 
 A two part series that can take you from having never heard of CTFs or running Linux to capturing your first root flag in a matter of hours. Turbo-start your CTF Skills!
 
-* [Part One - Setting Up Kali and Bulldog VMs](FirstCTF_1of2_InfoAndSetup.md) - 17 Jan 2018
-* [Part Two - Taming the Bulldog](FirstCTF_2of2_TamingTheBulldog.md) - 23 Jan 2018
+* [Part One - Setting Up Kali and Bulldog VMs](FirstCTF_1of2_InfoAndSetup.html) - 17 Jan 2018
+* [Part Two - Taming the Bulldog](FirstCTF_2of2_TamingTheBulldog.html) - 23 Jan 2018
 
 
 
@@ -15,4 +15,4 @@ A two part series that can take you from having never heard of CTFs or running L
 
 
 
-[Main Page](../index.md) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.md) \| [How-To Guides](../How-To-Guides/HowTo-index.md) <br>
+[Main Page](../index.html) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.html) \| [How-To Guides](../How-To-Guides/HowTo-index.html) <br>

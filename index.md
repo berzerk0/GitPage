@@ -4,9 +4,9 @@
 
 ## Content
 * [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing)
-* [How-To-Guides](How-To-Guides/HowTo-index.md) <br>
-* [CTF Writeups](CTF-Writeups/CTF-index.md)
-* [About Me](About-Me.md)
+* [How-To-Guides](How-To-Guides/HowTo-index.html) <br>
+* [CTF Writeups](CTF-Writeups/CTF-index.html)
+* [About Me](About-Me.html)
 
 
 
@@ -22,7 +22,7 @@
 
 
 These projects have gained some attention and has been mentioned in articles, a podcast, and even a book! I'd like to return the favor.
-Check out the [Shoutout Page](shoutouts.md) for the (incomplete) list of mentions!
+Check out the [Shoutout Page](shoutouts.html) for the (incomplete) list of mentions!
 
 
 * [RIGA-38-Hydrant](http://pasted.co/96db820a) - A cryptography, steganography, and OSINT CTF-Like group of challenges. 25 in all.  One day I will find a better home for these, but for now they are at pasted.co.

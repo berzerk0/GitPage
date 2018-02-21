@@ -1,4 +1,4 @@
-[Main Page](../index.md) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.md) \| [How-To Guides](../How-To-Guides/HowTo-index.md) <br>
+[Main Page](../index.html) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.html) \| [How-To Guides](../How-To-Guides/HowTo-index.html) <br>
 
 # CTF Writeup:
 # Europa on HackTheBox
@@ -192,7 +192,7 @@ I chased down some of these options for a while, with no luck. I tried putting i
 Getting nowhere, I decided to look at the page's source code. I saw plenty of code that would format to the widgets on the page, but nothing that looked like it drove the "Configuration Generator." In order to really understand what I was doing here, I decided to use my proxy and intercept some requests to see what was going on behind the scenes.
 
 
-If you don't know how to set up ZAP as a proxy, [check out my writeup for ZorZ.](Zorz-Vulnhub.md)
+If you don't know how to set up ZAP as a proxy, [check out my writeup for ZorZ.](Zorz-Vulnhub.html)
 
 First, I typed in the word `HELLO` into the "IP Address of Remote Host" box to see where this was worked into the generated configuration.
 
@@ -446,4 +446,4 @@ Thanks to HackTheBox and ch4p for a fun box.
 ## Thanks for reading!
 
 <br>
-[Main Page](../index.md) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.md) \| [How-To Guides](../How-To-Guides/HowTo-index.md) <br>
+[Main Page](../index.html) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.html) \| [How-To Guides](../How-To-Guides/HowTo-index.html) <br>

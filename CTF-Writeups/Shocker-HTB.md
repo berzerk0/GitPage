@@ -1,4 +1,4 @@
-[Main Page](../index.md) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.md) \| [How-To Guides](../How-To-Guides/HowTo-index.md) <br>
+[Main Page](../index.html) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.html) \| [How-To Guides](../How-To-Guides/HowTo-index.html) <br>
 
 
 # CTF Writeup:
@@ -13,7 +13,7 @@
 ## Introduction
 
 Shocker is one of those CTF's designed to give the player first-hand experience implementing a famous vulnerability.
-Like [Blue](Blue-HTB.md) before it, it is a beginner CTF that requires prior knowledge or a bit of outside-the-box thinking.
+Like [Blue](Blue-HTB.html) before it, it is a beginner CTF that requires prior knowledge or a bit of outside-the-box thinking.
 
 The severity of these vulnerabilities is what made them so famous, and once you've employed them, root access is not far behind. Shocker's root doesn't crack exactly as easily as Blue's, but is still a trivial privesc.
 
@@ -295,4 +295,4 @@ Thanks to [HackTheBox](hackthebox.eu) and mrb3n!
 
 ## Thanks for reading!
 
-[Main Page](../index.md) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.md) \| [How-To Guides](../How-To-Guides/HowTo-index.md) <br>
+[Main Page](../index.html) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.html) \| [How-To Guides](../How-To-Guides/HowTo-index.html) <br>

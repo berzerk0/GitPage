@@ -1,4 +1,4 @@
-[Main Page](../index.md) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.md) \| [How-To Guides](../How-To-Guides/HowTo-index.md) <br>
+[Main Page](../index.html) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.html) \| [How-To Guides](../How-To-Guides/HowTo-index.html) <br>
 
 
 # From "What are CTF's?" to Your First Owned System
@@ -12,7 +12,7 @@
 ### 17 January 2018
 
 
-This is Part One of a two-part set. Check out [Part Two here](FirstCTF_2of2_TamingTheBulldog.md)
+This is Part One of a two-part set. Check out [Part Two here](FirstCTF_2of2_TamingTheBulldog.html)
 
 <br>
 ## 1. Background - What are we talking about?
@@ -561,8 +561,8 @@ Others take more naturally to VMWare than VirtualBox. You may need to employ som
 
 
 
-## You are ready to move on to [Part Two!](FirstCTF_2of2_TamingTheBulldog.md)
+## You are ready to move on to [Part Two!](FirstCTF_2of2_TamingTheBulldog.html)
 
 
 <br>
-[Main Page](../index.md) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.md) \| [How-To Guides](../How-To-Guides/HowTo-index.md) <br>
+[Main Page](../index.html) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.html) \| [How-To Guides](../How-To-Guides/HowTo-index.html) <br>
