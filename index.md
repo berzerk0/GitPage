@@ -6,18 +6,22 @@
 * [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing)
 * [How-To-Guides](How-To-Guides/HowTo-index.md) <br>
 * [CTF Writeups](CTF-Writeups/CTF-index.md)
+* [About Me](About-Me.md)
 
 
 
 
 ## Projects and Tools
 
-* [Probable Wordlists](https://github.com/berzerk0/Probable-Wordlists)  -Wordlists sorted by popularity. Make sure your passwords aren't popular!
+* [Probable Wordlists](https://github.com/berzerk0/Probable-Wordlists)  - Wordlists sorted by popularity. Make sure your passwords aren't popular! Completely overhauled version 2 released.
 
 * [BEWGor](https://github.com/berzerk0/BEWGor) - Bull's Eye Wordlist Generator: Does your password rely on predictable patterns of accessible info?
 
+* [@WorstPasswords](https://twitter.com/worstpasswords) - Twitter bot inspired by @redteamwrangler that tweets out one of the world's most common 747 passwords twice a day.
 
-These projects haved gained some attention and has been mentioned in articles, a podast, and even a book! I'd like to return the favor.
+
+
+These projects have gained some attention and has been mentioned in articles, a podcast, and even a book! I'd like to return the favor.
 Check out the [Shoutout Page](shoutouts.md) for the (incomplete) list of mentions!
 
 
