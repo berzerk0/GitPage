@@ -2,9 +2,9 @@
 
 # berzerk0's About Me
 
-<br>
-![hi](images/avatar.png)
-<br>
+
+![hi](../images/avatar.png)
+
 
 Hello!
 
