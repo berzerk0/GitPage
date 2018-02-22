@@ -14,8 +14,8 @@
 
 ## Projects and Tools
 | Name | Description|
-| -- | --|
-| [Probable Wordlists](https://github.com/berzerk0/Probable-Wordlists) | Wordlists sorted by popularity. Make sure your passwords aren't popular! <br> Completely overhauled version 2 released.
+| -- | -- |
+| [Probable Wordlists](https://github.com/berzerk0/Probable-Wordlists) | Wordlists sorted by popularity. Make sure your passwords aren't popular! <br> Completely overhauled version 2 released. |
 | [BEWGor](https://github.com/berzerk0/BEWGor) | __Bull's Eye Wordlist Generator:__ Does your password rely on predictable patterns of accessible info? |
 | [@WorstPasswords](https://twitter.com/worstpasswords) | Twitter bot inspired by [@redteamwrangler](https://twitter.com/redteamwrangler) that tweets out one of the world's most common 747 passwords twice a day. Get more info [here](https://github.com/berzerk0/GitPage/wiki/%40WorstPasswords-Twitter-Bot). |
 
