@@ -10,7 +10,7 @@
 
 ## 12 March 2017
 
-Get the VM here: https://www.vulnhub.com/entry/zico2-1,210/
+Get the VM here: [https://www.vulnhub.com/entry/zico2-1,210/](https://www.vulnhub.com/entry/zico2-1,210/)
 
 ## Introduction
 
@@ -71,7 +71,7 @@ Throw that on our "places to dig" list and let's use dirsearch.
 
 A lot of interesting filenames, especially the `dbadmin` directory. <br>
 Anything with *"admin"* in the title may be worth a look. <br>
-Finally, we'll like fimap see if we can dig anywhere we aren't supposed to. <br>
+Finally, we'll let fimap see if we can dig anywhere we aren't supposed to be able to. <br>
 
   `fimap -H -d 3 -u "http://192.168.56.101" -w /tmp/fimap_output | tee fimap_result`
 
@@ -81,10 +81,10 @@ Finally, we'll like fimap see if we can dig anywhere we aren't supposed to. <br>
 
   `http://hostname/view.php?page=tools.html` smells like file inclusion. <br>
 
-The use of `?page=` may allow us to directly view arbitary files on the webserver.
+The use of `?page=` may allow us to directly view arbitrary files on the webserver.
 Instead of using `tools.html` as an argument, we just insert a file's full path.
 
- I tried something like `../../../..//etc/passwd`, but didn't
+ I tried something like `../../../../etc/passwd`, but didn't
 find success. Maybe we can use this later.
 
 
