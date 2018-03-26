@@ -4,6 +4,7 @@
 
 These aren't the only CTF's I've ever done, of course.
 
+* [DeRPnStiNK on Vulnhub][Derpnstink-Vulnhub.md] - 26 March 2018
 * [Zico on Vulnhub](Zico-Vulnhub.html) - 12 March 2018
 * [Shocker on HackTheBox](Shocker-HTB.html) - 17 January 2018
 * [Mirai on HackTheBox](Mirai-HTB.html) - 10 January 2018
