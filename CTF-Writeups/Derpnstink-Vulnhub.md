@@ -12,7 +12,7 @@
 
 Get the VM here: [https://www.vulnhub.com/entry/derpnstink-1,221/](https://www.vulnhub.com/entry/derpnstink-1,221/)
 
-[@securekomodo](https://twitter.com/@securekomodo), the machine's creator gives us the following:
+[@securekomodo](https://twitter.com/@securekomodo), the machine's creator, gives us the following:
 
 *Your goal is to remotely attack the VM and find all 4 flags eventually leading you to full root access. Don't forget to #tryharder*
 
@@ -24,7 +24,7 @@ DerpNStink requires knowledge of a wide array of pentesting skills, but doesn't 
 
 Regardless, I consider this to be a good "self-benchmarking" CTF. The sheer number of steps involved pushes it towards the "intermediate" end of the spectrum, even if each of those steps is relatively straightforward.  
 
-DeRPnStiNK is not a great choice for your first CTF, and I did not fully explain each of my steps as if the reader was coming across them for the first time.
+DerpNStink is not a great choice for your first CTF, and I did not explain each step with the first-time reader in mind.
 All tools and methods used are available by default in Kali.
 
 I've blurred out any passwords, hashes or keys that aren't defaults.
@@ -33,7 +33,7 @@ I've blurred out any passwords, hashes or keys that aren't defaults.
 
 The VM is designed to grab an IP from DHCP, and you'll need find out what that is. <br>
 
-Once that is out of the way, hit it with a heavy-duty `nmap` scan for expediency's sake.
+Hit it with a heavy-duty `nmap` scan for expediency's sake.
 
 `nmap -p- -A 192.168.56.101 -oA nmap_AFullTCP`
 
@@ -49,7 +49,7 @@ From setting up my own VMs, I know these versions are what Ubuntu uses in a Net 
 
 There's also a `robots.txt` webpage listing  `/php/` and `/temporary` as off-limits.
 
-Before filling up in the server access log, we can visit the site like a regular user and try to gain information a bit more quietly.
+Before filling up in the server access log, we can visit the site like a regular user and try to gain information quietly.
 
 `http://192.168.56.101/`
 
@@ -73,18 +73,18 @@ Let's visit the areas prohibited by `robots.txt`
 ![a3-phpsite](https://i.imgur.com/FzMg3sp.png)
 <br>
 
-There isn't anything here that we don't already know, so we check `/temporary`. <br>
+There isn't anything here that we don't already know, so we'll check `/temporary`. <br>
 
 When we do, we see it's just a text page saying
 `Try Harder!`
 
 
-When we see trolling like this, we must be extra careful to investigate. <br> Taunts like this may cause you to storm off in a huff of incredulity without digging deeper, but
-beneath the hijinks is may be a great place to hide something of value. <br>
+When we see trolling like this, we need to keep investigating. <br> Taunts like this may cause you to storm off in a huff of incredulity without digging deeper, but
+beneath the hijinks are a great place to hide something of value. <br>
 
 With this in mind, I looked at the source code of the page and found *precisely nothing*. <br>
 
-I managed to get trolled twice by the same page - impressive. <br>
+I managed to get trolled twice by the same page, impressively. <br>
 However, I took this opportunity to view the source code of the index page.
 
 <br>
@@ -111,7 +111,7 @@ What's at that interesting link?
 `view-source:http://192.168.56.101/webnotes/info.txt`
 
 This lead to another all-text page that contained the following message: <br>
-  `	<-- @stinky, make sure to update your hosts file with local dns so the new derpnstink blog can be reached before it goes live --> `
+`<-- @stinky, make sure to update your hosts file with local dns so the new derpnstink blog can be reached before it goes live -->`
 
 We must have to update our hosts file to get the full DerpNStink experience.
 But what should we use as a hostname? <br>
@@ -153,7 +153,7 @@ Nikto thinks the `/weblog/` directory might be interesting.<br>
 
 We can take this time to read all about Misters Derp and Stinky and their colorful pasts, but the most interesting thing on the page is the phrase __Proudly Powered by Wordpress__.
 
-Enter `wpscan`:
+Enter `wpscan`
 
   `wpscan -u http://derpnstink.local/weblog/ --enumerate upt`
 
