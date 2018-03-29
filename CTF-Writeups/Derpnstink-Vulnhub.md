@@ -20,9 +20,9 @@ Get the VM here: [https://www.vulnhub.com/entry/derpnstink-1,221/](https://www.v
 
 ## Introduction
 
-DerpNStink requires knowledge of a wide array of pentesting skills, but doesn't dive particularly deeply into anything. You will use a plethora of tools, but won't have to go too far past the basics for each of them.
+DerpNStink requires knowledge of a wide array of pentesting skills, but doesn't dive particularly deeply into any of them. You will use a plethora of tools, but won't have to go too far past the basics of each to get the job done.
 
-Regardless, I consider this to be a good "self-benchmarking" CTF. The sheer number of steps involved pushes it towards the "intermediate" end of the spectrum, even if each of those steps is relatively straightforward.  
+Regardless, I consider this to be a good "self-benchmarking" CTF. The sheer number of steps involved pushes it towards the "intermediate" end of the spectrum, even if each of those steps is pretty straightforward.  
 
 DerpNStink is not a great choice for your first CTF, and I did not explain each step with the first-time reader in mind.
 All tools and methods used are available by default in Kali.
@@ -700,6 +700,42 @@ That draft is named "Flag.txt," and contains the elusive `flag2`.
 <br>
 
 All Flags Captured!
+
+
+## Post-Mortem
+
+Like most CTFs, this box was intentionally made vulnerable for fun's sake. However, all of these vulnerabilities can be found in the real world.
+
+Here's what made DerpNStink rootable.
+
+
+__Use of Default/Obvious Credentials__
+* `admin:admin` logged into Wordpress. This really can be found in the real world. [Just ask Equifax Argentina.](http://www.bbc.com/news/technology-41257576)
+* `root:mysql` was all it took to get complete control of the MySQL database.
+
+
+__Least Privilege Violations__
+* The `admin` Wordpress user did not have administrative control over the site, but could still control the Slideshow plugin.
+* While logged into the system as `www-data`, we could look at `stinky`'s home directory. Why would this be necessary?
+
+__Outdated Versions of Plugins/3rd Party Software__
+* The slideshow plugin was using a vulnerable version from 2014, which has since been patched.
+* While this version was obviously put in place to allow Arbitrary File Upload for the CTF, real webmasters may think maintenance of 3rd Party software isn't their problem. Vendors can release a patch, but the sysadmin must actually install it.
+
+
+__Credential Reuse__
+* Both users of this system had one single password that was used to for both Wordpress and system access.
+* Unfortunately, this practice is as common as it is dangerous.
+
+
+__Weak Passwords__
+* `stinky`'s password (they only used one) was entirely alphanumeric, and used the minimum number of characters commonly allowed.
+* Since we were likely meant to crack this password from a hash, it was also part of the famous `rockyou` wordlist.
+
+
+__Lack of HTTPS__
+* `mrderp`'s password had a very secure length of 28 characters - we weren't going to find it via brute force. However, the password was sniffed out using packet capture due to the fact that the web page used unencrypted HTTP.
+
 
 ## Thanks for reading!
 

@@ -1,4 +1,4 @@
-[Main Page](../index.html) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.html) \| [How-To Guides](../How-To-Guides/HowTo-index.html) <br>
+[Main Page](../index.html) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.html) \| [How-To Guides](../How-To Guides/HowTo-index.html) <br>
 
 
 # CTF Writeup:
@@ -10,7 +10,7 @@
 
 
 ## There are two versions of this walkthrough: This is the original, NON-INTRODUCTORY VERSION.
-Find the [Introductory Version here](https://berzerk0.github.io/gitblog/How-To-Guides/FirstCTF_1of2_InfoAndSetup.html)
+Find the [Introductory Version here](https://berzerk0.github.io/gitblog/How-To Guides/FirstCTF_1of2_InfoAndSetup.html)
 
 
 
@@ -543,4 +543,4 @@ Looking forward to the sequel!
 
 
 <br>
-[Main Page](../index.html) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.html) \| [How-To Guides](../How-To-Guides/HowTo-index.html) <br>
+[Main Page](../index.html) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.html) \| [How-To Guides](../How-To Guides/HowTo-index.html) <br>
