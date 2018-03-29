@@ -1,10 +1,10 @@
-## berzerk0's GitPage
+# berzerk0's GitPage
 
-<align = "center">
+
 [ About Me ](about/about-index.html)\|
 [Blog ](https://github.com/berzerk0/GitPage/wiki/Post-Listing)\| [ CTF Writeups ](CTF-Writeups/CTF-index.html) \|
 [ How-To Guides ](How-To-Guides/HowTo-index.html)
-</align>
+
 
 ### Projects and Tools
 * [Probable Wordlists](https://github.com/berzerk0/Probable-Wordlists) - Up to 20GB of passwords, sorted by popularity. Make sure your passwords aren't popular! Completely overhauled version 2 released.
