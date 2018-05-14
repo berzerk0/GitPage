@@ -1,4 +1,4 @@
-[Main Page](../index.html) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.html) \| [How-To Guides](../How-To Guides/HowTo-index.html) <br>
+[Main Page](../index.html) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.html) \| [How-To Guides](../How-To-Guides/HowTo-index.html) <br>
 
 
 # CTF Writeup:
@@ -14,7 +14,7 @@ Get the VM here: [https://www.vulnhub.com/entry/zico2-1,210/](https://www.vulnhu
 
 ## Introduction
 
-My friends and I like to solve CTFs on our own, then teach each other how we solved it. This way we get experience
+My friends and I like to solve CTFs on our own, then teach each other how we solved it. This way, we get experience
 both teaching and learning, and you always understand material you need to explain to someone else better than if you kept it to yourself.
 
 Zico's author rates the box as "intermediate," but I'd call it "beginner plus."
@@ -28,7 +28,7 @@ Shall we begin?
 Since we are dealing with a VulnHub VM, we need to set it up on our __HOST ONLY__<br>
 network. This box is intentionally vulnerable, why hook it up to your real network?
 
- Depending on how you've set up your host-only network, you may need to sniff it out with nmap.
+ Depending on how you've set up your host-only network, you may need to use `nmap` to determine the machine's IP.
 
   `nmap -sn 192.168.56.0/24`
 
@@ -60,7 +60,7 @@ HTTP is my favorite place to start on CTF's, so we hit it with the<br> triple th
 
 
 Nikto tells us that Apache is a bit obsolete, but nothing else particularly interesting. <br>
-Throw that on our "places to dig" list and let's use dirsearch.
+Throw that on our "places to dig" list and let's use `dirsearch`.
 
 
   `dirsearch -u 'http://192.168.56.101' -e php,html,js,txt,sh --simple-report=dirsearch_quick`
@@ -69,7 +69,7 @@ Throw that on our "places to dig" list and let's use dirsearch.
 ![a4](https://i.imgur.com/a6MYBuh.png)
 <br>
 
-A lot of interesting filenames, especially the `dbadmin` directory. <br>
+We find a  lot of interesting filenames, especially the `dbadmin` directory. <br>
 Anything with *"admin"* in the title may be worth a look. <br>
 Finally, we'll let fimap see if we can dig anywhere we aren't supposed to be able to. <br>
 
@@ -94,12 +94,10 @@ Lastly, we peruse the site in the browser.
 ![a5](https://i.imgur.com/N9t0dNn.png)
 <br>
 
-*Zico's Shop __?__*
+*__Zico's Shop?__*
 
 Zico doesn't seem confident that he is in control of his own site.<br>
-Let's prove that he is right to have doubts.
-
-Let's go right for that `/dbadmin` page!
+Let's prove that he is right to have doubts and go right for that `/dbadmin` page.
 
 <br>
 ![a6](https://i.imgur.com/1jLQmTA.png)
@@ -114,8 +112,8 @@ What have we here?
 
 ## 2. Doing Dirty Deeds in da Database
 
-A php database page, with an obvious version number. The title of "testdb" hints at a default setup. <br>
-Let's see if a default password works.
+A php database page, with an obvious version number. The title of *"testdb"* hints at a default setup. <br>
+A default setup may use a default password.
 
 password: `admin`
 
@@ -139,14 +137,15 @@ I don't think this db is actually used for anything other than testing, but ther
 <br>
 
 Nope. <br>
-We can see some other useful information, however.<br>
-For one, we see that the user database uses the full file path.
+We can see some other useful information on the database page, however.<br>
+
+For one, we are given the *test_user* database's full file path.
 
 <br>
 ![filepath](https://i.imgur.com/cIKFxWz.png)
 <br>
 
-This information, combined with the Local File Inclusion vulnerability we spotted eariler means we can access these databases by visiting a URL.
+This information, combined with the Local File Inclusion vulnerability we spotted earlier means we can access these databases by visiting a URL.
 
 We can try some tricks using SQL commands, but I wonder if<br>
 these waters have been charted before...
@@ -157,7 +156,7 @@ these waters have been charted before...
 ![a11](https://i.imgur.com/UGy4CHR.png)
 <br>
 
-The very first hit is for our version number. <br>
+The very first hit matches our phpLiteAdmin version number. <br>
 
 If you run  `searchsploit -x 24044`, you'll see a document explaining how the
 exploit is operated. <br>
@@ -211,7 +210,7 @@ This shell could use some improvement, so let's see if we can't spawn a bash she
 ![a18](https://i.imgur.com/fRMKgcG.png)
 <br>
 
-My "advanced" powers of deduction tell me that we are going to have a user called zico. A user with a home directory, even.
+My "advanced" powers of deduction tell me that we are going to have a user named *zico*. A user with a home directory, even.
 
 Let's verify.
 
@@ -237,7 +236,7 @@ Zico seems to be trying out some content management systems for a new website. <
 The site we got through in order to get this shell used phpliteadmin, so Wordpress must be next. <br>
 
 
-We see Wordpress sites all the time in CTFs, and know the framework well enough to know where to look for the squishy bits.
+We see Wordpress sites all the time in CTFs, and know it well enough to know where to look for the squishy bits.
 
 
   `cd wordpress` <br>
@@ -274,7 +273,7 @@ As the presumed owner of this box, Zico should be able to get some significant t
 ![a24](https://i.imgur.com/1t6g9WA.png)
 <br>
 
-`tar` and `zip` are a bit strange to see as sudo-endabled commands. Can they be used for
+`tar` and `zip` are a bit strange to see as sudo-enabled commands. Can they be used for
 code execution?
 
 I searched online, and found some very interesting information at these [two](https://www.gnu.org/software/tar/manual/html_section/tar_29.html) [sites](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Tar%20commands%20execution).
@@ -282,23 +281,23 @@ I searched online, and found some very interesting information at these [two](ht
 `tar` can be run with flags that cause it to  unarchive with "checkpoints." <br>
 At these points, the process will pause and take an action, then seamlessly resume. <br>
 
-We can run `tar` as root, so this is our privesc.
+Since we can run `tar` as root, we just need to use these checkpoints to run some commands that escalate our privileges.
 
 ### Running Tar As Root For Fun and Profit
 
 * Move to a "temporary" folder like `/dev/shm` and create a file that we will compress.
 
-* Compress it, no need to run as root just yet.
+* Compress it with `tar` as Zico. No need to run as root just yet.
 
 <br>
 ![a25](https://i.imgur.com/yb5Ghvd.png)
 <br>
 
-* Unarchive the newly created `.tar`, making sure to use sudo and including the flags to add a checkpoint and commands.
+* Unarchive the newly created `.tar`, making sure to use `sudo` and including the flags to add a checkpoint and commands.
 
   The commands will run along with the `.tar` command, so any output from the commands will appear in the terminal
 
-  Our test payload the (redundant) command `echo $(id)`, which will output the info belonging to the user who ran the `tar` command to the terminal. <br> <br>
+  Our test payload is the (redundant) command `echo $(id)`, which will output the info belonging to the user who ran the `tar` command to the terminal. <br> <br>
   If things go according to plan, we should see `root`'s info.
 
 `	sudo tar -xf archive.tar --checkpoint=1 --checkpoint-action=exec='echo $(id)'
@@ -308,8 +307,8 @@ We can run `tar` as root, so this is our privesc.
 ![a26](https://i.imgur.com/WnAb0Xt.png)
 <br>
 
-Our concept is proven. <br>
-We can just run `/bin/bash` to spawn a root shell.
+Our privesc concept is proven. <br>
+We can just run `/bin/bash` as our checkpoint commands to spawn a root shell.
 
 `sudo tar -xf archive.tar --checkpoint=1 --checkpoint-action=exec='/bin/bash'`
 
@@ -318,19 +317,52 @@ We can just run `/bin/bash` to spawn a root shell.
 <br>
 
 
-We have a root shell!
+And, we're root.
 
 Go to the `/root` directory and grab the flag.
 
-  `cd /root`
-  `ls`
-  `cat flag.txt`
+`cd /root` <br>
+`ls` <br>
+`cat flag.txt`
 
 <br>
 ![a28](https://i.imgur.com/G3if37E.png)
 <br>
 
+## Post-Mortem
+
+This CTF was made purposefully made porous, but these vulnerabilities can be found in the real world.
+
+Here's what made Zico rootable.
+
+
+__Use of Default/Obvious Credentials__
+* In this scenario, Zico's phpLiteAdmin database was just for testing purposes. However, `admin` is simply not a password that should be in use. It's just too easy to guess.
+* Had we not been able to gain access to the phpLiteAdmin panel, we may not have gotten any access at all.
+
+
+__Local File Inclusion__
+* Serving webpages with `?page=` is a recipe for local file inclusion.
+* Only one page was intended to reached this way, and it wasn't even the only link to this page on the site.
+
+
+
+__Outdated Versions of 3rd Party Software__
+* The phpLiteAdmin version used here isn't even available for download from the phpLiteAdmin website.
+* The code injection vulnerability we used to run our php payload was patched away in later versions.
+
+
+__Credential Reuse__
+* The password by `www-data` in the `wp-config.php` file to access the website database was the same as the user's password.
+
+
+__Least Privilege Violations__
+* `www-data` had unneccessary read access to `zico`'s home folder.
+* If `zico` isn't a superuser, I'm not sure what reason they would need to have to run `tar` and `zip` as root.
+
+
+<br>
 ## Thanks for reading!
 
 <br>
-[Main Page](../index.html) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.html) \| [How-To Guides](../How-To Guides/HowTo-index.html) <br>
+[Main Page](../index.html) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.html) \| [How-To Guides](../How-To-Guides/HowTo-index.html) <br>

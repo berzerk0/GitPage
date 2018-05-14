@@ -1,4 +1,4 @@
-[Main Page](../index.html) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.html) \| [How-To Guides](../How-To Guides/HowTo-index.html) <br>
+[Main Page](../index.html) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.html) \| [How-To Guides](../How-To-Guides/HowTo-index.html) <br>
 
 
 # From "What are CTF's?" to Your First Owned System
@@ -56,7 +56,7 @@ The CTF we will use is Nick Frichette's "[Bulldog](https://www.vulnhub.com/entry
 [__https://www.vulnhub.com/entry/bulldog-1,211/__](https://www.vulnhub.com/entry/bulldog-1,211/)
 
 
-__Note:__ You will be able to find walkthroughs for this box online, but reading them will spoil the learning process for you. Many walkthroughs (including one of my own) assume the reader already has some knowledge of pentesting and Linux, and might only contain the shortest possible path to root. Walkthroughs may show you the fastest route, but it is likely tthey will not provide much information aimed at the absolute beginner.
+__Note:__ You will be able to find walkthroughs for this box online, but reading them will spoil the learning process for you. Many walkthroughs (including one of my own) assume the reader already has some knowledge of pentesting and Linux, and might only contain the shortest possible path to root. Walkthroughs may show you the fastest route, but it is likely they will not provide much information aimed at the absolute beginner.
 
 
 The pathway we will take might not be the absolute shortest, and may not always follow best practices, but it is beginner friendly and will teach you enough to tame the Bulldog. The tools we will use to  accomplish our goal can be found conveniently organized in the Kali Linux distribution.
@@ -565,4 +565,4 @@ Others take more naturally to VMWare than VirtualBox. You may need to employ som
 
 
 <br>
-[Main Page](../index.html) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.html) \| [How-To Guides](../How-To Guides/HowTo-index.html) <br>
+[Main Page](../index.html) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.html) \| [How-To Guides](../How-To-Guides/HowTo-index.html) <br>
