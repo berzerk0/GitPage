@@ -773,7 +773,7 @@ We need what is called a `tty` which allows for more interactivity. <br>
 A reliable way of getting a `tty` uses python, which we know our system is running from way back when we did our `nmap` scans.
 
 
-* `python -c 'import pty;pty.spawn("/bin/bash")`
+* `python -c 'import pty;pty.spawn("/bin/bash")'`
 
 
 This may throw out an error, but will still work.
@@ -851,7 +851,7 @@ Let's try it!
 We own this box now - we are the top (bull)dog!<br>
 We have access to all files, can change any passwords, install backdoors, and run amok as we please. <br>
 
-If this were a real pentest, we may attempt to cover our tracks or use this box as a staging ground for accessing other machines on a network.<br> A hacker might use this machine to serve their botnet, or as a proxy to commit actions that may be traced back to Bulldog Industries.
+If this were a red team pentest, we may attempt to cover our tracks or use this box as a staging ground for accessing other machines on a network.<br> A hacker might use this machine to serve their botnet, or as a proxy to commit actions that may be traced back to Bulldog Industries.
 
 
 All we want to do, however, is grab the flag from the `/root` directory.
