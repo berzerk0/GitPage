@@ -1,5 +1,5 @@
 <html>
-
+<head>
 <!-- calling jQuery and bbq from the web -->
 <!-- <script src=https://code.jquery.com/jquery-3.6.0.js></script>
 <script src="https://raw.githack.com/cowboy/jquery-bbq/master/jquery.ba-bbq.js"></script> -->
@@ -19,12 +19,23 @@ https://code.jquery.com/jquery-3.6.0.js
 
 <!-- uncomment this to freeze the object prototype and prevent pollution -->
 <!-- <script>Object.freeze(Object.prototype)</script> -->
+</head>
+<body>
 
 <h1> jQuery Prototype Pollution Demo</h1>
 Ben Berkowitz and Phil Sofia <br>
 F-Secure, 2022
+
 <br>
 <br>
+
+<p style="color:red">
+<u>Beware:</u><br>
+We intentionally designed this page to be vulnerable to DOM-based XSS and prototype pollution.<br>
+Visiting links to page in the browser can result in the execution of arbitrary JavaScript.<br> 
+This page was intended for educational and research purposes only. <br>
+Interact with it at your own risk. <br>
+</p>
 
 
 Big Thanks to Sergey Bobrov, Mohan Sri Rama Krishna P, and the rest of their team, <br>
@@ -34,14 +45,6 @@ were the source of all the payloads we used on this page.
 
 <br>
 <br>
-
-<h2>This page can be used to produce arbitary JavaScript execution in browsers by visiting a link to it.<br>
-  It is <i>designed</i> to be vulnerable to DOM-based Cross-Site Scripting.<br>
-This page was intended for educational and research purposes only. Interact with it at your own risk. <br>
-  </h2>
-  
- <br>
- <br>
   
 <h3> Proto Pollution Payloads Table </h3>
 
@@ -190,4 +193,5 @@ functionalities in the context of prototype pollution.
    $('<div x="x"></div>');
 </script>
 
+</body>
 </html>
