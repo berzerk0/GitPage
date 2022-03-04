@@ -1,0 +1,41 @@
+<html>
+
+<h2>Content Reflector</h2>
+
+This document will use <code>document.write</code> to append the contents of a URL parameter to the body. <br>
+Place content intothe URL's <code>?content=</code> parameter, then reload the page <br>
+<br>
+Example: <br>
+<br>
+
+<code>thispage.html?content=&lt;script&gt;alert(1)&lt;/script&gt;</code>
+
+<br>
+<br>
+<br>
+
+<p style="color:red">
+<u>Beware:</u><br>
+This page is intentionally vulnerable to content injection, including DOM-based XSS.<br>
+Visiting links to page in the browser can result in the execution of arbitrary JavaScript.<br>
+This page was intended for demonstrative and educationalpurposes only. <br>
+Interact with it at your own risk. <br>
+</p>
+
+<br>
+The content begins below this line:
+<br>
+<br>
+
+<script>
+
+  var url_string = window.location.href;
+  var url = new URL(url_string);
+  var c = decodeURI(url.searchParams.get("content"));
+
+  document.write(c);
+
+</script>
+
+
+</html>
