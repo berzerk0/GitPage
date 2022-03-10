@@ -1,4 +1,358 @@
 <html>
+<head>
+<title> Browsers vs. Data and JavaScript URLs </title>
+</head>
+
+<body>
+<h1>Browsers vs. Data and JavaScript URLs</h1>
+<h4> Ben Berkowitz, 20 Jan 2021 </h4>
+
+<br>
+
+<h2><u> 0 - A Quick Summary</u></h2>
+Data and JavaScript URLs come in handy when creating proofs of
+concept, particularly if you're working on a test with limited
+tooling.
+
+<br>
+<br>
+
+By storing data directly in URL bars and as text within the DOM,
+they can help you turn open redirects into reflected XSS and
+create CSRF proofs of concept - without even using a webserver!
+
+<br>
+<br>
+
+<b>
+This page is meant to be interactive, and will run scripts from
+the DOM. <br> It's best read with the element inspector open,
+or while looking at the page source. </b>
+
+<br>
+<br>
+
+<h2><u> 1- What is a Data URL?</u></h2>
+
+<code>http://</code> is only one of many URL schemes. Browsers
+use these handlers to do things like fetch files or create
+links. <br>
+Some other common schemes include: <code>mailTo</code>,
+<code>ftp</code> , <code>smb</code> , or <code>file</code>
+
+<br>
+<br>
+
+For example, if you <a
+href="mailto:MailToEmail@example.com?subject=MailTo">click on
+this link</a>, your computer may open an email client such as
+Outlook and begin a message to <br> <i>MailToEmail@example.com
+</i> with the subject line "MailTo" <br><br> This link was
+created using the following code: <br><br>
+
+<code>
+&lt;a
+href="mailto:MailToEmail@example.com?subject=MailTo"&gt;click on
+this link&lt;/a&gt;
+</code>
+
+<br>
+<br>
+
+Most handlers tell the browser to obtain data from source
+separate from the page itself. <br> For example, an HTML page
+<i>index.html</i> may include an image tag that points to a file
+in the same directory, like so:
+
+<br>
+<br>
+
+<code>
+&lt;img src="https://site.tld/images/picture.jpg"&gt;
+</code>
+
+<br><br>
+The browser will interpret this as an instruction to fetch the
+file from <i>images/picture.jpg</i> and display it on
+<i>index.html</i><br>
+However, this isn't the only way of including external
+resources. An alternative would be to use the <b>data</b> scheme
+and include the image's data on <i>index.html</i> itself.
+
+<br>
+<br>
+
+A data URL allows us to define a file on the fly entirely within
+the context of the currently loaded page - no links to an
+external file or additional requests!
+
+<br>Consider this example image tag:
+
+<br>
+<br>
+
+<code>
+&lt;img src="data:image/jpg;base64,BASE64ENCODEDDATA"&gt;
+</code>
+<br>
+<br>
+
+While it does not include a link to any location besides this
+page, the image's data has been encoded onto the page itself
+where it can be decoded by the browser and displayed here:
+
+<br>
+<br>
+
+<img src="data:image/jpg;base64,/9j/4AAQSkZJRgABAQEAqACoAAD/2wBDAAIBAQIBAQICAgICAgICAwUDAwMDAwYEBAMFBwYHBwcGBwcICQsJCAgKCAcHCg0KCgsMDAwMBwkODw0MDgsMDAz/2wBDAQICAgMDAwYDAwYMCAcIDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAz/wAARCAAyADMDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD9aKKK/J7QP+C6/wAcvGH/AAWNuv2e9J+FXhm88I2HjaXw5cstrenWYNOiuPKl1NpfN8oRiIG45hwUKjcchj/iLwjwJmvEixUssUbYam6s3KSjaK3tfd/h3Z+u4nGU8Py+0+07LQ/WGiiivjTrCivx5/Y+/wCDoXWv2i/26dI+Hl/8K7NPB3jnxDb6F4fuNPupP7V00TTCJJ7sNujmXDB3CCPy1DHL7ef2Gr7fjjw7z7hDE0sJn1H2c6kVONpRlddfhbs09Gn12utTjweOo4qLlRd0tAooor4g7Aoorxf9m/8Ab6+HH7VXxp+KPgDwjqF5P4k+EOqf2Tr0FzbeQpl3yxM0JJzIiywyxs2BhlHZlLd+GyzF4mhWxNCnKUKKTnJK6inJRTk+l5NJebIlUjFqMnq9vM9oooorgLPOfA/7Hnwk+GPxAbxZ4a+Fvw58PeKXaV21nTPDVlaagzS58wmeOMSZfJ3fN82TnNejV8ifBX/gpZf/ABd/4K9/FX9m6PQtIXQPh54Wh1qLW4LppLm5uf8AiX+dE6/cCqb/AGYHzK0DZJ3YX67r6TibLc2wVeis4bc6lKnUjzS5n7OpHmhrd20fw9Oxz4epSmn7LZNr5rcKKKK+bOgK/J39tz/gnJ+0J+x3/wAFEdV/ac/ZK0fR/E0vjOC4bxT4WuWhjTe6pJcEpJNE08dxLEsxWJxMJs7QQRj9YqK+y4K43xvDOKqV8LCFWFWDp1KdRc1OpCW8ZJNPRpNNNNNb2unyYvCQxEVGTaad01umflP4S/4LvftS2fhqzi139gL4ualrCRAXd1YW2r2VtPJ3aOF9MmaNf9kyufejxL/wWn/bC+KtlH4e+H/7C/xA8KeKdWlW3s9U8Sx6hNptqW4LSeZZWcSezyTqi45yOK/Viivr/wDiIHCcantqfDdDnvdXr4lxv5w9rytf3draHL9SxNrPEO3pH87HwF/wQ3/4Jq+P/wBj+0+I/wAT/jRdWd38XvjHfre6rbr5FxLpKiWeWRTcREozzyzb3WI+WPKiwSV4+/aKK+C4t4px3Eea1c4zHl9pUtpFcsYqKUYxiukYxSS3dlq27s7cNh4UKSpQ2QUUUV82dAUUUUAFFFFABRRRQAUUUUAf/9k=" >
+
+<br>
+<br>
+
+Using Data URLs like this is pretty cumbersome, but try right-
+clicking on that smiley face and viewing the image in a new tab.
+<br>
+You'll see that it is "hosted" at a data URL, not an <code>http
+</code> or <code>file</code> resource. <br> This file has been
+created entirely by the information contained in the URL itself.
+You can do this for all files, not just images.<br><br>Paste the
+following examples into your URL bar:
+
+<ul>
+  <li><code>data:text/plain,hello</code></li>
+  <li><code>data:,hello</code></li>
+  <li><code>data:text;base64,dGhpcyB0ZXh0IHdhcyBiNjQgZW5jb2RlZA==
+  </code></li>
+  <li><code>data:text/html,Click and type to use this page as a
+  notepad!&lt;html contenteditable&gt;</code></li>
+</ul>
+
+<br>
+These links can contain MIME types that the browser uses to tell
+what kind of file is being defined. <br> In text examples above,
+that took the form of <code>text/plain</code> or <code>text/
+html</code>, but for the image it was <code>image/jpg</code>.
+<br> These MIME types aren't required, but can come in handy in
+certain situations.<br> In the <code>iframe</code>s below, the
+MIME type in the <code>src</code> attribute instructs your
+browser to render the text as plain or as HTML:
+
+<br>
+<br>
+
+<iframe src="data:text,<b>bold in an iframe</b><br>not bold"
+height=75 width=200></iframe>
+<br>
+<code>&lt;iframe src=&quot;data:text,&lt;b&gt;bold in an iframe&lt;/b&gt;&lt;br&gt;not bold&quot;
+height=75 width=200&gt;&lt;/iframe&gt;</code>
+
+<br>
+
+<br>
+<iframe src="data:text/html,<b>bold in an iframe</b><br>not bold"
+height=75 width=200></iframe>
+<br>
+<code>&lt;iframe src=&quot;data:text/html,&lt;b&gt;bold in an iframe&lt;/b&gt;&lt;br&gt;not bold&quot;
+height=75 width=200&gt;&lt;/iframe&gt;</code>
+
+
+
+<br>
+
+
+<br>
+Entire webpages, including forms and all can be contained within
+data URLs.
+
+<h3><u>There's also the <code>javascript</code> URL Scheme</u></h3>
+This handler is kind of like a cross between the <code>data</code>
+URL scheme and entering code into your browser console.
+<br>To see it in action and get an alert window popup, open a new tab
+and paste in the following:
+
+<br>
+<br>
+
+<code>
+javascript:alert('Hello')
+</code>
+
+<br>
+<br>
+
+Did something strange happen? Did your browser decide not to
+paste the <code>javascript:</code> part of the text?<br>
+That happened to me, so try typing it in manually to get the
+popup.
+
+<br>
+<br>
+
+If you've been interacting with the examples in this piece so
+far, you may have noticed that I haven't put in any links to
+these URLs.
+<br> Instead, I've been asking you to paste or type into your
+URL bar manually.
+
+<br>
+<br>
+
+That's because you can use these schemes in attacks such as
+Cross-Site scripting, and browsers contain measures to try and
+prevent that.
+
+<h2><u>2 - Browsers Don't Like Top-level Navigation to Data URLs
+That Much...</u></h2>
+
+<h3><u>...such as in &lt;a&gt; tags...</u></h3>
+
+<br>
+<br>
+
+If you try to navigate to a data URL without entering it into
+your URL bar directly, the browser may stop you.
+
+<br>
+<br>
+
+<a href="https://example.com" target=_blank>
+Click to try opening </a> a tab to
+<code>https://example.com</code>
+using an &lt;a&gt; tag. <br>
+<code>&lt;a href=&quot;https://example.com&quot; target=_blank&gt;</code>
+<br>
+
+This worked for me in both Firefox and Chrome.
+
+<br>
+<br>
+
+<a href="data:text/plain,hello" target=_blank>
+Click to try opening</a> this Data URL in a new tab using an &lt;a&gt; tag: <br>
+<code>data:text/plain,hello</code> <br>
+This worked for me in Firefox, but Chrome began to give error
+messages on the console.
+
+<br>
+<br>
+
+<a href="data:text/html,%3cb%3ehello!%3c%2fb%3e" target=_blank>
+Click to try opening</a> this Data URL in a new tabusing an &lt;a&gt; tag: <br>
+<code>data:text/html,&lt;b&gt;hello!&lt;/b&gt;</code> <br>
+Your browser will most likely prevent you from doing this,
+giving an error like:
+<i>Not allowed to navigate top frame to data URL</i>. (I saw
+this even when I ran the code from a local HTML file.
+
+<br>
+<br>
+
+<a href="data:text/html,%3csvg/onload%3dalert(%22hello!%22)%3e" target=_blank>
+Click to try opening</a> this Data URL in a new tab using an &lt;a&gt; tag:<br>
+<code>data:text/html,&lt;svg/onload=alert(&quot;hello!&quot;)&gt;</code>
+This didn't work for me in either Firefox or Chrome.
+
+<br>
+<br>
+
+However, you can paste those data URLs directly into your URL bar
+and they will load fully. <br>
+
+<h3><u>...or JavaScript</u></h3>
+The browsers also don't like redirecting to data URLs via
+JavaScript.
+
+<br>
+<br>
+
+<button onclick="window.location='https://example.com'">
+Click to try to redirect </button> to <code>https://example.com
+</code>
+using the JavaScript: <br>
+<code>onclick="window.location='https://example.com'"</code> <br>
+This redirected me in both Chrome and Firefox.
+
+<br>
+<br>
+
+<button onclick="window.location='data:text/plain,hello'">
+Click to try to redirect to </button> to this URL <br>
+<code>data:text/plain,hello</code><br>
+using the JavaScript: <br>
+<code>onlcick="window.location='data:text/plain,hello'"</code> <br>
+When run from a local file and serving as the top
+frame window, this didn't work in either in Firefox or Chrome for me.
+
+
+<br>
+<br>
+
+<button onclick="top.location.href='data:text/plain,hello'">
+Click to try to redirect to </button> to this URL <br>
+<code>data:text/plain,hello</code><br>
+using the JavaScript: <br>
+<code>onclick="top.location.href='data:text/plain,hello'"</code> <br>
+This didn't work from JSFiddle or a local file in either Firefox
+or Chrome.
+
+
+<br>
+<br>
+
+<button onclick="window.location='data:text/html,%3csvg/onload%3dalert(%22hello!%22)%3e)">
+Click here to try to redirect</button> to this URL: <br>
+<code>data:text/html,&lt;b&gt;hello!&lt;/b&gt;</code><br>
+using the JavaScript: <br>
+<code>"window.location='data:text/html,%3csvg/onload%3dalert(%22hello!%22)%3e')"</code>
+<br>Again, clicking these buttons didn't redirect me in either
+Firefox or Chrome, but pasting these strings into the browser
+console did.
+
+<br>
+<br>
+
+So, if these measures are in place, can these schemes be used in
+XSS or not? <br>
+
+<h2><u>3 - Browsers aren't as averse to <code>javascript:</code>
+URLs</u></h2>
+
+
+<a href="javascript:alert('href')">
+Click to try opening</a> the JavaScript URL
+<code>javascript:alert('href')"</code> on this page, no
+redirection or new tabs.
+<br>
+
+<code>
+&lt;a href="javascript:alert('href')"&gt;
+Click to try opening&lt;/a&gt;
+</code>
+<br>
+This worked in both Firefox and Chrome, and produced an alert
+window.
+
+<br>
+<br>
+
+<button onclick="window.location='javascript:alert(&quot;location&quot;)'">
+Click to try opening </button> the JavaScript URL
+<code>javascript:alert("location")</code> on this page using <br>
+<code>"window.location='javascript:alert(&quot;location&quot;)'"
+</code>
+<br>
+This also worked in Firefox and Chrome, and produced another
+alert.
+
+<br>
+<br>
+
+There's potential for XSS here, as it's a seemingly a loophole
+that allows behavior the browser may normally forbid. <br>It's
+even possible to chain together data/javascript URLs to make
+changes to the DOM without additional HTTP requests.
+
+
 <br>
 <br>
 
@@ -25,4 +379,185 @@ javascript&lt;/code&gt; URL&lt;/marquee&gt;</code>
 
 <br>
 <br>
+
+Use <code>data</code> and <code>javascript</code> URLs for
+easily assembled proofs of concept. <br> In attacks (or
+demonstrations) that can normally require resources to
+be hosted externally (such as on a webserver), it may be
+possible to drop in a <code>data</code> or <code>javascript
+</code> URL as an alternative.
+
+<br>
+<br>
+
+
+Here are some a real scenarios doing just that.
+
+<h2><u>4 - Real-World Examples</u></h2>
+<h3>A Lightweight Way to Produce Reflected XSS from an Open
+Redirect</h3>
+
+I performed a test of an application that had a few static pages
+for things like the application's FAQ, Privacy Policy, and Terms
+of Use.<br> On these pages was a back button that was controlled
+(oddly), by a URL parameter:
+
+<br>
+<br>
+
+<code>https://exampleSite.tld/content?contentType=FAQ&return=[URL GOES HERE]</code>
+
+<br>
+<br>
+
+When the user browsed the site normally, the <code>return</code>
+parameter would be auto-populated to the relative address of the
+previous page the user was viewing. The application did not
+sufficiently filter the value of <code>return</code> before
+integrating it into the page, and placed it into the <code>href
+</code> attribute of an &lt;a&gt; tag.
+
+<br>
+<br>
+
+<code>
+&lt;a href="URL GOES HERE"&gt;BACK&lt;/a&gt;
+</code>
+
+<br>
+<br>
+
+The application's XSS sanitization was good enough to limit what
+was ultimately placed into that tag to an actual link. It
+prevented any attempts to break out of the &lt;a&gt; tag to
+achieve less restricted XSS, so the vulnerability here
+was an Open Redirect that required user interaction.
+
+<br>
+<br>
+
+At this point, an attacker could craft a URL that caused the
+page to take a user to their malicious server if they clicked
+the "BACK" link on the page. This attack would have a
+significant impact, but requires some setup. While this would
+not necessarily be prohibitive, an attacker may have to navigate
+around web firewalls that stop users from browsing to sketchy
+external resources or overcome other obstacles associated with
+hosting a webserver.
+
+<br>
+<br>
+
+If this vulnerability was found during a test performed from
+within a client's test environment, a tester might not have the
+permissions to host a webserver from their test machine or
+navigate firewalls. It's me, I was "a tester."
+
+<br>
+<br>
+
+To get around this, I used a JavaScript URL to create an XSS
+payload to demonstrate a visual impact without the need to set
+up an external server.
+
+<br>
+<br>
+
+<code>javascript:alert('Arbitrary Resource')</code>
+
+<br>
+<br>
+
+This produced the full URL of:
+
+<br>
+<br>
+
+<code>https://exampleSite.tld/content?contentType=FAQ&return=javascript:alert('Arbitrary
+Resource')</code>
+
+<br><br>
+
+On the page, this created the following &lt;a&gt; tag, though in
+reality the single quotes inside the parentheses were HTML
+encoded:
+
+<br>
+<br>
+
+<code>
+&lt;a href="javascript:alert(&amp;&num;39&semi;Arbitrary
+Resource&amp;&num;39&semi;)"&gt;BACK&lt;/a&gt;
+</code>
+
+<br>
+<br>
+
+When the user clicked the button, the JavaScript payload
+executed. While an alert window barely scratches <br> the
+surface of the potential impacts of XSS, it does the trick for a
+proof of concept in this redacted example.
+
+<br>
+<br>
+
+Using XSS as an impact for the Open Redirect also communicated
+the need for defense in depth. Even if the environment <br> were
+to be locked down in such a way that the user could only access
+a short allow-list of resources, a <code>data</code> or
+<code>javascript</code> URL can leverage the Open Redirect to
+direct them to something malicious without additional HTTP
+traffic.
+
+<br>
+<br>
+
+In my research on this topic, I came across
+<a href="https://digi.ninja/blog/jsurixss.php">this article by
+Robin Wood</a> that talks about some occasions where JavaScript
+URLs <br> might not work as expected. It also, importantly,
+includes information on how to fix that by appending
+<code>void(0);</code> to the payload. Thanks, Robin!
+
+<br>
+
+<h3>Data URLs for Quick Sharing of HTML Pages (and maybe social
+engineering)</h3>
+
+Suppose you have a CSRF proof of concept you're sharing
+(securely) with another tester or a client. It could take the
+form of an  auto-submitting form page, which you can share as an
+HTML file. Most of the time, that works fine.
+
+<br>
+<br>
+
+However, recently while working in a bug bounty response role, I
+needed to create a ticket for Reflected XSS via POST request.
+The team that needed the proof of concept documented wanted one-
+step demonstrations - run this curl command, visit this URL, etc.
+
+<br>
+<br>
+
+So, to give them a quick demonstration, I used a data URL that
+contained an entire CSRF proof of concept that submitted a POST
+request on page load. This was more expedient than telling them
+to download a file and open it in their browser, as they could
+just paste it into the URL bar.
+
+<br>
+<br>
+
+This convenient method isn't just limited to legitimate usage,
+but using for it social engineering has its drawbacks. Users
+would have no reason to be accustomed to pasting strange strings
+into their URL bars. It's certainly more out of the ordinary
+than instead of simply clicking a link that starts with https,
+and may raise some red flags.
+
+<br>
+<br>
+
+</body>
 </html>
