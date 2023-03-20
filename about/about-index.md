@@ -6,9 +6,10 @@
 
 Hello!
 
-My name is Ben, I live in NYC, and I'd like to be a Red Team Penetration Tester.
+My name is Ben, I live in NYC, and I've worked in penetration testing for a while now.
 
 This term is often interchangeable with "Ethical Hacker," but that's like saying "non-embezzling accountant."
+It also kind of makes people giggle.
 
 I'm committed to keeping my hat white and helping people understand and mitigate real-world problems.
 
@@ -17,4 +18,4 @@ It's fascinating how technology can start out as a flash of inspiration and end 
 Check out my projects and writings linked at the top and bottom of this page. You can also find me on twitter at [@berzerk0](https://twitter.com/berzerk0).
 
 
-[Main Page](index.html) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](CTF-Writeups/CTF-index.html) \| [How-To Guides](How-To-Guides/HowTo-index.html) <br>
+[Main Page](index.html) \| [Blog](https://github.com/berzerk0/GitPage/wiki/Post-Listing) \| [CTF Writeups](../CTF-Writeups/CTF-index.html) \| [How-To Guides](../How-To-Guides/HowTo-index.html) <br>
